@@ -8,9 +8,9 @@
 
 <style>
 
-/* =========================================
-   GLOBAL
-========================================= */
+/* =====================================================
+   RESET
+===================================================== */
 
 * {
     margin: 0;
@@ -27,111 +27,217 @@ html {
 body {
     width: 100%;
     min-height: 100vh;
+    overflow-x: hidden;
 
-    background: #101010;
+    background: #080808;
     color: white;
 
-    font-family: "Trebuchet MS", Arial, sans-serif;
+    font-family:
+        "Trebuchet MS",
+        Arial,
+        sans-serif;
 
-    overflow-x: hidden;
+    position: relative;
 }
 
 
-/* =========================================
-   ANIMATED BACKGROUND
-========================================= */
+/* =====================================================
+   ANIMATED GRID BACKGROUND
+===================================================== */
+
+body {
+    background-color: #080808;
+
+    background-image:
+        linear-gradient(
+            rgba(8, 8, 8, 0.94),
+            rgba(8, 8, 8, 0.94)
+        ),
+        linear-gradient(
+            90deg,
+            rgba(101, 223, 255, 0.035) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            rgba(101, 223, 255, 0.035) 1px,
+            transparent 1px
+        );
+
+    background-size:
+        auto,
+        45px 45px,
+        45px 45px;
+
+    animation:
+        gridMove 12s linear infinite;
+}
+
+@keyframes gridMove {
+
+    from {
+        background-position:
+            0 0,
+            0 0,
+            0 0;
+    }
+
+    to {
+        background-position:
+            0 0,
+            45px 45px,
+            45px 45px;
+    }
+}
+
+
+/* =====================================================
+   BACKGROUND GLOW
+===================================================== */
 
 body::before {
+
     content: "";
 
     position: fixed;
 
-    width: 500px;
-    height: 500px;
+    width: 550px;
+    height: 550px;
 
-    top: -200px;
-    left: 20%;
+    top: -250px;
+    left: 15%;
+
+    border-radius: 50%;
 
     background: #00d9ff;
 
-    opacity: 0.04;
+    opacity: 0.045;
 
-    filter: blur(120px);
-
-    border-radius: 50%;
+    filter: blur(130px);
 
     pointer-events: none;
 
-    animation: backgroundMove 8s ease-in-out infinite alternate;
+    z-index: -2;
 
-    z-index: -1;
+    animation:
+        backgroundGlow 9s ease-in-out infinite alternate;
+}
+
+@keyframes backgroundGlow {
+
+    0% {
+        transform:
+            translate(0, 0)
+            scale(1);
+    }
+
+    50% {
+        transform:
+            translate(180px, 100px)
+            scale(1.3);
+    }
+
+    100% {
+        transform:
+            translate(350px, -50px)
+            scale(1);
+    }
 }
 
 
+/* =====================================================
+   SECOND BACKGROUND GLOW
+===================================================== */
+
+body .background-glow {
+
+    position: fixed;
+
+    width: 450px;
+    height: 450px;
+
+    right: -200px;
+    bottom: -150px;
+
+    border-radius: 50%;
+
+    background: #8a2be2;
+
+    opacity: 0.05;
+
+    filter: blur(130px);
+
+    pointer-events: none;
+
+    animation:
+        purpleMove 10s ease-in-out infinite alternate;
+}
+
+@keyframes purpleMove {
+
+    0% {
+        transform:
+            translate(0, 0);
+    }
+
+    100% {
+        transform:
+            translate(-200px, -150px);
+    }
+}
+
+
+/* =====================================================
+   SCREEN SCANLINE
+===================================================== */
+
 body::after {
+
     content: "";
 
     position: fixed;
 
-    width: 400px;
-    height: 400px;
+    left: 0;
+    top: -5%;
 
-    right: -150px;
-    bottom: -100px;
+    width: 100%;
+    height: 3px;
 
-    background: #8a2be2;
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            #65dfff,
+            transparent
+        );
 
-    opacity: 0.04;
+    box-shadow:
+        0 0 15px #65dfff;
 
-    filter: blur(120px);
+    opacity: 0.25;
 
-    border-radius: 50%;
+    z-index: 9999;
 
     pointer-events: none;
 
-    animation: backgroundMove2 10s ease-in-out infinite alternate;
-
-    z-index: -1;
+    animation:
+        screenScan 7s linear infinite;
 }
 
-
-@keyframes backgroundMove {
+@keyframes screenScan {
 
     0% {
-        transform: translate(0, 0);
-    }
-
-    50% {
-        transform: translate(150px, 100px);
+        top: -5%;
     }
 
     100% {
-        transform: translate(300px, 0);
+        top: 105%;
     }
-
 }
 
 
-@keyframes backgroundMove2 {
-
-    0% {
-        transform: translate(0, 0);
-    }
-
-    50% {
-        transform: translate(-100px, -80px);
-    }
-
-    100% {
-        transform: translate(0, -150px);
-    }
-
-}
-
-
-/* =========================================
+/* =====================================================
    SIDEBAR
-========================================= */
+===================================================== */
 
 .sidebar {
 
@@ -140,76 +246,99 @@ body::after {
     left: 0;
     top: 0;
 
-    width: clamp(160px, 12vw, 230px);
+    width:
+        clamp(
+            160px,
+            13vw,
+            235px
+        );
+
     height: 100vh;
 
-    padding: clamp(18px, 2vw, 30px);
+    padding:
+        clamp(18px, 2vw, 30px);
 
-    background: rgba(9, 9, 9, 0.96);
+    background:
+        rgba(7, 7, 7, 0.96);
 
-    border-right: 2px solid #181818;
+    border-right:
+        2px solid #1b1b1b;
 
     z-index: 1000;
 
-    animation: sidebarEnter 0.8s ease-out;
+    animation:
+        sidebarEnter 0.8s ease-out;
 }
-
 
 @keyframes sidebarEnter {
 
     from {
-        transform: translateX(-100%);
+        transform:
+            translateX(-100%);
+
         opacity: 0;
     }
 
     to {
-        transform: translateX(0);
+        transform:
+            translateX(0);
+
         opacity: 1;
     }
-
 }
 
 
-/* =========================================
-   LOGO
-========================================= */
+/* =====================================================
+   SIDEBAR LOGO
+===================================================== */
 
 .logo {
 
-    font-size: clamp(18px, 1.5vw, 25px);
+    font-size:
+        clamp(
+            18px,
+            1.5vw,
+            26px
+        );
 
     font-weight: bold;
 
-    line-height: 1.2;
+    line-height: 1.15;
 
-    margin-bottom: clamp(25px, 4vh, 50px);
+    margin-bottom:
+        clamp(
+            25px,
+            4vh,
+            50px
+        );
 
     color: white;
+
+    text-shadow:
+        0 0 5px #65dfff;
 
     animation:
         logoGlow 2s ease-in-out infinite alternate;
 }
 
-
 @keyframes logoGlow {
 
     from {
         text-shadow:
-            0 0 2px rgba(101,223,255,0.2);
+            0 0 3px #65dfff;
     }
 
     to {
         text-shadow:
-            0 0 8px #65dfff,
-            0 0 20px rgba(101,223,255,0.4);
+            0 0 10px #65dfff,
+            0 0 25px rgba(101, 223, 255, 0.5);
     }
-
 }
 
 
-/* =========================================
+/* =====================================================
    NAVIGATION
-========================================= */
+===================================================== */
 
 .nav {
 
@@ -217,19 +346,31 @@ body::after {
 
     flex-direction: column;
 
-    gap: clamp(7px, 1vh, 12px);
+    gap:
+        clamp(
+            7px,
+            1vh,
+            12px
+        );
 }
-
 
 .nav button {
 
+    position: relative;
+
     width: 100%;
 
-    padding: clamp(9px, 1vw, 14px);
+    padding:
+        clamp(
+            9px,
+            1vw,
+            14px
+        );
 
     background: #101010;
 
-    border: 2px solid #3b3b3b;
+    border:
+        2px solid #363636;
 
     color: white;
 
@@ -237,63 +378,74 @@ body::after {
 
     font-family: inherit;
 
-    font-size: clamp(11px, 0.9vw, 15px);
+    font-size:
+        clamp(
+            11px,
+            0.9vw,
+            15px
+        );
 
     font-weight: bold;
 
     cursor: pointer;
 
+    overflow: hidden;
+
     transition:
         transform 0.25s ease,
         border-color 0.25s ease,
         box-shadow 0.25s ease,
-        background 0.25s ease;
-
-    animation: navEnter 0.6s ease backwards;
+        color 0.25s ease;
 }
 
 
-/* Stagger sidebar buttons */
+/* =====================================================
+   NAV ENTRY ANIMATION
+===================================================== */
 
 .nav button:nth-child(1) {
-    animation-delay: 0.2s;
+    animation: navEnter 0.6s ease 0.15s backwards;
 }
 
 .nav button:nth-child(2) {
-    animation-delay: 0.3s;
+    animation: navEnter 0.6s ease 0.25s backwards;
 }
 
 .nav button:nth-child(3) {
-    animation-delay: 0.4s;
+    animation: navEnter 0.6s ease 0.35s backwards;
 }
 
 .nav button:nth-child(4) {
-    animation-delay: 0.5s;
+    animation: navEnter 0.6s ease 0.45s backwards;
 }
 
 .nav button:nth-child(5) {
-    animation-delay: 0.6s;
+    animation: navEnter 0.6s ease 0.55s backwards;
 }
 
 .nav button:nth-child(6) {
-    animation-delay: 0.7s;
+    animation: navEnter 0.6s ease 0.65s backwards;
 }
-
 
 @keyframes navEnter {
 
     from {
-        transform: translateX(-30px);
         opacity: 0;
+        transform:
+            translateX(-30px);
     }
 
     to {
-        transform: translateX(0);
         opacity: 1;
+        transform:
+            translateX(0);
     }
-
 }
 
+
+/* =====================================================
+   NAV HOVER
+===================================================== */
 
 .nav button:hover {
 
@@ -306,238 +458,348 @@ body::after {
         scale(1.02);
 
     box-shadow:
-        0 0 8px rgba(101,223,255,0.5),
-        0 0 20px rgba(101,223,255,0.15);
+        0 0 10px rgba(101, 223, 255, 0.5),
+        inset 0 0 10px rgba(101, 223, 255, 0.05);
 }
-
 
 .nav button:active {
 
     transform:
         translateX(7px)
-        scale(0.96);
-
+        scale(0.94);
 }
 
+
+/* =====================================================
+   ACTIVE NAV
+===================================================== */
 
 .nav button.active {
 
     border-color: #65dfff;
 
+    color: white;
+
     box-shadow:
-        0 0 10px rgba(101,223,255,0.8),
-        inset 0 0 8px rgba(101,223,255,0.12);
+        0 0 10px rgba(101, 223, 255, 0.6),
+        inset 0 0 10px rgba(101, 223, 255, 0.08);
 
-    background: #111;
-
-    animation: activePulse 2s infinite;
+    animation:
+        activePulse 2s ease-in-out infinite;
 }
-
 
 @keyframes activePulse {
 
-    0% {
+    0%,
+    100% {
         box-shadow:
-            0 0 5px rgba(101,223,255,0.4);
+            0 0 5px rgba(101, 223, 255, 0.4);
     }
 
     50% {
         box-shadow:
-            0 0 15px rgba(101,223,255,0.8);
+            0 0 18px rgba(101, 223, 255, 0.8);
+    }
+}
+
+.nav button.active::after {
+
+    content: "";
+
+    position: absolute;
+
+    right: 0;
+    top: 0;
+
+    width: 4px;
+    height: 100%;
+
+    background: #65dfff;
+
+    box-shadow:
+        0 0 10px #65dfff,
+        0 0 20px #65dfff;
+
+    animation:
+        activeBar 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes activeBar {
+
+    from {
+        opacity: 0.4;
     }
 
-    100% {
-        box-shadow:
-            0 0 5px rgba(101,223,255,0.4);
+    to {
+        opacity: 1;
     }
-
 }
 
 
-/* =========================================
-   MAIN
-========================================= */
+/* =====================================================
+   MAIN CONTENT
+===================================================== */
 
 .main {
 
-    margin-left: clamp(160px, 12vw, 230px);
+    margin-left:
+        clamp(
+            160px,
+            13vw,
+            235px
+        );
 
     width:
         calc(
             100% -
-            clamp(160px, 12vw, 230px)
+            clamp(
+                160px,
+                13vw,
+                235px
+            )
         );
 
     min-height: 100vh;
 
     padding:
-        clamp(20px, 3vw, 45px)
-        clamp(18px, 3vw, 50px);
+        clamp(20px, 3vw, 50px);
 }
 
 
-/* =========================================
-   PAGE ANIMATION
-========================================= */
+/* =====================================================
+   PAGES
+===================================================== */
 
 .page {
 
     display: none;
 
     width: 100%;
-}
 
+    position: relative;
+}
 
 .page.active {
 
     display: block;
 
     animation:
-        pageEnter 0.45s ease-out;
+        pageEnter 0.5s ease-out;
 }
-
 
 @keyframes pageEnter {
 
     from {
         opacity: 0;
+
         transform:
-            translateY(20px)
+            translateY(25px)
             scale(0.98);
     }
 
     to {
         opacity: 1;
+
         transform:
             translateY(0)
             scale(1);
     }
+}
 
+@keyframes pageExit {
+
+    from {
+        opacity: 1;
+
+        transform:
+            translateY(0);
+    }
+
+    to {
+        opacity: 0;
+
+        transform:
+            translateY(-20px);
+    }
 }
 
 
-/* =========================================
+/* =====================================================
    HEADINGS
-========================================= */
+===================================================== */
 
 h1 {
 
     font-size:
-        clamp(28px, 3vw, 48px);
+        clamp(
+            28px,
+            3vw,
+            50px
+        );
 
     margin-bottom: 5px;
 
     color: white;
 
     animation:
-        headingEnter 0.5s ease-out;
+        headingEnter 0.6s ease-out;
 }
-
 
 @keyframes headingEnter {
 
     from {
         opacity: 0;
-        transform: translateX(-20px);
+
+        transform:
+            translateX(-25px);
     }
 
     to {
         opacity: 1;
-        transform: translateX(0);
+
+        transform:
+            translateX(0);
     }
-
 }
-
 
 h2 {
 
     font-size:
-        clamp(20px, 2vw, 30px);
-
-    margin-bottom: 12px;
+        clamp(
+            19px,
+            2vw,
+            30px
+        );
 
     color: #65dfff;
-}
 
+    margin-bottom: 12px;
+}
 
 h3 {
 
     font-size:
-        clamp(16px, 1.3vw, 21px);
+        clamp(
+            16px,
+            1.3vw,
+            21px
+        );
 
     margin-bottom: 8px;
 }
 
-
 p {
 
+    max-width: 900px;
+
+    color: #eeeeee;
+
     font-size:
-        clamp(13px, 1vw, 17px);
+        clamp(
+            13px,
+            1vw,
+            17px
+        );
 
     line-height: 1.7;
 
     margin-bottom: 16px;
-
-    color: #eeeeee;
-
-    max-width: 900px;
 }
 
 
-/* =========================================
-   HOME
-========================================= */
+/* =====================================================
+   HERO
+===================================================== */
 
 .hero-box {
 
+    position: relative;
+
     width: 100%;
 
-    max-width: 1000px;
+    max-width: 1100px;
 
     margin-top:
-        clamp(20px, 4vh, 40px);
-
-    padding:
-        clamp(20px, 3vw, 40px);
-
-    background:
-        linear-gradient(
-            145deg,
-            #0c0c0c,
-            #111111
+        clamp(
+            20px,
+            4vh,
+            40px
         );
 
-    border: 2px solid #292929;
-
-    position: relative;
+    padding:
+        clamp(
+            20px,
+            3vw,
+            45px
+        );
 
     overflow: hidden;
 
-    animation:
-        heroEnter 0.7s ease-out;
-}
+    border:
+        2px solid transparent;
 
+    background:
+        linear-gradient(
+            #0c0c0c,
+            #0c0c0c
+        ) padding-box,
+
+        linear-gradient(
+            90deg,
+            #333,
+            #65dfff,
+            #333,
+            #8a2be2,
+            #333
+        ) border-box;
+
+    background-size:
+        100% 100%,
+        300% 100%;
+
+    animation:
+        heroEnter 0.7s ease-out,
+        borderFlow 5s linear infinite;
+}
 
 @keyframes heroEnter {
 
     from {
         opacity: 0;
+
         transform:
-            translateY(30px)
-            scale(0.97);
+            translateY(35px)
+            scale(0.96);
     }
 
     to {
         opacity: 1;
+
         transform:
             translateY(0)
             scale(1);
     }
+}
 
+@keyframes borderFlow {
+
+    0% {
+        background-position:
+            0 0,
+            0% 50%;
+    }
+
+    100% {
+        background-position:
+            0 0,
+            300% 50%;
+    }
 }
 
 
-/* Moving line */
+/* =====================================================
+   HERO SCAN
+===================================================== */
 
 .hero-box::before {
 
@@ -545,8 +807,8 @@ p {
 
     position: absolute;
 
-    top: 0;
     left: -100%;
+    top: 0;
 
     width: 100%;
     height: 2px;
@@ -559,76 +821,146 @@ p {
             transparent
         );
 
+    box-shadow:
+        0 0 10px #65dfff;
+
     animation:
-        scanLine 4s linear infinite;
+        heroScan 4s linear infinite;
 }
 
+@keyframes heroScan {
 
-@keyframes scanLine {
-
-    0% {
+    from {
         left: -100%;
     }
 
-    100% {
+    to {
         left: 100%;
     }
-
 }
 
 
-/* =========================================
-   BIG AZMI
-========================================= */
+/* =====================================================
+   AZMI TITLE
+===================================================== */
 
 .big-azmi {
 
+    position: relative;
+
     font-size:
-        clamp(45px, 8vw, 110px);
+        clamp(
+            48px,
+            9vw,
+            120px
+        );
 
     font-weight: bold;
 
     letter-spacing:
-        clamp(3px, 1vw, 10px);
+        clamp(
+            3px,
+            1vw,
+            12px
+        );
 
     color: white;
 
-    margin-bottom: 10px;
+    margin-bottom: 8px;
 
     text-shadow:
         0 0 8px #65dfff,
-        0 0 20px rgba(101,223,255,0.5);
+        0 0 25px rgba(101, 223, 255, 0.5);
 
     animation:
-        azmiPulse 2.5s ease-in-out infinite alternate;
+        azmiPulse 2.5s ease-in-out infinite alternate,
+        glitchFloat 5s infinite;
 }
-
 
 @keyframes azmiPulse {
 
     from {
-
         text-shadow:
             0 0 5px #65dfff,
-            0 0 15px rgba(101,223,255,0.3);
-
+            0 0 15px rgba(101, 223, 255, 0.3);
     }
 
     to {
-
         text-shadow:
-            0 0 10px #65dfff,
+            0 0 12px #65dfff,
             0 0 30px #65dfff,
-            0 0 50px rgba(101,223,255,0.3);
+            0 0 55px rgba(101, 223, 255, 0.3);
+    }
+}
 
+@keyframes glitchFloat {
+
+    0%,
+    85%,
+    100% {
+        transform:
+            translate(0);
     }
 
+    87% {
+        transform:
+            translate(-3px, 1px);
+    }
+
+    89% {
+        transform:
+            translate(3px, -1px);
+    }
+
+    91% {
+        transform:
+            translate(-2px, 0);
+    }
+
+    93% {
+        transform:
+            translate(2px, 1px);
+    }
 }
 
 
-/* =========================================
+/* =====================================================
+   HERO TEXT
+===================================================== */
+
+.hero-box h2 {
+
+    animation:
+        textReveal 1s ease 0.4s backwards;
+}
+
+.hero-box p {
+
+    animation:
+        textReveal 1s ease 0.7s backwards;
+}
+
+@keyframes textReveal {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0);
+    }
+}
+
+
+/* =====================================================
    GAME GRID
-========================================= */
+===================================================== */
 
 .game-grid {
 
@@ -644,89 +976,110 @@ p {
         );
 
     gap:
-        clamp(12px, 1.5vw, 20px);
+        clamp(
+            12px,
+            1.5vw,
+            22px
+        );
 
     width: 100%;
 
-    max-width: 1200px;
+    max-width: 1250px;
 
     margin-top: 25px;
 }
 
 
-/* =========================================
-   GAME CARDS
-========================================= */
+/* =====================================================
+   GAME CARD
+===================================================== */
 
 .game-card {
 
-    min-height: 190px;
+    position: relative;
+
+    min-height: 200px;
 
     padding:
-        clamp(16px, 2vw, 25px);
+        clamp(
+            16px,
+            2vw,
+            26px
+        );
 
     background:
         linear-gradient(
             145deg,
             #0c0c0c,
-            #131313
+            #151515
         );
 
-    border: 2px solid #333;
+    border:
+        2px solid #333;
+
+    overflow: hidden;
 
     transition:
         transform 0.35s ease,
         border-color 0.35s ease,
         box-shadow 0.35s ease;
 
-    min-width: 0;
-
-    position: relative;
-
-    overflow: hidden;
-
     animation:
-        cardEnter 0.6s ease backwards;
+        cardEnter 0.6s ease backwards,
+        floatingCard 4s ease-in-out infinite;
 }
-
-
-/* Stagger cards */
 
 .game-card:nth-child(1) {
     animation-delay: 0.1s;
 }
 
 .game-card:nth-child(2) {
-    animation-delay: 0.2s;
-}
-
-.game-card:nth-child(3) {
     animation-delay: 0.3s;
 }
 
-.game-card:nth-child(4) {
-    animation-delay: 0.4s;
+.game-card:nth-child(3) {
+    animation-delay: 0.5s;
 }
 
+.game-card:nth-child(4) {
+    animation-delay: 0.7s;
+}
 
 @keyframes cardEnter {
 
     from {
         opacity: 0;
+
         transform:
             translateY(30px);
     }
 
     to {
         opacity: 1;
+
+        transform:
+            translateY(0);
+    }
+}
+
+@keyframes floatingCard {
+
+    0%,
+    100% {
         transform:
             translateY(0);
     }
 
+    50% {
+        transform:
+            translateY(-6px);
+    }
 }
 
 
-/* Card glow */
+/* =====================================================
+   CARD GLOW
+===================================================== */
 
 .game-card::after {
 
@@ -734,80 +1087,123 @@ p {
 
     position: absolute;
 
-    width: 100px;
-    height: 100px;
+    width: 130px;
+    height: 130px;
 
-    right: -50px;
-    top: -50px;
-
-    background: #65dfff;
+    right: -60px;
+    top: -60px;
 
     border-radius: 50%;
 
+    background: #65dfff;
+
     filter: blur(40px);
 
-    opacity: 0.05;
+    opacity: 0.04;
 
     transition:
         0.4s;
 }
-
 
 .game-card:hover {
 
     border-color: #65dfff;
 
     box-shadow:
-        0 0 12px rgba(101,223,255,0.35),
-        0 10px 30px rgba(0,0,0,0.4);
+        0 0 15px rgba(101, 223, 255, 0.35),
+        0 15px 35px rgba(0, 0, 0, 0.5);
 
     transform:
-        translateY(-8px)
-        scale(1.02);
-}
+        translateY(-10px)
+        scale(1.03);
 
+    animation-play-state: paused;
+}
 
 .game-card:hover::after {
 
-    opacity: 0.2;
+    opacity: 0.25;
 
     transform:
         scale(2);
 }
 
 
+/* =====================================================
+   GAME ICON
+===================================================== */
+
 .game-icon {
 
+    display: inline-block;
+
     font-size:
-        clamp(32px, 4vw, 50px);
+        clamp(
+            34px,
+            4vw,
+            52px
+        );
 
     margin-bottom: 12px;
 
-    display: inline-block;
+    animation:
+        iconFloat 3s ease-in-out infinite;
 
     transition:
         transform 0.3s ease;
 }
 
+@keyframes iconFloat {
+
+    0%,
+    100% {
+        transform:
+            translateY(0);
+    }
+
+    50% {
+        transform:
+            translateY(-5px);
+    }
+}
 
 .game-card:hover .game-icon {
 
-    transform:
-        scale(1.2)
-        rotate(-5deg);
+    animation:
+        iconAttack 0.5s ease;
+
+}
+
+@keyframes iconAttack {
+
+    0% {
+        transform:
+            scale(1);
+    }
+
+    40% {
+        transform:
+            scale(1.3)
+            rotate(-8deg);
+    }
+
+    70% {
+        transform:
+            scale(1.15)
+            rotate(8deg);
+    }
+
+    100% {
+        transform:
+            scale(1.2)
+            rotate(0);
+    }
 }
 
 
-.game-card p {
-
-    color: #aaa;
-
-    font-size:
-        clamp(12px, 0.9vw, 15px);
-
-    line-height: 1.5;
-}
-
+/* =====================================================
+   STATUS
+===================================================== */
 
 .game-status {
 
@@ -816,15 +1212,37 @@ p {
     color: #65dfff;
 
     font-size:
-        clamp(11px, 0.8vw, 14px);
+        clamp(
+            11px,
+            0.8vw,
+            14px
+        );
 
     font-weight: bold;
+
+    animation:
+        statusPulse 2s ease-in-out infinite;
+}
+
+@keyframes statusPulse {
+
+    0%,
+    100% {
+        opacity: 0.6;
+    }
+
+    50% {
+        opacity: 1;
+
+        text-shadow:
+            0 0 10px #65dfff;
+    }
 }
 
 
-/* =========================================
+/* =====================================================
    PROFILE
-========================================= */
+===================================================== */
 
 .profile-box {
 
@@ -835,35 +1253,70 @@ p {
     margin-top: 25px;
 
     padding:
-        clamp(18px, 3vw, 35px);
+        clamp(
+            18px,
+            3vw,
+            35px
+        );
 
     background: #0c0c0c;
 
     border: 2px solid #333;
 
+    transition:
+        border-color 0.3s,
+        box-shadow 0.3s;
+
     animation:
         cardEnter 0.6s ease-out;
 }
 
+.profile-box:hover {
+
+    border-color: #65dfff;
+
+    box-shadow:
+        0 0 20px rgba(101, 223, 255, 0.18);
+}
 
 .profile-row {
 
     display: flex;
 
-    gap:
-        clamp(15px, 3vw, 35px);
-
     align-items: center;
+
+    gap:
+        clamp(
+            15px,
+            3vw,
+            35px
+        );
 }
 
 
+/* =====================================================
+   AVATAR
+===================================================== */
+
 .profile-avatar {
 
+    position: relative;
+
     width:
-        clamp(80px, 10vw, 140px);
+        clamp(
+            80px,
+            10vw,
+            140px
+        );
 
     height:
-        clamp(80px, 10vw, 140px);
+        clamp(
+            80px,
+            10vw,
+            140px
+        );
+
+    flex-shrink: 0;
 
     display: flex;
 
@@ -871,50 +1324,117 @@ p {
 
     justify-content: center;
 
-    flex-shrink: 0;
-
     background: #111;
 
-    border: 2px solid #65dfff;
-
-    box-shadow:
-        0 0 15px rgba(101,223,255,0.5);
-
-    font-size:
-        clamp(40px, 5vw, 70px);
-
-    font-weight: bold;
+    border:
+        2px solid #65dfff;
 
     color: #65dfff;
 
+    font-size:
+        clamp(
+            40px,
+            5vw,
+            70px
+        );
+
+    font-weight: bold;
+
+    box-shadow:
+        0 0 15px rgba(101, 223, 255, 0.5);
+
     animation:
-        avatarFloat 3s ease-in-out infinite;
+        avatarFloat 3s ease-in-out infinite,
+        avatarGlow 2s ease-in-out infinite alternate;
 }
 
+.profile-avatar::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: -7px;
+
+    border:
+        1px solid #65dfff;
+
+    opacity: 0.4;
+
+    animation:
+        energyRing 2s linear infinite;
+}
 
 @keyframes avatarFloat {
 
     0%,
     100% {
-        transform: translateY(0);
+        transform:
+            translateY(0);
     }
 
     50% {
-        transform: translateY(-8px);
+        transform:
+            translateY(-8px);
     }
-
 }
 
+@keyframes avatarGlow {
+
+    from {
+        box-shadow:
+            0 0 8px rgba(101, 223, 255, 0.3);
+    }
+
+    to {
+        box-shadow:
+            0 0 30px rgba(101, 223, 255, 0.8);
+    }
+}
+
+@keyframes energyRing {
+
+    from {
+        transform:
+            rotate(0deg)
+            scale(1);
+
+        opacity: 0.5;
+    }
+
+    50% {
+        transform:
+            rotate(180deg)
+            scale(1.08);
+
+        opacity: 0.2;
+    }
+
+    to {
+        transform:
+            rotate(360deg)
+            scale(1);
+
+        opacity: 0.5;
+    }
+}
+
+
+/* =====================================================
+   ONLINE
+===================================================== */
 
 .online {
 
     display: inline-block;
 
-    padding: 5px 10px;
+    padding:
+        5px 10px;
 
     margin-top: 5px;
 
-    border: 1px solid #00ff88;
+    border:
+        1px solid #00ff88;
 
     color: #00ff88;
 
@@ -924,26 +1444,24 @@ p {
         onlinePulse 1.5s infinite;
 }
 
-
 @keyframes onlinePulse {
 
     0%,
     100% {
         box-shadow:
-            0 0 0 rgba(0,255,136,0);
+            0 0 0 rgba(0, 255, 136, 0);
     }
 
     50% {
         box-shadow:
-            0 0 12px rgba(0,255,136,0.5);
+            0 0 12px rgba(0, 255, 136, 0.5);
     }
-
 }
 
 
-/* =========================================
+/* =====================================================
    STATS
-========================================= */
+===================================================== */
 
 .stats-grid {
 
@@ -959,7 +1477,11 @@ p {
         );
 
     gap:
-        clamp(10px, 1.5vw, 20px);
+        clamp(
+            10px,
+            1.5vw,
+            20px
+        );
 
     width: 100%;
 
@@ -968,16 +1490,23 @@ p {
     margin-top: 25px;
 }
 
-
 .stat-box {
+
+    position: relative;
+
+    overflow: hidden;
 
     background: #0c0c0c;
 
-    border: 2px solid #333;
+    border:
+        2px solid #333;
 
     padding:
-        clamp(18px, 2.5vw, 30px)
-        15px;
+        clamp(
+            18px,
+            2.5vw,
+            30px
+        ) 15px;
 
     text-align: center;
 
@@ -989,7 +1518,6 @@ p {
     animation:
         statEnter 0.6s ease backwards;
 }
-
 
 .stat-box:nth-child(1) {
     animation-delay: 0.1s;
@@ -1007,81 +1535,125 @@ p {
     animation-delay: 0.4s;
 }
 
-
 @keyframes statEnter {
 
     from {
         opacity: 0;
+
         transform:
             scale(0.7);
     }
 
     to {
         opacity: 1;
+
         transform:
             scale(1);
     }
-
 }
-
 
 .stat-box:hover {
 
     border-color: #65dfff;
 
     box-shadow:
-        0 0 20px rgba(101,223,255,0.2);
+        0 0 20px rgba(101, 223, 255, 0.25);
 
     transform:
-        translateY(-7px);
+        translateY(-8px);
 }
 
+.stat-box::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 150px;
+    height: 150px;
+
+    border-radius: 50%;
+
+    background: #65dfff;
+
+    opacity: 0.025;
+
+    filter: blur(30px);
+
+    left: -70px;
+    bottom: -70px;
+
+    animation:
+        statEnergy 4s ease-in-out infinite;
+}
+
+@keyframes statEnergy {
+
+    0%,
+    100% {
+        transform:
+            scale(1);
+    }
+
+    50% {
+        transform:
+            scale(2);
+    }
+}
 
 .stat-number {
 
     display: block;
 
+    color: #65dfff;
+
     font-size:
-        clamp(25px, 3vw, 42px);
+        clamp(
+            25px,
+            3vw,
+            42px
+        );
 
     font-weight: bold;
 
-    color: #65dfff;
-
     margin-bottom: 8px;
+
+    text-shadow:
+        0 0 5px #65dfff;
 
     animation:
         numberGlow 2s infinite alternate;
 }
 
-
 @keyframes numberGlow {
 
     from {
         text-shadow:
-            0 0 2px #65dfff;
+            0 0 3px #65dfff;
     }
 
     to {
         text-shadow:
-            0 0 12px #65dfff;
+            0 0 15px #65dfff;
     }
-
 }
-
 
 .stat-name {
 
     color: #aaa;
 
     font-size:
-        clamp(11px, 0.8vw, 14px);
+        clamp(
+            11px,
+            0.8vw,
+            14px
+        );
 }
 
 
-/* =========================================
+/* =====================================================
    ACHIEVEMENTS
-========================================= */
+===================================================== */
 
 .achievement-list {
 
@@ -1092,8 +1664,9 @@ p {
     margin-top: 25px;
 }
 
-
 .achievement {
+
+    position: relative;
 
     display: flex;
 
@@ -1102,13 +1675,20 @@ p {
     gap: 18px;
 
     padding:
-        clamp(14px, 2vw, 22px);
+        clamp(
+            14px,
+            2vw,
+            22px
+        );
 
     margin-bottom: 12px;
 
     background: #0c0c0c;
 
-    border: 2px solid #333;
+    border:
+        2px solid #333;
+
+    overflow: hidden;
 
     transition:
         transform 0.3s ease,
@@ -1118,7 +1698,6 @@ p {
     animation:
         achievementEnter 0.6s ease backwards;
 }
-
 
 .achievement:nth-child(1) {
     animation-delay: 0.1s;
@@ -1136,79 +1715,148 @@ p {
     animation-delay: 0.4s;
 }
 
-
 @keyframes achievementEnter {
 
     from {
         opacity: 0;
+
         transform:
-            translateX(-30px);
+            translateX(-35px);
     }
 
     to {
         opacity: 1;
+
         transform:
             translateX(0);
     }
-
 }
-
 
 .achievement:hover {
 
     border-color: #65dfff;
 
     box-shadow:
-        0 0 15px rgba(101,223,255,0.2);
+        0 0 18px rgba(101, 223, 255, 0.2);
 
     transform:
         translateX(8px);
 }
 
+.achievement::before {
+
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: -120%;
+
+    width: 60%;
+    height: 100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,0.08),
+            transparent
+        );
+
+    transform:
+        skewX(-20deg);
+
+    animation:
+        achievementShine 5s infinite;
+}
+
+@keyframes achievementShine {
+
+    0% {
+        left: -120%;
+    }
+
+    30% {
+        left: 130%;
+    }
+
+    100% {
+        left: 130%;
+    }
+}
 
 .achievement-icon {
 
-    font-size:
-        clamp(25px, 3vw, 38px);
-
     flex-shrink: 0;
+
+    font-size:
+        clamp(
+            25px,
+            3vw,
+            40px
+        );
 
     transition:
         transform 0.3s ease;
 }
 
-
 .achievement:hover .achievement-icon {
 
-    transform:
-        scale(1.2)
-        rotate(10deg);
+    animation:
+        achievementSpin 0.7s ease;
 }
 
+@keyframes achievementSpin {
+
+    0% {
+        transform:
+            rotate(0)
+            scale(1);
+    }
+
+    50% {
+        transform:
+            rotate(180deg)
+            scale(1.3);
+    }
+
+    100% {
+        transform:
+            rotate(360deg)
+            scale(1);
+    }
+}
 
 .achievement-title {
 
     font-weight: bold;
 
-    margin-bottom: 5px;
-
     font-size:
-        clamp(14px, 1vw, 17px);
-}
+        clamp(
+            14px,
+            1vw,
+            17px
+        );
 
+    margin-bottom: 5px;
+}
 
 .achievement-description {
 
     color: #888;
 
     font-size:
-        clamp(12px, 0.9vw, 15px);
+        clamp(
+            12px,
+            0.9vw,
+            15px
+        );
 }
 
 
-/* =========================================
+/* =====================================================
    CONTACT
-========================================= */
+===================================================== */
 
 .contact-box {
 
@@ -1219,37 +1867,58 @@ p {
     margin-top: 25px;
 
     padding:
-        clamp(18px, 3vw, 35px);
+        clamp(
+            18px,
+            3vw,
+            35px
+        );
 
     background: #0c0c0c;
 
-    border: 2px solid #333;
+    border:
+        2px solid #333;
 
     animation:
         cardEnter 0.6s ease-out;
 }
 
-
 .social-button {
 
+    position: relative;
+
     display: inline-block;
+
+    overflow: hidden;
 
     margin: 5px;
 
     padding:
-        clamp(9px, 1vw, 14px)
-        clamp(12px, 1.5vw, 20px);
+        clamp(
+            9px,
+            1vw,
+            14px
+        )
+        clamp(
+            12px,
+            1.5vw,
+            20px
+        );
 
     background: #101010;
 
-    border: 2px solid #444;
+    border:
+        2px solid #444;
 
     color: white;
 
     text-decoration: none;
 
     font-size:
-        clamp(12px, 0.9vw, 15px);
+        clamp(
+            12px,
+            0.9vw,
+            15px
+        );
 
     transition:
         transform 0.25s ease,
@@ -1258,7 +1927,6 @@ p {
         color 0.25s ease;
 }
 
-
 .social-button:hover {
 
     border-color: #65dfff;
@@ -1266,41 +1934,117 @@ p {
     color: #65dfff;
 
     box-shadow:
-        0 0 12px rgba(101,223,255,0.5);
+        0 0 12px rgba(101, 223, 255, 0.5);
 
     transform:
-        translateY(-4px);
+        translateY(-5px);
 }
 
+.social-button::before {
+
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: -100%;
+
+    width: 100%;
+    height: 100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(101,223,255,0.15),
+            transparent
+        );
+
+    transition:
+        0.4s;
+}
+
+.social-button:hover::before {
+    left: 100%;
+}
 
 .social-button:active {
-
     transform:
         scale(0.94);
 }
 
 
-/* =========================================
-   LARGE SCREENS
-========================================= */
+/* =====================================================
+   FLOATING PARTICLES
+===================================================== */
+
+.page.active::after {
+
+    content: "";
+
+    position: fixed;
+
+    width: 5px;
+    height: 5px;
+
+    border-radius: 50%;
+
+    background: #65dfff;
+
+    right: 8%;
+    top: 20%;
+
+    opacity: 0.35;
+
+    box-shadow:
+        40px 100px 0 #65dfff,
+        -100px 200px 0 #65dfff,
+        150px 300px 0 #65dfff,
+        -200px 400px 0 #65dfff;
+
+    pointer-events: none;
+
+    animation:
+        particlesFloat 8s linear infinite;
+}
+
+@keyframes particlesFloat {
+
+    from {
+        transform:
+            translateY(100px)
+            rotate(0deg);
+    }
+
+    to {
+        transform:
+            translateY(-500px)
+            rotate(360deg);
+    }
+}
+
+
+/* =====================================================
+   DESKTOP
+===================================================== */
 
 @media (min-width: 1600px) {
 
     .main {
+
         padding-left: 5vw;
         padding-right: 5vw;
     }
 
     .game-grid {
-        max-width: 1400px;
+        max-width: 1450px;
     }
-
 }
 
 
-/* =========================================
-   TABLETS
-========================================= */
+/* =====================================================
+   TABLET
+===================================================== */
 
 @media (max-width: 800px) {
 
@@ -1308,9 +2052,9 @@ p {
 
         width: 150px;
 
-        padding: 20px 12px;
+        padding:
+            20px 12px;
     }
-
 
     .main {
 
@@ -1323,18 +2067,17 @@ p {
             25px 18px;
     }
 
-
     .profile-row {
 
-        align-items: flex-start;
+        align-items:
+            flex-start;
     }
-
 }
 
 
-/* =========================================
-   SMALL PHONES
-========================================= */
+/* =====================================================
+   MOBILE
+===================================================== */
 
 @media (max-width: 550px) {
 
@@ -1345,7 +2088,6 @@ p {
         padding:
             18px 8px;
     }
-
 
     .main {
 
@@ -1358,7 +2100,6 @@ p {
             20px 12px;
     }
 
-
     .logo {
 
         font-size: 16px;
@@ -1366,12 +2107,10 @@ p {
         margin-bottom: 25px;
     }
 
-
     .nav {
 
         gap: 6px;
     }
-
 
     .nav button {
 
@@ -1381,36 +2120,31 @@ p {
             9px 7px;
     }
 
-
     .profile-row {
 
         flex-direction: column;
 
-        align-items: flex-start;
+        align-items:
+            flex-start;
     }
-
 
     .profile-avatar {
 
         width: 80px;
-
         height: 80px;
     }
-
 }
 
 
-/* =========================================
-   VERY SMALL PHONES
-========================================= */
+/* =====================================================
+   VERY SMALL MOBILE
+===================================================== */
 
 @media (max-width: 380px) {
 
     .sidebar {
-
         width: 90px;
     }
-
 
     .main {
 
@@ -1423,12 +2157,9 @@ p {
             15px 10px;
     }
 
-
     .logo {
-
         font-size: 13px;
     }
-
 
     .nav button {
 
@@ -1438,14 +2169,37 @@ p {
             8px 5px;
     }
 
-
     .big-azmi {
 
         font-size: 40px;
 
         letter-spacing: 3px;
     }
+}
 
+
+/* =====================================================
+   REDUCED MOTION
+===================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+
+        animation-duration:
+            0.01ms !important;
+
+        animation-iteration-count:
+            1 !important;
+
+        scroll-behavior:
+            auto !important;
+
+        transition-duration:
+            0.01ms !important;
+    }
 }
 
 </style>
@@ -1455,9 +2209,14 @@ p {
 <body>
 
 
-<!-- =========================================
+<!-- BACKGROUND EFFECT -->
+
+<div class="background-glow"></div>
+
+
+<!-- =====================================================
      SIDEBAR
-========================================= -->
+===================================================== -->
 
 <div class="sidebar">
 
@@ -1516,17 +2275,18 @@ p {
 </div>
 
 
-
-<!-- =========================================
+<!-- =====================================================
      MAIN
-========================================= -->
+===================================================== -->
 
 <div class="main">
 
 
-<!-- HOME -->
+<!-- =====================================================
+     HOME
+===================================================== -->
 
-<div
+<section
     id="home"
     class="page active"
 >
@@ -1562,13 +2322,14 @@ p {
 
     </div>
 
-</div>
+</section>
 
 
+<!-- =====================================================
+     PROFILE
+===================================================== -->
 
-<!-- PROFILE -->
-
-<div
+<section
     id="profile"
     class="page"
 >
@@ -1613,13 +2374,14 @@ p {
 
     </div>
 
-</div>
+</section>
 
 
+<!-- =====================================================
+     GAMES
+===================================================== -->
 
-<!-- GAMES -->
-
-<div
+<section
     id="games"
     class="page"
 >
@@ -1723,13 +2485,14 @@ p {
 
     </div>
 
-</div>
+</section>
 
 
+<!-- =====================================================
+     STATS
+===================================================== -->
 
-<!-- STATS -->
-
-<div
+<section
     id="stats"
     class="page"
 >
@@ -1748,8 +2511,11 @@ p {
 
         <div class="stat-box">
 
-            <span class="stat-number">
-                247
+            <span
+                class="stat-number"
+                data-target="247"
+            >
+                0
             </span>
 
             <span class="stat-name">
@@ -1761,8 +2527,12 @@ p {
 
         <div class="stat-box">
 
-            <span class="stat-number">
-                89%
+            <span
+                class="stat-number"
+                data-target="89"
+                data-suffix="%"
+            >
+                0
             </span>
 
             <span class="stat-name">
@@ -1774,8 +2544,11 @@ p {
 
         <div class="stat-box">
 
-            <span class="stat-number">
-                56
+            <span
+                class="stat-number"
+                data-target="56"
+            >
+                0
             </span>
 
             <span class="stat-name">
@@ -1787,8 +2560,12 @@ p {
 
         <div class="stat-box">
 
-            <span class="stat-number">
-                420H
+            <span
+                class="stat-number"
+                data-target="420"
+                data-suffix="H"
+            >
+                0
             </span>
 
             <span class="stat-name">
@@ -1799,13 +2576,14 @@ p {
 
     </div>
 
-</div>
+</section>
 
 
+<!-- =====================================================
+     ACHIEVEMENTS
+===================================================== -->
 
-<!-- ACHIEVEMENTS -->
-
-<div
+<section
     id="achievements"
     class="page"
 >
@@ -1909,13 +2687,14 @@ p {
 
     </div>
 
-</div>
+</section>
 
 
+<!-- =====================================================
+     CONTACT
+===================================================== -->
 
-<!-- CONTACT -->
-
-<div
+<section
     id="contact"
     class="page"
 >
@@ -1974,68 +2753,346 @@ p {
 
     </div>
 
-</div>
+</section>
 
 
 </div>
 
 
-
-<!-- =========================================
+<!-- =====================================================
      JAVASCRIPT
-========================================= -->
+===================================================== -->
 
 <script>
 
+
+/* =====================================================
+   PAGE SWITCHING
+===================================================== */
+
 function showPage(pageId, button) {
 
-    /* Hide pages */
+    const currentPage =
+        document.querySelector(".page.active");
 
-    const pages =
-        document.querySelectorAll(".page");
-
-    pages.forEach(function(page) {
-
-        page.classList.remove("active");
-
-    });
-
-
-    /* Show selected page */
-
-    const selectedPage =
+    const newPage =
         document.getElementById(pageId);
 
-    selectedPage.classList.add("active");
+
+    if (currentPage === newPage) {
+        return;
+    }
 
 
-    /* Reset buttons */
+    /* EXIT CURRENT PAGE */
 
-    const buttons =
-        document.querySelectorAll(".nav button");
+    if (currentPage) {
 
-    buttons.forEach(function(btn) {
-
-        btn.classList.remove("active");
-
-    });
+        currentPage.style.animation =
+            "pageExit 0.25s ease forwards";
+    }
 
 
-    /* Activate clicked button */
+    setTimeout(function() {
+
+        document
+            .querySelectorAll(".page")
+            .forEach(function(page) {
+
+                page.classList.remove("active");
+
+                page.style.animation = "";
+
+            });
+
+
+        /* SHOW NEW PAGE */
+
+        newPage.classList.add("active");
+
+
+        /* Reset animated elements */
+
+        newPage
+            .querySelectorAll(
+                ".game-card, .stat-box, .achievement"
+            )
+            .forEach(function(element) {
+
+                element.style.animation = "none";
+
+                void element.offsetWidth;
+
+                element.style.animation = "";
+
+            });
+
+
+        /* Animate statistics */
+
+        if (pageId === "stats") {
+
+            animateStats();
+
+        }
+
+    }, 250);
+
+
+    /* SIDEBAR */
+
+    document
+        .querySelectorAll(".nav button")
+        .forEach(function(btn) {
+
+            btn.classList.remove("active");
+
+        });
+
 
     button.classList.add("active");
 
 }
 
 
-/* =========================================
+/* =====================================================
+   STAT COUNTERS
+===================================================== */
+
+function animateStats() {
+
+    const numbers =
+        document.querySelectorAll(
+            "#stats .stat-number"
+        );
+
+
+    numbers.forEach(function(number) {
+
+        const target =
+            Number(
+                number.dataset.target
+            );
+
+        const suffix =
+            number.dataset.suffix || "";
+
+
+        let start = 0;
+
+        const duration = 1200;
+
+        const startTime =
+            performance.now();
+
+
+        function update(currentTime) {
+
+            const progress =
+                Math.min(
+                    (currentTime - startTime)
+                    / duration,
+                    1
+                );
+
+
+            const eased =
+                1 -
+                Math.pow(
+                    1 - progress,
+                    3
+                );
+
+
+            start =
+                Math.floor(
+                    target * eased
+                );
+
+
+            number.textContent =
+                start + suffix;
+
+
+            if (progress < 1) {
+
+                requestAnimationFrame(
+                    update
+                );
+
+            } else {
+
+                number.textContent =
+                    target + suffix;
+            }
+
+        }
+
+
+        requestAnimationFrame(update);
+
+    });
+
+}
+
+
+/* =====================================================
+   RIPPLE EFFECT
+===================================================== */
+
+document
+    .querySelectorAll(
+        ".nav button, .social-button"
+    )
+    .forEach(function(button) {
+
+        button.addEventListener(
+            "click",
+            function(event) {
+
+                const ripple =
+                    document.createElement(
+                        "span"
+                    );
+
+
+                ripple.style.position =
+                    "absolute";
+
+                ripple.style.width =
+                    "10px";
+
+                ripple.style.height =
+                    "10px";
+
+                ripple.style.borderRadius =
+                    "50%";
+
+                ripple.style.background =
+                    "rgba(101,223,255,0.5)";
+
+                ripple.style.left =
+                    event.offsetX + "px";
+
+                ripple.style.top =
+                    event.offsetY + "px";
+
+                ripple.style.transform =
+                    "translate(-50%, -50%)";
+
+                ripple.style.pointerEvents =
+                    "none";
+
+                ripple.style.animation =
+                    "rippleEffect 0.6s ease-out";
+
+
+                this.appendChild(
+                    ripple
+                );
+
+
+                setTimeout(
+                    function() {
+                        ripple.remove();
+                    },
+                    600
+                );
+
+            }
+        );
+
+    });
+
+
+/* =====================================================
+   RIPPLE CSS
+===================================================== */
+
+const rippleStyle =
+    document.createElement("style");
+
+rippleStyle.textContent = `
+
+@keyframes rippleEffect {
+
+    from {
+        width: 10px;
+        height: 10px;
+        opacity: 1;
+    }
+
+    to {
+        width: 250px;
+        height: 250px;
+        opacity: 0;
+    }
+
+}
+
+`;
+
+document.head.appendChild(
+    rippleStyle
+);
+
+
+/* =====================================================
+   MOUSE FOLLOW GLOW
+===================================================== */
+
+document.addEventListener(
+    "mousemove",
+    function(event) {
+
+        const cards =
+            document.querySelectorAll(
+                ".game-card, .stat-box, .achievement"
+            );
+
+
+        cards.forEach(function(card) {
+
+            const rect =
+                card.getBoundingClientRect();
+
+
+            const x =
+                event.clientX -
+                rect.left;
+
+
+            const y =
+                event.clientY -
+                rect.top;
+
+
+            card.style.setProperty(
+                "--mouse-x",
+                x + "px"
+            );
+
+
+            card.style.setProperty(
+                "--mouse-y",
+                y + "px"
+            );
+
+        });
+
+    }
+);
+
+
+/* =====================================================
    SCREEN SIZE
-========================================= */
+===================================================== */
 
 function checkScreenSize() {
 
     const width =
         window.innerWidth;
+
 
     if (width <= 550) {
 
@@ -2069,32 +3126,6 @@ window.addEventListener(
 
 checkScreenSize();
 
-
-/* =========================================
-   CLICK RIPPLE EFFECT
-========================================= */
-
-document
-.querySelectorAll(".nav button, .social-button")
-.forEach(function(button) {
-
-    button.addEventListener(
-        "click",
-        function() {
-
-            this.style.transform =
-                "scale(0.94)";
-
-            setTimeout(() => {
-
-                this.style.transform = "";
-
-            }, 120);
-
-        }
-    );
-
-});
 
 </script>
 
