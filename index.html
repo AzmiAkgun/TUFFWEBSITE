@@ -1,1359 +1,1234 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>AZMI | Gaming</title>
+<title>AZMI Gaming</title>
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      scroll-behavior: smooth;
+<style>
+
+/* ================================
+   BASIC SETTINGS
+================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    min-height: 100%;
+}
+
+body {
+    background: #101010;
+    color: white;
+    font-family: "Trebuchet MS", Arial, sans-serif;
+}
+
+
+/* ================================
+   SIDEBAR
+================================ */
+
+.sidebar {
+    position: fixed;
+
+    left: 0;
+    top: 0;
+
+    width: 190px;
+    height: 100vh;
+
+    background: #090909;
+
+    padding: 25px 16px;
+
+    border-right: 2px solid #111;
+
+    z-index: 1000;
+}
+
+
+/* LOGO */
+
+.logo {
+    font-size: 23px;
+
+    font-weight: bold;
+
+    line-height: 1.2;
+
+    margin-bottom: 25px;
+
+    color: white;
+
+    text-shadow:
+        0 0 5px rgba(255,255,255,0.2);
+}
+
+
+/* NAVIGATION */
+
+.nav {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 10px;
+}
+
+
+/* NAV BUTTON */
+
+.nav button {
+    width: 100%;
+
+    padding: 12px 12px;
+
+    background: #101010;
+
+    border: 2px solid #3b3b3b;
+
+    color: white;
+
+    text-align: left;
+
+    font-family: inherit;
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+
+/* HOVER */
+
+.nav button:hover {
+    border-color: #65dfff;
+
+    color: #ffffff;
+
+    box-shadow:
+        0 0 8px rgba(101,223,255,0.5);
+}
+
+
+/* ACTIVE */
+
+.nav button.active {
+    border-color: #65dfff;
+
+    box-shadow:
+        0 0 10px rgba(101,223,255,0.8),
+        inset 0 0 8px rgba(101,223,255,0.12);
+
+    color: white;
+
+    background: #111;
+}
+
+
+/* ================================
+   MAIN CONTENT
+================================ */
+
+.main {
+    margin-left: 190px;
+
+    min-height: 100vh;
+
+    padding: 25px 20px 60px 20px;
+}
+
+
+/* ================================
+   PAGE
+================================ */
+
+.page {
+    display: none;
+}
+
+.page.active {
+    display: block;
+}
+
+
+/* ================================
+   HEADINGS
+================================ */
+
+h1 {
+    font-size: 34px;
+
+    margin-bottom: 2px;
+
+    color: white;
+
+    text-shadow:
+        0 0 8px rgba(255,255,255,0.15);
+}
+
+h2 {
+    font-size: 24px;
+
+    margin-bottom: 12px;
+
+    color: #65dfff;
+}
+
+h3 {
+    font-size: 18px;
+
+    margin-bottom: 8px;
+}
+
+
+/* TEXT */
+
+p {
+    font-size: 16px;
+
+    line-height: 1.8;
+
+    margin-bottom: 18px;
+
+    color: #eeeeee;
+}
+
+
+/* ================================
+   HOME
+================================ */
+
+.home-title {
+    margin-bottom: 3px;
+}
+
+.home-subtitle {
+    color: #ffffff;
+
+    margin-bottom: 20px;
+}
+
+
+/* HERO BOX */
+
+.hero-box {
+    margin-top: 30px;
+
+    padding: 30px;
+
+    max-width: 850px;
+
+    border: 2px solid #292929;
+
+    background: #0c0c0c;
+}
+
+
+/* AZMI BIG TEXT */
+
+.big-azmi {
+    font-size: 75px;
+
+    font-weight: bold;
+
+    letter-spacing: 8px;
+
+    color: white;
+
+    margin-bottom: 10px;
+
+    text-shadow:
+        0 0 8px #65dfff,
+        0 0 20px rgba(101,223,255,0.5);
+}
+
+
+/* ================================
+   GAME CARDS
+================================ */
+
+.game-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(180px, 1fr));
+
+    gap: 15px;
+
+    max-width: 1000px;
+
+    margin-top: 25px;
+}
+
+
+.game-card {
+    min-height: 190px;
+
+    padding: 20px;
+
+    background: #0c0c0c;
+
+    border: 2px solid #333;
+
+    transition: 0.2s;
+}
+
+
+.game-card:hover {
+    border-color: #65dfff;
+
+    box-shadow:
+        0 0 12px rgba(101,223,255,0.35);
+
+    transform: translateY(-3px);
+}
+
+
+.game-icon {
+    font-size: 42px;
+
+    margin-bottom: 12px;
+}
+
+
+.game-card h3 {
+    color: white;
+
+    margin-bottom: 10px;
+}
+
+
+.game-card p {
+    font-size: 14px;
+
+    color: #aaa;
+
+    line-height: 1.5;
+}
+
+
+.game-status {
+    margin-top: 12px;
+
+    color: #65dfff;
+
+    font-size: 13px;
+
+    font-weight: bold;
+}
+
+
+/* ================================
+   PROFILE
+================================ */
+
+.profile-box {
+    max-width: 850px;
+
+    margin-top: 25px;
+
+    padding: 25px;
+
+    background: #0c0c0c;
+
+    border: 2px solid #333;
+}
+
+
+.profile-row {
+    display: flex;
+
+    gap: 25px;
+
+    align-items: center;
+}
+
+
+.profile-avatar {
+    width: 120px;
+
+    height: 120px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    background: #111;
+
+    border: 2px solid #65dfff;
+
+    box-shadow:
+        0 0 15px rgba(101,223,255,0.5);
+
+    font-size: 65px;
+
+    font-weight: bold;
+
+    color: #65dfff;
+}
+
+
+.online {
+    display: inline-block;
+
+    padding: 5px 10px;
+
+    margin-top: 8px;
+
+    border: 1px solid #00ff88;
+
+    color: #00ff88;
+
+    font-size: 12px;
+}
+
+
+/* ================================
+   STATS
+================================ */
+
+.stats-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, minmax(120px, 1fr));
+
+    gap: 15px;
+
+    max-width: 850px;
+
+    margin-top: 25px;
+}
+
+
+.stat-box {
+    background: #0c0c0c;
+
+    border: 2px solid #333;
+
+    padding: 25px 15px;
+
+    text-align: center;
+}
+
+
+.stat-box:hover {
+    border-color: #65dfff;
+}
+
+
+.stat-number {
+    display: block;
+
+    font-size: 32px;
+
+    font-weight: bold;
+
+    color: #65dfff;
+
+    margin-bottom: 8px;
+}
+
+
+.stat-name {
+    color: #aaa;
+
+    font-size: 13px;
+}
+
+
+/* ================================
+   ACHIEVEMENTS
+================================ */
+
+.achievement-list {
+    max-width: 850px;
+
+    margin-top: 25px;
+}
+
+
+.achievement {
+    display: flex;
+
+    align-items: center;
+
+    gap: 18px;
+
+    padding: 18px;
+
+    margin-bottom: 12px;
+
+    background: #0c0c0c;
+
+    border: 2px solid #333;
+}
+
+
+.achievement:hover {
+    border-color: #65dfff;
+}
+
+
+.achievement-icon {
+    font-size: 32px;
+}
+
+
+.achievement-title {
+    font-weight: bold;
+
+    margin-bottom: 5px;
+}
+
+
+.achievement-description {
+    color: #888;
+
+    font-size: 14px;
+}
+
+
+/* ================================
+   CONTACT
+================================ */
+
+.contact-box {
+    max-width: 700px;
+
+    margin-top: 25px;
+
+    padding: 25px;
+
+    background: #0c0c0c;
+
+    border: 2px solid #333;
+}
+
+
+.social-button {
+    display: inline-block;
+
+    margin: 5px;
+
+    padding: 12px 18px;
+
+    background: #101010;
+
+    border: 2px solid #444;
+
+    color: white;
+
+    text-decoration: none;
+
+    transition: 0.2s;
+}
+
+
+.social-button:hover {
+    border-color: #65dfff;
+
+    color: #65dfff;
+
+    box-shadow:
+        0 0 8px rgba(101,223,255,0.5);
+}
+
+
+/* ================================
+   RESPONSIVE
+================================ */
+
+@media (max-width: 800px) {
+
+    .sidebar {
+        width: 160px;
     }
 
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      background: #070711;
-      color: white;
-      overflow-x: hidden;
+    .main {
+        margin-left: 160px;
     }
 
-    /* BACKGROUND */
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-
-      background:
-        radial-gradient(
-          circle at 20% 20%,
-          rgba(0, 255, 255, 0.12),
-          transparent 30%
-        ),
-        radial-gradient(
-          circle at 80% 70%,
-          rgba(160, 0, 255, 0.15),
-          transparent 30%
-        );
-
-      pointer-events: none;
-      z-index: -1;
+    .game-grid {
+        grid-template-columns: 1fr;
     }
 
-    /* =========================
-       LEFT SIDEBAR
-    ========================= */
-
-    nav {
-      position: fixed;
-      left: 0;
-      top: 0;
-
-      width: 230px;
-      height: 100vh;
-
-      padding: 35px 20px;
-
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-
-      background: rgba(5, 5, 15, 0.95);
-      backdrop-filter: blur(15px);
-
-      border-right: 1px solid rgba(0, 255, 255, 0.2);
-
-      box-shadow:
-        5px 0 30px rgba(0, 255, 255, 0.05);
-
-      z-index: 1000;
+    .stats-grid {
+        grid-template-columns:
+            repeat(2, 1fr);
     }
 
-    /* LOGO */
+    .big-azmi {
+        font-size: 50px;
+    }
+}
+
+
+@media (max-width: 550px) {
+
+    .sidebar {
+        width: 130px;
+
+        padding: 20px 10px;
+    }
+
+    .main {
+        margin-left: 130px;
+
+        padding: 20px 12px;
+    }
 
     .logo {
-      font-size: 30px;
-      font-weight: 900;
-      letter-spacing: 5px;
-
-      color: #00ffff;
-
-      text-shadow:
-        0 0 10px #00ffff,
-        0 0 25px #00ffff;
-
-      margin-bottom: 70px;
-    }
-
-    /* NAVIGATION */
-
-    nav ul {
-      width: 100%;
-
-      display: flex;
-      flex-direction: column;
-
-      gap: 15px;
-
-      list-style: none;
-    }
-
-    nav li {
-      width: 100%;
-    }
-
-    nav a {
-      display: block;
-
-      width: 100%;
-
-      padding: 15px;
-
-      border-radius: 10px;
-
-      color: white;
-
-      text-decoration: none;
-
-      font-weight: bold;
-
-      transition: 0.3s;
-    }
-
-    nav a:hover {
-      color: #00ffff;
-
-      background: rgba(0, 255, 255, 0.08);
-
-      box-shadow:
-        0 0 20px rgba(0, 255, 255, 0.15);
-
-      transform: translateX(5px);
-    }
-
-    /* ACTIVE LINK */
-
-    nav a.active {
-      color: #00ffff;
-
-      background: rgba(0, 255, 255, 0.1);
-
-      border-left: 3px solid #00ffff;
-
-      box-shadow:
-        0 0 15px rgba(0, 255, 255, 0.15);
-    }
-
-    /* =========================
-       MAIN CONTENT
-    ========================= */
-
-    section {
-      margin-left: 230px;
-      padding: 100px 8%;
-    }
-
-    /* =========================
-       HERO
-    ========================= */
-
-    .hero {
-      min-height: 100vh;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      text-align: center;
-
-      padding: 80px 40px;
-    }
-
-    .hero-content {
-      max-width: 900px;
-    }
-
-    .tag {
-      color: #00ffff;
-
-      font-weight: bold;
-
-      letter-spacing: 5px;
-
-      margin-bottom: 15px;
-    }
-
-    .hero h1 {
-      font-size: clamp(70px, 15vw, 160px);
-
-      font-weight: 900;
-
-      letter-spacing: 15px;
-
-      color: white;
-
-      text-shadow:
-        0 0 10px #00ffff,
-        0 0 30px #00ffff,
-        0 0 70px #8a2be2;
-    }
-
-    .hero h2 {
-      margin: 10px 0 25px;
-
-      color: #bdbddd;
-
-      font-size: 24px;
-    }
-
-    .hero p {
-      max-width: 650px;
-
-      margin: auto;
-
-      color: #9999aa;
-
-      line-height: 1.7;
-    }
-
-    /* BUTTONS */
-
-    .buttons {
-      margin-top: 35px;
-
-      display: flex;
-      justify-content: center;
-
-      gap: 15px;
-
-      flex-wrap: wrap;
-    }
-
-    .btn {
-      padding: 14px 28px;
-
-      border-radius: 8px;
-
-      text-decoration: none;
-
-      font-weight: bold;
-
-      transition: 0.3s;
-    }
-
-    .primary {
-      background: #00ffff;
-
-      color: #05050a;
-
-      box-shadow:
-        0 0 25px rgba(0, 255, 255, 0.5);
-    }
-
-    .primary:hover {
-      transform: translateY(-5px);
-
-      box-shadow:
-        0 0 40px #00ffff;
-    }
-
-    .secondary {
-      border: 1px solid #8a2be2;
-
-      color: white;
-    }
-
-    .secondary:hover {
-      background: #8a2be2;
-
-      box-shadow:
-        0 0 25px #8a2be2;
-    }
-
-    /* =========================
-       SECTION TITLES
-    ========================= */
-
-    .section-title {
-      text-align: center;
-
-      margin-bottom: 50px;
-    }
-
-    .section-title h2 {
-      font-size: 40px;
-
-      color: #00ffff;
-
-      text-shadow:
-        0 0 15px rgba(0, 255, 255, 0.5);
-    }
-
-    .section-title p {
-      margin-top: 10px;
-
-      color: #777;
-    }
-
-    /* =========================
-       PROFILE
-    ========================= */
-
-    .profile {
-      max-width: 1000px;
-
-      margin: auto;
-
-      display: grid;
-
-      grid-template-columns: 1fr 2fr;
-
-      gap: 30px;
-    }
-
-    .avatar {
-      min-height: 300px;
-
-      border: 1px solid rgba(0, 255, 255, 0.3);
-
-      border-radius: 20px;
-
-      display: flex;
-
-      align-items: center;
-
-      justify-content: center;
-
-      background:
-        linear-gradient(
-          145deg,
-          #101020,
-          #080810
-        );
-
-      box-shadow:
-        0 0 30px rgba(0, 255, 255, 0.1);
-    }
-
-    .avatar span {
-      font-size: 100px;
-
-      font-weight: 900;
-
-      color: #00ffff;
-
-      text-shadow:
-        0 0 30px #00ffff;
-    }
-
-    .profile-info {
-      padding: 30px;
-
-      border-radius: 20px;
-
-      background: rgba(255, 255, 255, 0.03);
-
-      border: 1px solid rgba(255, 255, 255, 0.08);
-    }
-
-    .profile-info h3 {
-      font-size: 32px;
-
-      margin-bottom: 15px;
-    }
-
-    .profile-info p {
-      color: #999;
-
-      line-height: 1.8;
-
-      margin-bottom: 25px;
-    }
-
-    .status {
-      display: inline-block;
-
-      padding: 8px 15px;
-
-      border-radius: 20px;
-
-      background: rgba(0, 255, 100, 0.1);
-
-      color: #00ff88;
-
-      border: 1px solid #00ff88;
-    }
-
-    /* =========================
-       GAMES
-    ========================= */
-
-    .games {
-      display: grid;
-
-      grid-template-columns:
-        repeat(3, 1fr);
-
-      gap: 25px;
-    }
-
-    .game-card {
-      min-height: 250px;
-
-      padding: 30px;
-
-      border-radius: 18px;
-
-      background:
-        linear-gradient(
-          145deg,
-          #121222,
-          #090912
-        );
-
-      border: 1px solid rgba(255, 255, 255, 0.08);
-
-      transition: 0.4s;
-
-      position: relative;
-
-      overflow: hidden;
-    }
-
-    .game-card::before {
-      content: "";
-
-      position: absolute;
-
-      width: 150px;
-      height: 150px;
-
-      background: #00ffff;
-
-      filter: blur(80px);
-
-      opacity: 0.08;
-
-      right: -50px;
-      top: -50px;
-    }
-
-    .game-card:hover {
-      transform: translateY(-10px);
-
-      border-color: #00ffff;
-
-      box-shadow:
-        0 10px 40px rgba(0, 255, 255, 0.15);
-    }
-
-    .game-icon {
-      font-size: 50px;
-
-      margin-bottom: 20px;
-    }
-
-    .game-card h3 {
-      font-size: 25px;
-
-      margin-bottom: 10px;
-    }
-
-    .game-card p {
-      color: #888;
-
-      line-height: 1.6;
-    }
-
-    .level {
-      margin-top: 20px;
-
-      color: #00ffff;
-
-      font-weight: bold;
-    }
-
-    /* =========================
-       STATS
-    ========================= */
-
-    .stats {
-      max-width: 1000px;
-
-      margin: auto;
-
-      display: grid;
-
-      grid-template-columns:
-        repeat(4, 1fr);
-
-      gap: 20px;
-    }
-
-    .stat {
-      text-align: center;
-
-      padding: 30px 15px;
-
-      background: rgba(255, 255, 255, 0.03);
-
-      border: 1px solid rgba(255, 255, 255, 0.08);
-
-      border-radius: 15px;
-
-      transition: 0.3s;
-    }
-
-    .stat:hover {
-      transform: translateY(-5px);
-
-      border-color: #00ffff;
-
-      box-shadow:
-        0 0 20px rgba(0, 255, 255, 0.1);
-    }
-
-    .stat h3 {
-      font-size: 40px;
-
-      color: #00ffff;
-
-      margin-bottom: 8px;
-    }
-
-    .stat p {
-      color: #777;
-    }
-
-    /* =========================
-       ACHIEVEMENTS
-    ========================= */
-
-    .achievements {
-      max-width: 900px;
-
-      margin: auto;
-
-      display: grid;
-
-      gap: 15px;
-    }
-
-    .achievement {
-      display: flex;
-
-      align-items: center;
-
-      gap: 20px;
-
-      padding: 20px;
-
-      border-radius: 15px;
-
-      background: rgba(255, 255, 255, 0.03);
-
-      border: 1px solid rgba(255, 255, 255, 0.08);
-
-      transition: 0.3s;
-    }
-
-    .achievement:hover {
-      border-color: #8a2be2;
-
-      transform: translateX(8px);
-
-      box-shadow:
-        0 0 20px rgba(138, 43, 226, 0.1);
-    }
-
-    .trophy {
-      font-size: 35px;
-    }
-
-    .achievement h3 {
-      margin-bottom: 5px;
-    }
-
-    .achievement p {
-      color: #777;
-    }
-
-    /* =========================
-       CONTACT
-    ========================= */
-
-    .contact {
-      text-align: center;
-
-      max-width: 700px;
-
-      margin: auto;
-    }
-
-    .contact p {
-      color: #888;
-
-      line-height: 1.7;
-
-      margin-bottom: 30px;
-    }
-
-    .socials {
-      display: flex;
-
-      justify-content: center;
-
-      gap: 15px;
-
-      flex-wrap: wrap;
-    }
-
-    .social {
-      padding: 12px 22px;
-
-      border: 1px solid #333;
-
-      border-radius: 8px;
-
-      color: white;
-
-      text-decoration: none;
-
-      transition: 0.3s;
-    }
-
-    .social:hover {
-      border-color: #00ffff;
-
-      color: #00ffff;
-
-      box-shadow:
-        0 0 15px rgba(0, 255, 255, 0.2);
-    }
-
-    /* =========================
-       FOOTER
-    ========================= */
-
-    footer {
-      margin-left: 230px;
-
-      text-align: center;
-
-      padding: 30px;
-
-      color: #555;
-
-      border-top:
-        1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    footer span {
-      color: #00ffff;
-    }
-
-    /* =========================
-       RESPONSIVE
-    ========================= */
-
-    @media (max-width: 900px) {
-
-      nav {
-        width: 180px;
-      }
-
-      section {
-        margin-left: 180px;
-      }
-
-      footer {
-        margin-left: 180px;
-      }
-
-      .games {
-        grid-template-columns: 1fr;
-      }
-
-      .profile {
-        grid-template-columns: 1fr;
-      }
-
-      .stats {
-        grid-template-columns:
-          repeat(2, 1fr);
-      }
-    }
-
-    @media (max-width: 600px) {
-
-      nav {
-        width: 70px;
-
-        padding:
-          25px 8px;
-      }
-
-      .logo {
         font-size: 18px;
-
-        letter-spacing: 2px;
-
-        margin-bottom: 40px;
-      }
-
-      nav a {
-        font-size: 0;
-
-        text-align: center;
-
-        padding: 15px 5px;
-      }
-
-      nav a::before {
-        font-size: 20px;
-      }
-
-      nav li:nth-child(1) a::before {
-        content: "⌂";
-      }
-
-      nav li:nth-child(2) a::before {
-        content: "👤";
-      }
-
-      nav li:nth-child(3) a::before {
-        content: "🎮";
-      }
-
-      nav li:nth-child(4) a::before {
-        content: "📊";
-      }
-
-      nav li:nth-child(5) a::before {
-        content: "✉";
-      }
-
-      section {
-        margin-left: 70px;
-
-        padding:
-          80px 20px;
-      }
-
-      footer {
-        margin-left: 70px;
-      }
-
-      .hero {
-        padding:
-          80px 20px;
-      }
-
-      .hero h1 {
-        font-size: 60px;
-
-        letter-spacing: 8px;
-      }
-
-      .hero h2 {
-        font-size: 18px;
-      }
-
-      .section-title h2 {
-        font-size: 30px;
-      }
-
-      .stats {
-        grid-template-columns:
-          1fr 1fr;
-      }
-
-      .stat h3 {
-        font-size: 30px;
-      }
     }
-  </style>
+
+    .nav button {
+        font-size: 12px;
+
+        padding: 10px 8px;
+    }
+
+    .profile-row {
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    h1 {
+        font-size: 28px;
+    }
+}
+
+</style>
 </head>
+
 
 <body>
 
-  <!-- =========================
-       LEFT SIDEBAR
-  ========================= -->
 
-  <nav>
+<!-- =================================
+     LEFT SIDEBAR
+================================= -->
+
+<div class="sidebar">
 
     <div class="logo">
-      AZMI
+        AZMI<br>
+        GAMING
     </div>
 
-    <ul>
 
-      <li>
-        <a href="#home" class="active">
-          Home
-        </a>
-      </li>
+    <div class="nav">
 
-      <li>
-        <a href="#profile">
-          Profile
-        </a>
-      </li>
-
-      <li>
-        <a href="#games">
-          Games
-        </a>
-      </li>
-
-      <li>
-        <a href="#stats">
-          Stats
-        </a>
-      </li>
-
-      <li>
-        <a href="#contact">
-          Contact
-        </a>
-      </li>
-
-    </ul>
-
-  </nav>
-
-
-  <!-- =========================
-       HOME
-  ========================= -->
-
-  <section class="hero" id="home">
-
-    <div class="hero-content">
-
-      <div class="tag">
-        WELCOME TO MY WORLD
-      </div>
-
-      <h1>
-        AZMI
-      </h1>
-
-      <h2>
-        GAMER • PLAYER • LEGEND
-      </h2>
-
-      <p>
-        Welcome to my personal gaming hub.
-        Explore my favorite games, achievements,
-        gaming stats and everything that makes
-        gaming awesome.
-      </p>
-
-      <div class="buttons">
-
-        <a
-          href="#games"
-          class="btn primary"
+        <button
+            class="active"
+            onclick="showPage('home', this)"
         >
-          EXPLORE GAMES
-        </a>
+            Home
+        </button>
 
-        <a
-          href="#profile"
-          class="btn secondary"
+
+        <button
+            onclick="showPage('profile', this)"
         >
-          MY PROFILE
-        </a>
-
-      </div>
-
-    </div>
-
-  </section>
+            Profile
+        </button>
 
 
-  <!-- =========================
-       PROFILE
-  ========================= -->
+        <button
+            onclick="showPage('games', this)"
+        >
+            Games
+        </button>
 
-  <section id="profile">
 
-    <div class="section-title">
+        <button
+            onclick="showPage('stats', this)"
+        >
+            Gaming Stats
+        </button>
 
-      <h2>
-        PLAYER PROFILE
-      </h2>
 
-      <p>
-        Meet the player behind the screen.
-      </p>
+        <button
+            onclick="showPage('achievements', this)"
+        >
+            Achievements
+        </button>
 
-    </div>
 
-    <div class="profile">
-
-      <div class="avatar">
-        <span>A</span>
-      </div>
-
-      <div class="profile-info">
-
-        <h3>
-          AZMI
-        </h3>
-
-        <p>
-          I'm AZMI — a passionate gamer who
-          loves competition, exploration and
-          discovering new worlds through games.
-          This is my personal gaming space.
-        </p>
-
-        <span class="status">
-          ● ONLINE
-        </span>
-
-      </div>
+        <button
+            onclick="showPage('contact', this)"
+        >
+            Contact
+        </button>
 
     </div>
 
-  </section>
+</div>
 
 
-  <!-- =========================
-       GAMES
-  ========================= -->
 
-  <section id="games">
+<!-- =================================
+     MAIN CONTENT
+================================= -->
 
-    <div class="section-title">
+<div class="main">
 
-      <h2>
-        MY GAMES
-      </h2>
 
-      <p>
-        Games currently in my rotation.
-      </p>
+<!-- =================================
+     HOME
+================================= -->
 
-    </div>
+<div
+    id="home"
+    class="page active"
+>
 
-    <div class="games">
+    <h1>
+        Home
+    </h1>
 
-      <div class="game-card">
+    <p>
+        Welcome to AZMI Gaming.
+    </p>
 
-        <div class="game-icon">
-          ⚽
+
+    <div class="hero-box">
+
+        <div class="big-azmi">
+            AZMI
         </div>
-
-        <h3>
-          EA SPORTS FC
-        </h3>
-
-        <p>
-          Football, competition and intense
-          matches.
-        </p>
-
-        <div class="level">
-          LEVEL 99
-        </div>
-
-      </div>
-
-
-      <div class="game-card">
-
-        <div class="game-icon">
-          🎯
-        </div>
-
-        <h3>
-          CALL OF DUTY
-        </h3>
-
-        <p>
-          Fast-paced action and multiplayer
-          battles.
-        </p>
-
-        <div class="level">
-          RANK: ELITE
-        </div>
-
-      </div>
-
-
-      <div class="game-card">
-
-        <div class="game-icon">
-          🏎️
-        </div>
-
-        <h3>
-          RACING
-        </h3>
-
-        <p>
-          Speed, competition and racing to
-          the finish line.
-        </p>
-
-        <div class="level">
-          TOP SPEED
-        </div>
-
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- =========================
-       STATS
-  ========================= -->
-
-  <section id="stats">
-
-    <div class="section-title">
-
-      <h2>
-        GAMING STATS
-      </h2>
-
-      <p>
-        My gaming statistics.
-      </p>
-
-    </div>
-
-    <div class="stats">
-
-      <div class="stat">
-
-        <h3>
-          247
-        </h3>
-
-        <p>
-          Games Played
-        </p>
-
-      </div>
-
-
-      <div class="stat">
-
-        <h3>
-          89%
-        </h3>
-
-        <p>
-          Win Rate
-        </p>
-
-      </div>
-
-
-      <div class="stat">
-
-        <h3>
-          56
-        </h3>
-
-        <p>
-          Achievements
-        </p>
-
-      </div>
-
-
-      <div class="stat">
-
-        <h3>
-          420H
-        </h3>
-
-        <p>
-          Play Time
-        </p>
-
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- =========================
-       ACHIEVEMENTS
-  ========================= -->
-
-  <section>
-
-    <div class="section-title">
-
-      <h2>
-        ACHIEVEMENTS
-      </h2>
-
-      <p>
-        Some of my biggest gaming milestones.
-      </p>
-
-    </div>
-
-    <div class="achievements">
-
-      <div class="achievement">
-
-        <div class="trophy">
-          🏆
-        </div>
-
-        <div>
-
-          <h3>
-            Champion
-          </h3>
-
-          <p>
-            Won a major tournament.
-          </p>
-
-        </div>
-
-      </div>
-
-
-      <div class="achievement">
-
-        <div class="trophy">
-          ⚡
-        </div>
-
-        <div>
-
-          <h3>
-            Speed Demon
-          </h3>
-
-          <p>
-            Completed a challenge at record speed.
-          </p>
-
-        </div>
-
-      </div>
-
-
-      <div class="achievement">
-
-        <div class="trophy">
-          🔥
-        </div>
-
-        <div>
-
-          <h3>
-            Unstoppable
-          </h3>
-
-          <p>
-            Reached an impressive winning streak.
-          </p>
-
-        </div>
-
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- =========================
-       CONTACT
-  ========================= -->
-
-  <section id="contact">
-
-    <div class="contact">
-
-      <div class="section-title">
 
         <h2>
-          CONNECT WITH AZMI
+            GAMER • PLAYER • LEGEND
         </h2>
 
         <p>
-          Find me around the gaming world.
+            Welcome to my personal gaming website.
+            Check out my games, gaming statistics,
+            achievements and profile.
         </p>
 
-      </div>
-
-      <p>
-        Want to play together?
-        Find me on my social platforms.
-      </p>
-
-      <div class="socials">
-
-        <a
-          href="#"
-          class="social"
-        >
-          Discord
-        </a>
-
-        <a
-          href="#"
-          class="social"
-        >
-          YouTube
-        </a>
-
-        <a
-          href="#"
-          class="social"
-        >
-          Instagram
-        </a>
-
-        <a
-          href="#"
-          class="social"
-        >
-          TikTok
-        </a>
-
-      </div>
+        <p>
+            Ready to enter the game?
+        </p>
 
     </div>
 
-  </section>
+</div>
 
 
-  <!-- =========================
-       FOOTER
-  ========================= -->
 
-  <footer>
+<!-- =================================
+     PROFILE
+================================= -->
 
-    © 2026
-    <span>AZMI</span>
-    — All Rights Reserved.
+<div
+    id="profile"
+    class="page"
+>
 
-  </footer>
+    <h1>
+        Profile
+    </h1>
 
-
-  <!-- =========================
-       JAVASCRIPT
-  ========================= -->
-
-  <script>
-
-    /* WELCOME MESSAGE */
-
-    console.log(
-      "Welcome to AZMI Gaming!"
-    );
+    <p>
+        Get to know the player behind the screen.
+    </p>
 
 
-    /* SMOOTH SCROLL */
+    <div class="profile-box">
+
+        <div class="profile-row">
+
+            <div class="profile-avatar">
+                A
+            </div>
+
+
+            <div>
+
+                <h2>
+                    AZMI
+                </h2>
+
+                <p>
+                    A passionate gamer who loves
+                    competition, football, action
+                    and exploring new games.
+                </p>
+
+                <span class="online">
+                    ● ONLINE
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =================================
+     GAMES
+================================= -->
+
+<div
+    id="games"
+    class="page"
+>
+
+    <h1>
+        Games
+    </h1>
+
+    <p>
+        My favorite games and current rotation.
+    </p>
+
+
+    <div class="game-grid">
+
+
+        <div class="game-card">
+
+            <div class="game-icon">
+                ⚽
+            </div>
+
+            <h3>
+                EA SPORTS FC
+            </h3>
+
+            <p>
+                Football, competition and
+                intense matches.
+            </p>
+
+            <div class="game-status">
+                PLAYING
+            </div>
+
+        </div>
+
+
+
+        <div class="game-card">
+
+            <div class="game-icon">
+                🎯
+            </div>
+
+            <h3>
+                CALL OF DUTY
+            </h3>
+
+            <p>
+                Fast-paced multiplayer
+                action.
+            </p>
+
+            <div class="game-status">
+                PLAYING
+            </div>
+
+        </div>
+
+
+
+        <div class="game-card">
+
+            <div class="game-icon">
+                🏎️
+            </div>
+
+            <h3>
+                RACING
+            </h3>
+
+            <p>
+                Speed, cars and competition.
+            </p>
+
+            <div class="game-status">
+                PLAYING
+            </div>
+
+        </div>
+
+
+
+        <div class="game-card">
+
+            <div class="game-icon">
+                🎮
+            </div>
+
+            <h3>
+                MORE GAMES
+            </h3>
+
+            <p>
+                More games coming soon.
+            </p>
+
+            <div class="game-status">
+                COMING SOON
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =================================
+     STATS
+================================= -->
+
+<div
+    id="stats"
+    class="page"
+>
+
+    <h1>
+        Gaming Stats
+    </h1>
+
+    <p>
+        AZMI's gaming statistics.
+    </p>
+
+
+    <div class="stats-grid">
+
+
+        <div class="stat-box">
+
+            <span class="stat-number">
+                247
+            </span>
+
+            <span class="stat-name">
+                Games Played
+            </span>
+
+        </div>
+
+
+
+        <div class="stat-box">
+
+            <span class="stat-number">
+                89%
+            </span>
+
+            <span class="stat-name">
+                Win Rate
+            </span>
+
+        </div>
+
+
+
+        <div class="stat-box">
+
+            <span class="stat-number">
+                56
+            </span>
+
+            <span class="stat-name">
+                Achievements
+            </span>
+
+        </div>
+
+
+
+        <div class="stat-box">
+
+            <span class="stat-number">
+                420H
+            </span>
+
+            <span class="stat-name">
+                Play Time
+            </span>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =================================
+     ACHIEVEMENTS
+================================= -->
+
+<div
+    id="achievements"
+    class="page"
+>
+
+    <h1>
+        Achievements
+    </h1>
+
+    <p>
+        Some of AZMI's gaming milestones.
+    </p>
+
+
+    <div class="achievement-list">
+
+
+        <div class="achievement">
+
+            <div class="achievement-icon">
+                🏆
+            </div>
+
+            <div>
+
+                <div class="achievement-title">
+                    Champion
+                </div>
+
+                <div class="achievement-description">
+                    Won a major tournament.
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="achievement">
+
+            <div class="achievement-icon">
+                ⚡
+            </div>
+
+            <div>
+
+                <div class="achievement-title">
+                    Speed Demon
+                </div>
+
+                <div class="achievement-description">
+                    Completed a challenge
+                    at record speed.
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="achievement">
+
+            <div class="achievement-icon">
+                🔥
+            </div>
+
+            <div>
+
+                <div class="achievement-title">
+                    Unstoppable
+                </div>
+
+                <div class="achievement-description">
+                    Reached an impressive
+                    winning streak.
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="achievement">
+
+            <div class="achievement-icon">
+                💎
+            </div>
+
+            <div>
+
+                <div class="achievement-title">
+                    Legendary
+                </div>
+
+                <div class="achievement-description">
+                    Reached legendary status.
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =================================
+     CONTACT
+================================= -->
+
+<div
+    id="contact"
+    class="page"
+>
+
+    <h1>
+        Contact
+    </h1>
+
+    <p>
+        Connect with AZMI.
+    </p>
+
+
+    <div class="contact-box">
+
+        <h2>
+            Let's Play
+        </h2>
+
+        <p>
+            Want to play together?
+            Find me on my gaming platforms.
+        </p>
+
+
+        <a
+            href="#"
+            class="social-button"
+        >
+            Discord
+        </a>
+
+
+        <a
+            href="#"
+            class="social-button"
+        >
+            YouTube
+        </a>
+
+
+        <a
+            href="#"
+            class="social-button"
+        >
+            Instagram
+        </a>
+
+
+        <a
+            href="#"
+            class="social-button"
+        >
+            TikTok
+        </a>
+
+    </div>
+
+</div>
+
+
+</div>
+
+
+
+<!-- =================================
+     JAVASCRIPT
+================================= -->
+
+<script>
+
+function showPage(pageId, button) {
+
+    /*
+       Hide every page
+    */
+
+    const pages =
+        document.querySelectorAll(".page");
+
+    pages.forEach(function(page) {
+
+        page.classList.remove("active");
+
+    });
+
+
+    /*
+       Show selected page
+    */
 
     document
-      .querySelectorAll(
-        "a[href^='#']"
-      )
-      .forEach(link => {
-
-        link.addEventListener(
-          "click",
-          function(event) {
-
-            const target =
-              document.querySelector(
-                this.getAttribute("href")
-              );
-
-            if (target) {
-
-              event.preventDefault();
-
-              target.scrollIntoView({
-                behavior: "smooth"
-              });
-
-            }
-
-          }
-        );
-
-      });
+        .getElementById(pageId)
+        .classList.add("active");
 
 
-    /* ACTIVE SIDEBAR LINK */
+    /*
+       Remove active state
+       from every sidebar button
+    */
 
-    const sections =
-      document.querySelectorAll(
-        "section"
-      );
+    const buttons =
+        document.querySelectorAll(".nav button");
 
-    const links =
-      document.querySelectorAll(
-        "nav a"
-      );
+    buttons.forEach(function(btn) {
 
-    window.addEventListener(
-      "scroll",
-      () => {
+        btn.classList.remove("active");
 
-        let current = "";
+    });
 
-        sections.forEach(section => {
 
-          const sectionTop =
-            section.offsetTop - 200;
+    /*
+       Make clicked button active
+    */
 
-          if (
-            window.scrollY >= sectionTop
-          ) {
-            current =
-              section.getAttribute("id");
-          }
+    button.classList.add("active");
 
-        });
+}
 
-        links.forEach(link => {
+</script>
 
-          link.classList.remove(
-            "active"
-          );
-
-          if (
-            link.getAttribute("href")
-            === "#" + current
-          ) {
-
-            link.classList.add(
-              "active"
-            );
-
-          }
-
-        });
-
-      }
-    );
-
-  </script>
 
 </body>
 </html>
