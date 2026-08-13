@@ -8,9 +8,9 @@
 
 <style>
 
-/* =====================================
+/* =========================================
    GLOBAL
-===================================== */
+========================================= */
 
 * {
     margin: 0;
@@ -21,6 +21,7 @@
 html {
     width: 100%;
     min-height: 100%;
+    scroll-behavior: smooth;
 }
 
 body {
@@ -36,9 +37,101 @@ body {
 }
 
 
-/* =====================================
+/* =========================================
+   ANIMATED BACKGROUND
+========================================= */
+
+body::before {
+    content: "";
+
+    position: fixed;
+
+    width: 500px;
+    height: 500px;
+
+    top: -200px;
+    left: 20%;
+
+    background: #00d9ff;
+
+    opacity: 0.04;
+
+    filter: blur(120px);
+
+    border-radius: 50%;
+
+    pointer-events: none;
+
+    animation: backgroundMove 8s ease-in-out infinite alternate;
+
+    z-index: -1;
+}
+
+
+body::after {
+    content: "";
+
+    position: fixed;
+
+    width: 400px;
+    height: 400px;
+
+    right: -150px;
+    bottom: -100px;
+
+    background: #8a2be2;
+
+    opacity: 0.04;
+
+    filter: blur(120px);
+
+    border-radius: 50%;
+
+    pointer-events: none;
+
+    animation: backgroundMove2 10s ease-in-out infinite alternate;
+
+    z-index: -1;
+}
+
+
+@keyframes backgroundMove {
+
+    0% {
+        transform: translate(0, 0);
+    }
+
+    50% {
+        transform: translate(150px, 100px);
+    }
+
+    100% {
+        transform: translate(300px, 0);
+    }
+
+}
+
+
+@keyframes backgroundMove2 {
+
+    0% {
+        transform: translate(0, 0);
+    }
+
+    50% {
+        transform: translate(-100px, -80px);
+    }
+
+    100% {
+        transform: translate(0, -150px);
+    }
+
+}
+
+
+/* =========================================
    SIDEBAR
-===================================== */
+========================================= */
 
 .sidebar {
 
@@ -52,15 +145,34 @@ body {
 
     padding: clamp(18px, 2vw, 30px);
 
-    background: #090909;
+    background: rgba(9, 9, 9, 0.96);
 
     border-right: 2px solid #181818;
 
     z-index: 1000;
+
+    animation: sidebarEnter 0.8s ease-out;
 }
 
 
-/* LOGO */
+@keyframes sidebarEnter {
+
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+
+}
+
+
+/* =========================================
+   LOGO
+========================================= */
 
 .logo {
 
@@ -74,11 +186,30 @@ body {
 
     color: white;
 
-    word-break: break-word;
+    animation:
+        logoGlow 2s ease-in-out infinite alternate;
 }
 
 
-/* NAVIGATION */
+@keyframes logoGlow {
+
+    from {
+        text-shadow:
+            0 0 2px rgba(101,223,255,0.2);
+    }
+
+    to {
+        text-shadow:
+            0 0 8px #65dfff,
+            0 0 20px rgba(101,223,255,0.4);
+    }
+
+}
+
+
+/* =========================================
+   NAVIGATION
+========================================= */
 
 .nav {
 
@@ -112,9 +243,55 @@ body {
 
     cursor: pointer;
 
-    transition: 0.2s;
+    transition:
+        transform 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease,
+        background 0.25s ease;
 
-    white-space: normal;
+    animation: navEnter 0.6s ease backwards;
+}
+
+
+/* Stagger sidebar buttons */
+
+.nav button:nth-child(1) {
+    animation-delay: 0.2s;
+}
+
+.nav button:nth-child(2) {
+    animation-delay: 0.3s;
+}
+
+.nav button:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+.nav button:nth-child(4) {
+    animation-delay: 0.5s;
+}
+
+.nav button:nth-child(5) {
+    animation-delay: 0.6s;
+}
+
+.nav button:nth-child(6) {
+    animation-delay: 0.7s;
+}
+
+
+@keyframes navEnter {
+
+    from {
+        transform: translateX(-30px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+
 }
 
 
@@ -122,8 +299,24 @@ body {
 
     border-color: #65dfff;
 
+    color: #65dfff;
+
+    transform:
+        translateX(7px)
+        scale(1.02);
+
     box-shadow:
-        0 0 8px rgba(101,223,255,0.5);
+        0 0 8px rgba(101,223,255,0.5),
+        0 0 20px rgba(101,223,255,0.15);
+}
+
+
+.nav button:active {
+
+    transform:
+        translateX(7px)
+        scale(0.96);
+
 }
 
 
@@ -136,65 +329,96 @@ body {
         inset 0 0 8px rgba(101,223,255,0.12);
 
     background: #111;
+
+    animation: activePulse 2s infinite;
 }
 
 
-/* =====================================
-   MAIN AREA
-===================================== */
+@keyframes activePulse {
+
+    0% {
+        box-shadow:
+            0 0 5px rgba(101,223,255,0.4);
+    }
+
+    50% {
+        box-shadow:
+            0 0 15px rgba(101,223,255,0.8);
+    }
+
+    100% {
+        box-shadow:
+            0 0 5px rgba(101,223,255,0.4);
+    }
+
+}
+
+
+/* =========================================
+   MAIN
+========================================= */
 
 .main {
 
     margin-left: clamp(160px, 12vw, 230px);
 
-    width: calc(100% - clamp(160px, 12vw, 230px));
+    width:
+        calc(
+            100% -
+            clamp(160px, 12vw, 230px)
+        );
 
     min-height: 100vh;
 
     padding:
         clamp(20px, 3vw, 45px)
         clamp(18px, 3vw, 50px);
-
 }
 
 
-/* =====================================
-   PAGES
-===================================== */
+/* =========================================
+   PAGE ANIMATION
+========================================= */
 
 .page {
 
     display: none;
 
     width: 100%;
-
-    animation: fadeIn 0.25s ease;
 }
 
 
 .page.active {
+
     display: block;
+
+    animation:
+        pageEnter 0.45s ease-out;
 }
 
 
-@keyframes fadeIn {
+@keyframes pageEnter {
 
     from {
         opacity: 0;
-        transform: translateY(5px);
+        transform:
+            translateY(20px)
+            scale(0.98);
     }
 
     to {
         opacity: 1;
-        transform: translateY(0);
+        transform:
+            translateY(0)
+            scale(1);
     }
 
 }
 
 
-/* =====================================
+/* =========================================
    HEADINGS
-===================================== */
+========================================= */
 
 h1 {
 
@@ -204,6 +428,24 @@ h1 {
     margin-bottom: 5px;
 
     color: white;
+
+    animation:
+        headingEnter 0.5s ease-out;
+}
+
+
+@keyframes headingEnter {
+
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
 }
 
 
@@ -242,9 +484,9 @@ p {
 }
 
 
-/* =====================================
+/* =========================================
    HOME
-===================================== */
+========================================= */
 
 .hero-box {
 
@@ -252,16 +494,92 @@ p {
 
     max-width: 1000px;
 
-    margin-top: clamp(20px, 4vh, 40px);
+    margin-top:
+        clamp(20px, 4vh, 40px);
 
     padding:
         clamp(20px, 3vw, 40px);
 
-    background: #0c0c0c;
+    background:
+        linear-gradient(
+            145deg,
+            #0c0c0c,
+            #111111
+        );
 
     border: 2px solid #292929;
+
+    position: relative;
+
+    overflow: hidden;
+
+    animation:
+        heroEnter 0.7s ease-out;
 }
 
+
+@keyframes heroEnter {
+
+    from {
+        opacity: 0;
+        transform:
+            translateY(30px)
+            scale(0.97);
+    }
+
+    to {
+        opacity: 1;
+        transform:
+            translateY(0)
+            scale(1);
+    }
+
+}
+
+
+/* Moving line */
+
+.hero-box::before {
+
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: -100%;
+
+    width: 100%;
+    height: 2px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            #65dfff,
+            transparent
+        );
+
+    animation:
+        scanLine 4s linear infinite;
+}
+
+
+@keyframes scanLine {
+
+    0% {
+        left: -100%;
+    }
+
+    100% {
+        left: 100%;
+    }
+
+}
+
+
+/* =========================================
+   BIG AZMI
+========================================= */
 
 .big-azmi {
 
@@ -281,13 +599,36 @@ p {
         0 0 8px #65dfff,
         0 0 20px rgba(101,223,255,0.5);
 
-    overflow-wrap: break-word;
+    animation:
+        azmiPulse 2.5s ease-in-out infinite alternate;
 }
 
 
-/* =====================================
+@keyframes azmiPulse {
+
+    from {
+
+        text-shadow:
+            0 0 5px #65dfff,
+            0 0 15px rgba(101,223,255,0.3);
+
+    }
+
+    to {
+
+        text-shadow:
+            0 0 10px #65dfff,
+            0 0 30px #65dfff,
+            0 0 50px rgba(101,223,255,0.3);
+
+    }
+
+}
+
+
+/* =========================================
    GAME GRID
-===================================== */
+========================================= */
 
 .game-grid {
 
@@ -302,7 +643,8 @@ p {
             )
         );
 
-    gap: clamp(12px, 1.5vw, 20px);
+    gap:
+        clamp(12px, 1.5vw, 20px);
 
     width: 100%;
 
@@ -312,6 +654,10 @@ p {
 }
 
 
+/* =========================================
+   GAME CARDS
+========================================= */
+
 .game-card {
 
     min-height: 190px;
@@ -319,13 +665,91 @@ p {
     padding:
         clamp(16px, 2vw, 25px);
 
-    background: #0c0c0c;
+    background:
+        linear-gradient(
+            145deg,
+            #0c0c0c,
+            #131313
+        );
 
     border: 2px solid #333;
 
-    transition: 0.2s;
+    transition:
+        transform 0.35s ease,
+        border-color 0.35s ease,
+        box-shadow 0.35s ease;
 
     min-width: 0;
+
+    position: relative;
+
+    overflow: hidden;
+
+    animation:
+        cardEnter 0.6s ease backwards;
+}
+
+
+/* Stagger cards */
+
+.game-card:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.game-card:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.game-card:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.game-card:nth-child(4) {
+    animation-delay: 0.4s;
+}
+
+
+@keyframes cardEnter {
+
+    from {
+        opacity: 0;
+        transform:
+            translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform:
+            translateY(0);
+    }
+
+}
+
+
+/* Card glow */
+
+.game-card::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 100px;
+    height: 100px;
+
+    right: -50px;
+    top: -50px;
+
+    background: #65dfff;
+
+    border-radius: 50%;
+
+    filter: blur(40px);
+
+    opacity: 0.05;
+
+    transition:
+        0.4s;
 }
 
 
@@ -334,9 +758,21 @@ p {
     border-color: #65dfff;
 
     box-shadow:
-        0 0 12px rgba(101,223,255,0.35);
+        0 0 12px rgba(101,223,255,0.35),
+        0 10px 30px rgba(0,0,0,0.4);
 
-    transform: translateY(-3px);
+    transform:
+        translateY(-8px)
+        scale(1.02);
+}
+
+
+.game-card:hover::after {
+
+    opacity: 0.2;
+
+    transform:
+        scale(2);
 }
 
 
@@ -346,6 +782,19 @@ p {
         clamp(32px, 4vw, 50px);
 
     margin-bottom: 12px;
+
+    display: inline-block;
+
+    transition:
+        transform 0.3s ease;
+}
+
+
+.game-card:hover .game-icon {
+
+    transform:
+        scale(1.2)
+        rotate(-5deg);
 }
 
 
@@ -373,9 +822,9 @@ p {
 }
 
 
-/* =====================================
+/* =========================================
    PROFILE
-===================================== */
+========================================= */
 
 .profile-box {
 
@@ -391,6 +840,9 @@ p {
     background: #0c0c0c;
 
     border: 2px solid #333;
+
+    animation:
+        cardEnter 0.6s ease-out;
 }
 
 
@@ -434,6 +886,23 @@ p {
     font-weight: bold;
 
     color: #65dfff;
+
+    animation:
+        avatarFloat 3s ease-in-out infinite;
+}
+
+
+@keyframes avatarFloat {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+
 }
 
 
@@ -450,12 +919,31 @@ p {
     color: #00ff88;
 
     font-size: 12px;
+
+    animation:
+        onlinePulse 1.5s infinite;
 }
 
 
-/* =====================================
+@keyframes onlinePulse {
+
+    0%,
+    100% {
+        box-shadow:
+            0 0 0 rgba(0,255,136,0);
+    }
+
+    50% {
+        box-shadow:
+            0 0 12px rgba(0,255,136,0.5);
+    }
+
+}
+
+
+/* =========================================
    STATS
-===================================== */
+========================================= */
 
 .stats-grid {
 
@@ -470,7 +958,8 @@ p {
             )
         );
 
-    gap: clamp(10px, 1.5vw, 20px);
+    gap:
+        clamp(10px, 1.5vw, 20px);
 
     width: 100%;
 
@@ -492,7 +981,47 @@ p {
 
     text-align: center;
 
-    transition: 0.2s;
+    transition:
+        transform 0.3s ease,
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
+
+    animation:
+        statEnter 0.6s ease backwards;
+}
+
+
+.stat-box:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.stat-box:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.stat-box:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.stat-box:nth-child(4) {
+    animation-delay: 0.4s;
+}
+
+
+@keyframes statEnter {
+
+    from {
+        opacity: 0;
+        transform:
+            scale(0.7);
+    }
+
+    to {
+        opacity: 1;
+        transform:
+            scale(1);
+    }
+
 }
 
 
@@ -501,7 +1030,10 @@ p {
     border-color: #65dfff;
 
     box-shadow:
-        0 0 10px rgba(101,223,255,0.2);
+        0 0 20px rgba(101,223,255,0.2);
+
+    transform:
+        translateY(-7px);
 }
 
 
@@ -517,6 +1049,24 @@ p {
     color: #65dfff;
 
     margin-bottom: 8px;
+
+    animation:
+        numberGlow 2s infinite alternate;
+}
+
+
+@keyframes numberGlow {
+
+    from {
+        text-shadow:
+            0 0 2px #65dfff;
+    }
+
+    to {
+        text-shadow:
+            0 0 12px #65dfff;
+    }
+
 }
 
 
@@ -529,9 +1079,9 @@ p {
 }
 
 
-/* =====================================
+/* =========================================
    ACHIEVEMENTS
-===================================== */
+========================================= */
 
 .achievement-list {
 
@@ -560,7 +1110,47 @@ p {
 
     border: 2px solid #333;
 
-    transition: 0.2s;
+    transition:
+        transform 0.3s ease,
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
+
+    animation:
+        achievementEnter 0.6s ease backwards;
+}
+
+
+.achievement:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.achievement:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.achievement:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.achievement:nth-child(4) {
+    animation-delay: 0.4s;
+}
+
+
+@keyframes achievementEnter {
+
+    from {
+        opacity: 0;
+        transform:
+            translateX(-30px);
+    }
+
+    to {
+        opacity: 1;
+        transform:
+            translateX(0);
+    }
+
 }
 
 
@@ -569,7 +1159,10 @@ p {
     border-color: #65dfff;
 
     box-shadow:
-        0 0 10px rgba(101,223,255,0.2);
+        0 0 15px rgba(101,223,255,0.2);
+
+    transform:
+        translateX(8px);
 }
 
 
@@ -579,6 +1172,17 @@ p {
         clamp(25px, 3vw, 38px);
 
     flex-shrink: 0;
+
+    transition:
+        transform 0.3s ease;
+}
+
+
+.achievement:hover .achievement-icon {
+
+    transform:
+        scale(1.2)
+        rotate(10deg);
 }
 
 
@@ -602,9 +1206,9 @@ p {
 }
 
 
-/* =====================================
+/* =========================================
    CONTACT
-===================================== */
+========================================= */
 
 .contact-box {
 
@@ -620,6 +1224,9 @@ p {
     background: #0c0c0c;
 
     border: 2px solid #333;
+
+    animation:
+        cardEnter 0.6s ease-out;
 }
 
 
@@ -644,7 +1251,11 @@ p {
     font-size:
         clamp(12px, 0.9vw, 15px);
 
-    transition: 0.2s;
+    transition:
+        transform 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease,
+        color 0.25s ease;
 }
 
 
@@ -655,35 +1266,41 @@ p {
     color: #65dfff;
 
     box-shadow:
-        0 0 8px rgba(101,223,255,0.5);
+        0 0 12px rgba(101,223,255,0.5);
+
+    transform:
+        translateY(-4px);
 }
 
 
-/* =====================================
+.social-button:active {
+
+    transform:
+        scale(0.94);
+}
+
+
+/* =========================================
    LARGE SCREENS
-===================================== */
+========================================= */
 
 @media (min-width: 1600px) {
 
     .main {
-
         padding-left: 5vw;
         padding-right: 5vw;
-
     }
 
     .game-grid {
-
         max-width: 1400px;
-
     }
 
 }
 
 
-/* =====================================
+/* =========================================
    TABLETS
-===================================== */
+========================================= */
 
 @media (max-width: 800px) {
 
@@ -692,7 +1309,6 @@ p {
         width: 150px;
 
         padding: 20px 12px;
-
     }
 
 
@@ -700,25 +1316,25 @@ p {
 
         margin-left: 150px;
 
-        width: calc(100% - 150px);
+        width:
+            calc(100% - 150px);
 
-        padding: 25px 18px;
-
+        padding:
+            25px 18px;
     }
 
 
     .profile-row {
 
         align-items: flex-start;
-
     }
 
 }
 
 
-/* =====================================
+/* =========================================
    SMALL PHONES
-===================================== */
+========================================= */
 
 @media (max-width: 550px) {
 
@@ -726,8 +1342,8 @@ p {
 
         width: 115px;
 
-        padding: 18px 8px;
-
+        padding:
+            18px 8px;
     }
 
 
@@ -735,10 +1351,11 @@ p {
 
         margin-left: 115px;
 
-        width: calc(100% - 115px);
+        width:
+            calc(100% - 115px);
 
-        padding: 20px 12px;
-
+        padding:
+            20px 12px;
     }
 
 
@@ -747,14 +1364,12 @@ p {
         font-size: 16px;
 
         margin-bottom: 25px;
-
     }
 
 
     .nav {
 
         gap: 6px;
-
     }
 
 
@@ -762,8 +1377,8 @@ p {
 
         font-size: 10px;
 
-        padding: 9px 7px;
-
+        padding:
+            9px 7px;
     }
 
 
@@ -772,7 +1387,6 @@ p {
         flex-direction: column;
 
         align-items: flex-start;
-
     }
 
 
@@ -781,22 +1395,20 @@ p {
         width: 80px;
 
         height: 80px;
-
     }
 
 }
 
 
-/* =====================================
+/* =========================================
    VERY SMALL PHONES
-===================================== */
+========================================= */
 
 @media (max-width: 380px) {
 
     .sidebar {
 
         width: 90px;
-
     }
 
 
@@ -804,17 +1416,17 @@ p {
 
         margin-left: 90px;
 
-        width: calc(100% - 90px);
+        width:
+            calc(100% - 90px);
 
-        padding: 15px 10px;
-
+        padding:
+            15px 10px;
     }
 
 
     .logo {
 
         font-size: 13px;
-
     }
 
 
@@ -822,8 +1434,8 @@ p {
 
         font-size: 9px;
 
-        padding: 8px 5px;
-
+        padding:
+            8px 5px;
     }
 
 
@@ -832,7 +1444,6 @@ p {
         font-size: 40px;
 
         letter-spacing: 3px;
-
     }
 
 }
@@ -844,9 +1455,9 @@ p {
 <body>
 
 
-<!-- =====================================
+<!-- =========================================
      SIDEBAR
-===================================== -->
+========================================= -->
 
 <div class="sidebar">
 
@@ -906,9 +1517,9 @@ p {
 
 
 
-<!-- =====================================
+<!-- =========================================
      MAIN
-===================================== -->
+========================================= -->
 
 <div class="main">
 
@@ -1245,8 +1856,8 @@ p {
                 </div>
 
                 <div class="achievement-description">
-                    Completed a challenge at
-                    record speed.
+                    Completed a challenge
+                    at record speed.
                 </div>
 
             </div>
@@ -1370,15 +1981,15 @@ p {
 
 
 
-<!-- =====================================
+<!-- =========================================
      JAVASCRIPT
-===================================== -->
+========================================= -->
 
 <script>
 
 function showPage(pageId, button) {
 
-    /* Hide all pages */
+    /* Hide pages */
 
     const pages =
         document.querySelectorAll(".page");
@@ -1398,7 +2009,7 @@ function showPage(pageId, button) {
     selectedPage.classList.add("active");
 
 
-    /* Remove active buttons */
+    /* Reset buttons */
 
     const buttons =
         document.querySelectorAll(".nav button");
@@ -1417,32 +2028,30 @@ function showPage(pageId, button) {
 }
 
 
-/* =====================================
-   AUTOMATIC SCREEN RESIZE
-===================================== */
-
-/*
-   The CSS handles the actual resizing.
-
-   This JavaScript also updates the browser
-   title depending on the current screen size.
-*/
+/* =========================================
+   SCREEN SIZE
+========================================= */
 
 function checkScreenSize() {
 
-    const width = window.innerWidth;
+    const width =
+        window.innerWidth;
 
     if (width <= 550) {
 
         document.title =
             "AZMI Gaming | Mobile";
 
-    } else if (width <= 1000) {
+    }
+
+    else if (width <= 1000) {
 
         document.title =
             "AZMI Gaming | Tablet";
 
-    } else {
+    }
+
+    else {
 
         document.title =
             "AZMI Gaming | Desktop";
@@ -1459,6 +2068,33 @@ window.addEventListener(
 
 
 checkScreenSize();
+
+
+/* =========================================
+   CLICK RIPPLE EFFECT
+========================================= */
+
+document
+.querySelectorAll(".nav button, .social-button")
+.forEach(function(button) {
+
+    button.addEventListener(
+        "click",
+        function() {
+
+            this.style.transform =
+                "scale(0.94)";
+
+            setTimeout(() => {
+
+                this.style.transform = "";
+
+            }, 120);
+
+        }
+    );
+
+});
 
 </script>
 
