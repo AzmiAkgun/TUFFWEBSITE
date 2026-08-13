@@ -8,9 +8,9 @@
 
 <style>
 
-/* ================================
-   BASIC SETTINGS
-================================ */
+/* =====================================
+   GLOBAL
+===================================== */
 
 * {
     margin: 0;
@@ -18,37 +18,43 @@
     box-sizing: border-box;
 }
 
-html,
-body {
+html {
     width: 100%;
     min-height: 100%;
 }
 
 body {
+    width: 100%;
+    min-height: 100vh;
+
     background: #101010;
     color: white;
+
     font-family: "Trebuchet MS", Arial, sans-serif;
+
+    overflow-x: hidden;
 }
 
 
-/* ================================
+/* =====================================
    SIDEBAR
-================================ */
+===================================== */
 
 .sidebar {
+
     position: fixed;
 
     left: 0;
     top: 0;
 
-    width: 190px;
+    width: clamp(160px, 12vw, 230px);
     height: 100vh;
+
+    padding: clamp(18px, 2vw, 30px);
 
     background: #090909;
 
-    padding: 25px 16px;
-
-    border-right: 2px solid #111;
+    border-right: 2px solid #181818;
 
     z-index: 1000;
 }
@@ -57,38 +63,38 @@ body {
 /* LOGO */
 
 .logo {
-    font-size: 23px;
+
+    font-size: clamp(18px, 1.5vw, 25px);
 
     font-weight: bold;
 
     line-height: 1.2;
 
-    margin-bottom: 25px;
+    margin-bottom: clamp(25px, 4vh, 50px);
 
     color: white;
 
-    text-shadow:
-        0 0 5px rgba(255,255,255,0.2);
+    word-break: break-word;
 }
 
 
 /* NAVIGATION */
 
 .nav {
+
     display: flex;
 
     flex-direction: column;
 
-    gap: 10px;
+    gap: clamp(7px, 1vh, 12px);
 }
 
 
-/* NAV BUTTON */
-
 .nav button {
+
     width: 100%;
 
-    padding: 12px 12px;
+    padding: clamp(9px, 1vw, 14px);
 
     background: #101010;
 
@@ -100,150 +106,172 @@ body {
 
     font-family: inherit;
 
-    font-size: 14px;
+    font-size: clamp(11px, 0.9vw, 15px);
 
     font-weight: bold;
 
     cursor: pointer;
 
     transition: 0.2s;
+
+    white-space: normal;
 }
 
 
-/* HOVER */
-
 .nav button:hover {
-    border-color: #65dfff;
 
-    color: #ffffff;
+    border-color: #65dfff;
 
     box-shadow:
         0 0 8px rgba(101,223,255,0.5);
 }
 
 
-/* ACTIVE */
-
 .nav button.active {
+
     border-color: #65dfff;
 
     box-shadow:
         0 0 10px rgba(101,223,255,0.8),
         inset 0 0 8px rgba(101,223,255,0.12);
 
-    color: white;
-
     background: #111;
 }
 
 
-/* ================================
-   MAIN CONTENT
-================================ */
+/* =====================================
+   MAIN AREA
+===================================== */
 
 .main {
-    margin-left: 190px;
+
+    margin-left: clamp(160px, 12vw, 230px);
+
+    width: calc(100% - clamp(160px, 12vw, 230px));
 
     min-height: 100vh;
 
-    padding: 25px 20px 60px 20px;
+    padding:
+        clamp(20px, 3vw, 45px)
+        clamp(18px, 3vw, 50px);
+
 }
 
 
-/* ================================
-   PAGE
-================================ */
+/* =====================================
+   PAGES
+===================================== */
 
 .page {
+
     display: none;
+
+    width: 100%;
+
+    animation: fadeIn 0.25s ease;
 }
+
 
 .page.active {
     display: block;
 }
 
 
-/* ================================
-   HEADINGS
-================================ */
+@keyframes fadeIn {
 
-h1 {
-    font-size: 34px;
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
 
-    margin-bottom: 2px;
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 
-    color: white;
-
-    text-shadow:
-        0 0 8px rgba(255,255,255,0.15);
 }
 
+
+/* =====================================
+   HEADINGS
+===================================== */
+
+h1 {
+
+    font-size:
+        clamp(28px, 3vw, 48px);
+
+    margin-bottom: 5px;
+
+    color: white;
+}
+
+
 h2 {
-    font-size: 24px;
+
+    font-size:
+        clamp(20px, 2vw, 30px);
 
     margin-bottom: 12px;
 
     color: #65dfff;
 }
 
+
 h3 {
-    font-size: 18px;
+
+    font-size:
+        clamp(16px, 1.3vw, 21px);
 
     margin-bottom: 8px;
 }
 
 
-/* TEXT */
-
 p {
-    font-size: 16px;
 
-    line-height: 1.8;
+    font-size:
+        clamp(13px, 1vw, 17px);
 
-    margin-bottom: 18px;
+    line-height: 1.7;
+
+    margin-bottom: 16px;
 
     color: #eeeeee;
+
+    max-width: 900px;
 }
 
 
-/* ================================
+/* =====================================
    HOME
-================================ */
-
-.home-title {
-    margin-bottom: 3px;
-}
-
-.home-subtitle {
-    color: #ffffff;
-
-    margin-bottom: 20px;
-}
-
-
-/* HERO BOX */
+===================================== */
 
 .hero-box {
-    margin-top: 30px;
 
-    padding: 30px;
+    width: 100%;
 
-    max-width: 850px;
+    max-width: 1000px;
 
-    border: 2px solid #292929;
+    margin-top: clamp(20px, 4vh, 40px);
+
+    padding:
+        clamp(20px, 3vw, 40px);
 
     background: #0c0c0c;
+
+    border: 2px solid #292929;
 }
 
 
-/* AZMI BIG TEXT */
-
 .big-azmi {
-    font-size: 75px;
+
+    font-size:
+        clamp(45px, 8vw, 110px);
 
     font-weight: bold;
 
-    letter-spacing: 8px;
+    letter-spacing:
+        clamp(3px, 1vw, 10px);
 
     color: white;
 
@@ -252,41 +280,57 @@ p {
     text-shadow:
         0 0 8px #65dfff,
         0 0 20px rgba(101,223,255,0.5);
+
+    overflow-wrap: break-word;
 }
 
 
-/* ================================
-   GAME CARDS
-================================ */
+/* =====================================
+   GAME GRID
+===================================== */
 
 .game-grid {
+
     display: grid;
 
     grid-template-columns:
-        repeat(3, minmax(180px, 1fr));
+        repeat(
+            auto-fit,
+            minmax(
+                min(100%, 220px),
+                1fr
+            )
+        );
 
-    gap: 15px;
+    gap: clamp(12px, 1.5vw, 20px);
 
-    max-width: 1000px;
+    width: 100%;
+
+    max-width: 1200px;
 
     margin-top: 25px;
 }
 
 
 .game-card {
+
     min-height: 190px;
 
-    padding: 20px;
+    padding:
+        clamp(16px, 2vw, 25px);
 
     background: #0c0c0c;
 
     border: 2px solid #333;
 
     transition: 0.2s;
+
+    min-width: 0;
 }
 
 
 .game-card:hover {
+
     border-color: #65dfff;
 
     box-shadow:
@@ -297,49 +341,52 @@ p {
 
 
 .game-icon {
-    font-size: 42px;
+
+    font-size:
+        clamp(32px, 4vw, 50px);
 
     margin-bottom: 12px;
 }
 
 
-.game-card h3 {
-    color: white;
-
-    margin-bottom: 10px;
-}
-
-
 .game-card p {
-    font-size: 14px;
 
     color: #aaa;
+
+    font-size:
+        clamp(12px, 0.9vw, 15px);
 
     line-height: 1.5;
 }
 
 
 .game-status {
+
     margin-top: 12px;
 
     color: #65dfff;
 
-    font-size: 13px;
+    font-size:
+        clamp(11px, 0.8vw, 14px);
 
     font-weight: bold;
 }
 
 
-/* ================================
+/* =====================================
    PROFILE
-================================ */
+===================================== */
 
 .profile-box {
-    max-width: 850px;
+
+    width: 100%;
+
+    max-width: 1000px;
 
     margin-top: 25px;
 
-    padding: 25px;
+    padding:
+        clamp(18px, 3vw, 35px);
 
     background: #0c0c0c;
 
@@ -348,18 +395,23 @@ p {
 
 
 .profile-row {
+
     display: flex;
 
-    gap: 25px;
+    gap:
+        clamp(15px, 3vw, 35px);
 
     align-items: center;
 }
 
 
 .profile-avatar {
-    width: 120px;
 
-    height: 120px;
+    width:
+        clamp(80px, 10vw, 140px);
+
+    height:
+        clamp(80px, 10vw, 140px);
 
     display: flex;
 
@@ -376,7 +428,8 @@ p {
     box-shadow:
         0 0 15px rgba(101,223,255,0.5);
 
-    font-size: 65px;
+    font-size:
+        clamp(40px, 5vw, 70px);
 
     font-weight: bold;
 
@@ -385,11 +438,12 @@ p {
 
 
 .online {
+
     display: inline-block;
 
     padding: 5px 10px;
 
-    margin-top: 8px;
+    margin-top: 5px;
 
     border: 1px solid #00ff88;
 
@@ -399,44 +453,64 @@ p {
 }
 
 
-/* ================================
+/* =====================================
    STATS
-================================ */
+===================================== */
 
 .stats-grid {
+
     display: grid;
 
     grid-template-columns:
-        repeat(4, minmax(120px, 1fr));
+        repeat(
+            auto-fit,
+            minmax(
+                min(100%, 160px),
+                1fr
+            )
+        );
 
-    gap: 15px;
+    gap: clamp(10px, 1.5vw, 20px);
 
-    max-width: 850px;
+    width: 100%;
+
+    max-width: 1000px;
 
     margin-top: 25px;
 }
 
 
 .stat-box {
+
     background: #0c0c0c;
 
     border: 2px solid #333;
 
-    padding: 25px 15px;
+    padding:
+        clamp(18px, 2.5vw, 30px)
+        15px;
 
     text-align: center;
+
+    transition: 0.2s;
 }
 
 
 .stat-box:hover {
+
     border-color: #65dfff;
+
+    box-shadow:
+        0 0 10px rgba(101,223,255,0.2);
 }
 
 
 .stat-number {
+
     display: block;
 
-    font-size: 32px;
+    font-size:
+        clamp(25px, 3vw, 42px);
 
     font-weight: bold;
 
@@ -447,74 +521,101 @@ p {
 
 
 .stat-name {
+
     color: #aaa;
 
-    font-size: 13px;
+    font-size:
+        clamp(11px, 0.8vw, 14px);
 }
 
 
-/* ================================
+/* =====================================
    ACHIEVEMENTS
-================================ */
+===================================== */
 
 .achievement-list {
-    max-width: 850px;
+
+    width: 100%;
+
+    max-width: 1000px;
 
     margin-top: 25px;
 }
 
 
 .achievement {
+
     display: flex;
 
     align-items: center;
 
     gap: 18px;
 
-    padding: 18px;
+    padding:
+        clamp(14px, 2vw, 22px);
 
     margin-bottom: 12px;
 
     background: #0c0c0c;
 
     border: 2px solid #333;
+
+    transition: 0.2s;
 }
 
 
 .achievement:hover {
+
     border-color: #65dfff;
+
+    box-shadow:
+        0 0 10px rgba(101,223,255,0.2);
 }
 
 
 .achievement-icon {
-    font-size: 32px;
+
+    font-size:
+        clamp(25px, 3vw, 38px);
+
+    flex-shrink: 0;
 }
 
 
 .achievement-title {
+
     font-weight: bold;
 
     margin-bottom: 5px;
+
+    font-size:
+        clamp(14px, 1vw, 17px);
 }
 
 
 .achievement-description {
+
     color: #888;
 
-    font-size: 14px;
+    font-size:
+        clamp(12px, 0.9vw, 15px);
 }
 
 
-/* ================================
+/* =====================================
    CONTACT
-================================ */
+===================================== */
 
 .contact-box {
-    max-width: 700px;
+
+    width: 100%;
+
+    max-width: 800px;
 
     margin-top: 25px;
 
-    padding: 25px;
+    padding:
+        clamp(18px, 3vw, 35px);
 
     background: #0c0c0c;
 
@@ -523,11 +624,14 @@ p {
 
 
 .social-button {
+
     display: inline-block;
 
     margin: 5px;
 
-    padding: 12px 18px;
+    padding:
+        clamp(9px, 1vw, 14px)
+        clamp(12px, 1.5vw, 20px);
 
     background: #101010;
 
@@ -537,11 +641,15 @@ p {
 
     text-decoration: none;
 
+    font-size:
+        clamp(12px, 0.9vw, 15px);
+
     transition: 0.2s;
 }
 
 
 .social-button:hover {
+
     border-color: #65dfff;
 
     color: #65dfff;
@@ -551,72 +659,182 @@ p {
 }
 
 
-/* ================================
-   RESPONSIVE
-================================ */
+/* =====================================
+   LARGE SCREENS
+===================================== */
+
+@media (min-width: 1600px) {
+
+    .main {
+
+        padding-left: 5vw;
+        padding-right: 5vw;
+
+    }
+
+    .game-grid {
+
+        max-width: 1400px;
+
+    }
+
+}
+
+
+/* =====================================
+   TABLETS
+===================================== */
 
 @media (max-width: 800px) {
 
     .sidebar {
-        width: 160px;
+
+        width: 150px;
+
+        padding: 20px 12px;
+
     }
+
 
     .main {
-        margin-left: 160px;
+
+        margin-left: 150px;
+
+        width: calc(100% - 150px);
+
+        padding: 25px 18px;
+
     }
 
-    .game-grid {
-        grid-template-columns: 1fr;
+
+    .profile-row {
+
+        align-items: flex-start;
+
     }
 
-    .stats-grid {
-        grid-template-columns:
-            repeat(2, 1fr);
-    }
-
-    .big-azmi {
-        font-size: 50px;
-    }
 }
 
+
+/* =====================================
+   SMALL PHONES
+===================================== */
 
 @media (max-width: 550px) {
 
     .sidebar {
-        width: 130px;
 
-        padding: 20px 10px;
+        width: 115px;
+
+        padding: 18px 8px;
+
     }
+
 
     .main {
-        margin-left: 130px;
+
+        margin-left: 115px;
+
+        width: calc(100% - 115px);
 
         padding: 20px 12px;
+
     }
+
 
     .logo {
-        font-size: 18px;
+
+        font-size: 16px;
+
+        margin-bottom: 25px;
+
     }
+
+
+    .nav {
+
+        gap: 6px;
+
+    }
+
 
     .nav button {
-        font-size: 12px;
 
-        padding: 10px 8px;
+        font-size: 10px;
+
+        padding: 9px 7px;
+
     }
 
+
     .profile-row {
+
         flex-direction: column;
 
         align-items: flex-start;
+
     }
 
-    .stats-grid {
-        grid-template-columns: 1fr;
+
+    .profile-avatar {
+
+        width: 80px;
+
+        height: 80px;
+
     }
 
-    h1 {
-        font-size: 28px;
+}
+
+
+/* =====================================
+   VERY SMALL PHONES
+===================================== */
+
+@media (max-width: 380px) {
+
+    .sidebar {
+
+        width: 90px;
+
     }
+
+
+    .main {
+
+        margin-left: 90px;
+
+        width: calc(100% - 90px);
+
+        padding: 15px 10px;
+
+    }
+
+
+    .logo {
+
+        font-size: 13px;
+
+    }
+
+
+    .nav button {
+
+        font-size: 9px;
+
+        padding: 8px 5px;
+
+    }
+
+
+    .big-azmi {
+
+        font-size: 40px;
+
+        letter-spacing: 3px;
+
+    }
+
 }
 
 </style>
@@ -626,9 +844,9 @@ p {
 <body>
 
 
-<!-- =================================
-     LEFT SIDEBAR
-================================= -->
+<!-- =====================================
+     SIDEBAR
+===================================== -->
 
 <div class="sidebar">
 
@@ -688,16 +906,14 @@ p {
 
 
 
-<!-- =================================
-     MAIN CONTENT
-================================= -->
+<!-- =====================================
+     MAIN
+===================================== -->
 
 <div class="main">
 
 
-<!-- =================================
-     HOME
-================================= -->
+<!-- HOME -->
 
 <div
     id="home"
@@ -739,9 +955,7 @@ p {
 
 
 
-<!-- =================================
-     PROFILE
-================================= -->
+<!-- PROFILE -->
 
 <div
     id="profile"
@@ -792,9 +1006,7 @@ p {
 
 
 
-<!-- =================================
-     GAMES
-================================= -->
+<!-- GAMES -->
 
 <div
     id="games"
@@ -835,7 +1047,6 @@ p {
         </div>
 
 
-
         <div class="game-card">
 
             <div class="game-icon">
@@ -858,7 +1069,6 @@ p {
         </div>
 
 
-
         <div class="game-card">
 
             <div class="game-icon">
@@ -878,7 +1088,6 @@ p {
             </div>
 
         </div>
-
 
 
         <div class="game-card">
@@ -907,9 +1116,7 @@ p {
 
 
 
-<!-- =================================
-     STATS
-================================= -->
+<!-- STATS -->
 
 <div
     id="stats"
@@ -941,7 +1148,6 @@ p {
         </div>
 
 
-
         <div class="stat-box">
 
             <span class="stat-number">
@@ -955,7 +1161,6 @@ p {
         </div>
 
 
-
         <div class="stat-box">
 
             <span class="stat-number">
@@ -967,7 +1172,6 @@ p {
             </span>
 
         </div>
-
 
 
         <div class="stat-box">
@@ -988,9 +1192,7 @@ p {
 
 
 
-<!-- =================================
-     ACHIEVEMENTS
-================================= -->
+<!-- ACHIEVEMENTS -->
 
 <div
     id="achievements"
@@ -1030,7 +1232,6 @@ p {
         </div>
 
 
-
         <div class="achievement">
 
             <div class="achievement-icon">
@@ -1044,14 +1245,13 @@ p {
                 </div>
 
                 <div class="achievement-description">
-                    Completed a challenge
-                    at record speed.
+                    Completed a challenge at
+                    record speed.
                 </div>
 
             </div>
 
         </div>
-
 
 
         <div class="achievement">
@@ -1074,7 +1274,6 @@ p {
             </div>
 
         </div>
-
 
 
         <div class="achievement">
@@ -1103,9 +1302,7 @@ p {
 
 
 
-<!-- =================================
-     CONTACT
-================================= -->
+<!-- CONTACT -->
 
 <div
     id="contact"
@@ -1173,17 +1370,15 @@ p {
 
 
 
-<!-- =================================
+<!-- =====================================
      JAVASCRIPT
-================================= -->
+===================================== -->
 
 <script>
 
 function showPage(pageId, button) {
 
-    /*
-       Hide every page
-    */
+    /* Hide all pages */
 
     const pages =
         document.querySelectorAll(".page");
@@ -1195,19 +1390,15 @@ function showPage(pageId, button) {
     });
 
 
-    /*
-       Show selected page
-    */
+    /* Show selected page */
 
-    document
-        .getElementById(pageId)
-        .classList.add("active");
+    const selectedPage =
+        document.getElementById(pageId);
+
+    selectedPage.classList.add("active");
 
 
-    /*
-       Remove active state
-       from every sidebar button
-    */
+    /* Remove active buttons */
 
     const buttons =
         document.querySelectorAll(".nav button");
@@ -1219,16 +1410,57 @@ function showPage(pageId, button) {
     });
 
 
-    /*
-       Make clicked button active
-    */
+    /* Activate clicked button */
 
     button.classList.add("active");
 
 }
 
-</script>
 
+/* =====================================
+   AUTOMATIC SCREEN RESIZE
+===================================== */
+
+/*
+   The CSS handles the actual resizing.
+
+   This JavaScript also updates the browser
+   title depending on the current screen size.
+*/
+
+function checkScreenSize() {
+
+    const width = window.innerWidth;
+
+    if (width <= 550) {
+
+        document.title =
+            "AZMI Gaming | Mobile";
+
+    } else if (width <= 1000) {
+
+        document.title =
+            "AZMI Gaming | Tablet";
+
+    } else {
+
+        document.title =
+            "AZMI Gaming | Desktop";
+
+    }
+
+}
+
+
+window.addEventListener(
+    "resize",
+    checkScreenSize
+);
+
+
+checkScreenSize();
+
+</script>
 
 </body>
 </html>
