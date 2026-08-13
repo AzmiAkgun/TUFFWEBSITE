@@ -6,2099 +6,943 @@
 <title>AZMI Gaming</title>
 
 <style>
-
-/* =========================================================
-   RESET
-========================================================= */
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+:root{
+    --bg:#070b10;
+    --panel:#0c1219;
+    --panel2:#101821;
+    --border:#1d2a35;
+    --text:#e8f0f5;
+    --muted:#82909b;
+    --accent:#39d9ff;
+    --accent2:#178db0;
+    --success:#36e39a;
+    --danger:#ff5577;
+    --shadow:0 10px 35px rgba(0,0,0,.35);
 }
 
-html {
-    scroll-behavior: smooth;
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
-body {
-    min-height: 100vh;
-    overflow-x: hidden;
-
-    background: #070707;
-    color: white;
-
-    font-family:
-        "Trebuchet MS",
-        Arial,
-        sans-serif;
+html{
+    scroll-behavior:smooth;
 }
 
+body{
+    min-height:100vh;
+    background:
+        radial-gradient(circle at 75% 10%,rgba(57,217,255,.08),transparent 30%),
+        radial-gradient(circle at 15% 90%,rgba(20,80,130,.08),transparent 30%),
+        var(--bg);
+    color:var(--text);
+    font-family:Arial,Helvetica,sans-serif;
+    overflow-x:hidden;
+}
 
-/* =========================================================
-   ANIMATED BACKGROUND
-========================================================= */
+/* GRID BACKGROUND */
 
-body {
-    background-color: #070707;
-
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    opacity:.18;
     background-image:
-        linear-gradient(
-            rgba(7,7,7,.94),
-            rgba(7,7,7,.94)
-        ),
-        linear-gradient(
-            90deg,
-            rgba(101,223,255,.04) 1px,
-            transparent 1px
-        ),
-        linear-gradient(
-            rgba(101,223,255,.04) 1px,
-            transparent 1px
-        );
-
-    background-size:
-        auto,
-        45px 45px,
-        45px 45px;
-
-    animation:
-        gridMove 12s linear infinite;
+        linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+    background-size:35px 35px;
+    mask-image:linear-gradient(to bottom,black,transparent);
 }
 
-@keyframes gridMove {
-    from {
-        background-position:
-            0 0,
-            0 0,
-            0 0;
-    }
+/* TOP BAR */
 
-    to {
-        background-position:
-            0 0,
-            45px 45px,
-            45px 45px;
+.topbar{
+    height:68px;
+    position:fixed;
+    left:0;
+    right:0;
+    top:0;
+    z-index:1000;
+    display:flex;
+    align-items:center;
+    gap:25px;
+    padding:0 25px;
+    background:rgba(7,11,16,.92);
+    backdrop-filter:blur(15px);
+    border-bottom:1px solid var(--border);
+}
+
+.brand{
+    min-width:210px;
+    font-size:20px;
+    font-weight:800;
+    letter-spacing:2px;
+}
+
+.brand span{
+    color:var(--accent);
+}
+
+.search{
+    flex:1;
+    max-width:700px;
+    position:relative;
+}
+
+.search input{
+    width:100%;
+    padding:12px 45px 12px 16px;
+    background:#0b1117;
+    border:1px solid var(--border);
+    border-radius:7px;
+    outline:none;
+    color:white;
+    transition:.25s;
+}
+
+.search input:focus{
+    border-color:var(--accent);
+    box-shadow:0 0 18px rgba(57,217,255,.12);
+}
+
+.search-icon{
+    position:absolute;
+    right:15px;
+    top:50%;
+    transform:translateY(-50%);
+    color:var(--muted);
+}
+
+.status{
+    margin-left:auto;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-size:12px;
+    color:var(--muted);
+}
+
+.status-dot{
+    width:8px;
+    height:8px;
+    background:var(--success);
+    border-radius:50%;
+    box-shadow:0 0 12px var(--success);
+    animation:pulse 1.5s infinite;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+    position:fixed;
+    top:68px;
+    left:0;
+    bottom:0;
+    width:235px;
+    background:#090e14;
+    border-right:1px solid var(--border);
+    padding:22px 14px;
+    z-index:900;
+}
+
+.sidebar-title{
+    color:var(--muted);
+    font-size:11px;
+    letter-spacing:2px;
+    margin:0 10px 12px;
+    text-transform:uppercase;
+}
+
+.nav{
+    display:flex;
+    flex-direction:column;
+    gap:5px;
+}
+
+.nav button{
+    width:100%;
+    border:1px solid transparent;
+    background:transparent;
+    color:#aab6be;
+    text-align:left;
+    padding:12px;
+    border-radius:6px;
+    cursor:pointer;
+    font-size:14px;
+    transition:.2s;
+}
+
+.nav button:hover{
+    color:white;
+    background:#101820;
+    border-color:#1d303d;
+    transform:translateX(3px);
+}
+
+.nav button.active{
+    color:var(--accent);
+    background:rgba(57,217,255,.07);
+    border-color:rgba(57,217,255,.25);
+}
+
+.nav .number{
+    float:right;
+    color:#52616c;
+    font-size:11px;
+}
+
+/* MAIN */
+
+main{
+    margin-left:235px;
+    padding:95px 35px 50px;
+    max-width:1450px;
+}
+
+/* PAGE */
+
+.page{
+    display:none;
+    animation:pageIn .35s ease;
+}
+
+.page.active{
+    display:block;
+}
+
+@keyframes pageIn{
+    from{
+        opacity:0;
+        transform:translateY(12px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
     }
 }
 
+/* TITLES */
 
-/* =========================================================
-   BACKGROUND GLOW
-========================================================= */
-
-body::before {
-
-    content: "";
-
-    position: fixed;
-
-    width: 600px;
-    height: 600px;
-
-    top: -300px;
-    left: 15%;
-
-    border-radius: 50%;
-
-    background: #00d9ff;
-
-    opacity: .045;
-
-    filter: blur(130px);
-
-    pointer-events: none;
-
-    z-index: -2;
-
-    animation:
-        backgroundGlow 10s ease-in-out infinite alternate;
+.page-header{
+    margin-bottom:25px;
 }
 
-@keyframes backgroundGlow {
-
-    0% {
-        transform:
-            translate(0,0)
-            scale(1);
-    }
-
-    50% {
-        transform:
-            translate(180px,120px)
-            scale(1.3);
-    }
-
-    100% {
-        transform:
-            translate(350px,-50px)
-            scale(1);
-    }
+.page-header h1{
+    font-size:30px;
+    margin-bottom:7px;
 }
 
-.background-glow {
-
-    position: fixed;
-
-    width: 450px;
-    height: 450px;
-
-    right: -200px;
-    bottom: -150px;
-
-    border-radius: 50%;
-
-    background: #8a2be2;
-
-    opacity: .05;
-
-    filter: blur(120px);
-
-    pointer-events: none;
-
-    z-index: -1;
-
-    animation:
-        purpleMove 10s ease-in-out infinite alternate;
+.page-header p{
+    color:var(--muted);
+    font-size:14px;
 }
 
-@keyframes purpleMove {
+/* HERO */
 
-    from {
-        transform:
-            translate(0,0);
-    }
-
-    to {
-        transform:
-            translate(-200px,-150px);
-    }
-}
-
-
-/* =========================================================
-   SCREEN SCANNER
-========================================================= */
-
-body::after {
-
-    content: "";
-
-    position: fixed;
-
-    top: -5%;
-    left: 0;
-
-    width: 100%;
-    height: 3px;
-
+.hero{
+    position:relative;
+    overflow:hidden;
+    padding:38px;
+    border:1px solid var(--border);
     background:
-        linear-gradient(
-            90deg,
-            transparent,
-            #65dfff,
-            transparent
-        );
-
-    box-shadow:
-        0 0 15px #65dfff;
-
-    opacity: .25;
-
-    z-index: 9999;
-
-    pointer-events: none;
-
-    animation:
-        screenScan 7s linear infinite;
+        linear-gradient(135deg,
+            rgba(57,217,255,.07),
+            transparent 55%),
+        var(--panel);
+    border-radius:9px;
+    box-shadow:var(--shadow);
 }
 
-@keyframes screenScan {
-
-    from {
-        top: -5%;
-    }
-
-    to {
-        top: 105%;
-    }
+.hero::after{
+    content:"AZMI";
+    position:absolute;
+    right:-20px;
+    bottom:-50px;
+    font-size:150px;
+    font-weight:900;
+    color:rgba(57,217,255,.025);
+    pointer-events:none;
 }
 
-
-/* =========================================================
-   SIDEBAR
-========================================================= */
-
-.sidebar {
-
-    position: fixed;
-
-    left: 0;
-    top: 0;
-
-    width:
-        clamp(
-            160px,
-            13vw,
-            235px
-        );
-
-    height: 100vh;
-
-    padding:
-        clamp(
-            18px,
-            2vw,
-            30px
-        );
-
-    background:
-        rgba(7,7,7,.96);
-
-    border-right:
-        2px solid #1c1c1c;
-
-    z-index: 1000;
-
-    animation:
-        sidebarEnter .8s ease-out;
+.hero-label{
+    color:var(--accent);
+    font-size:12px;
+    letter-spacing:3px;
+    margin-bottom:15px;
 }
 
-@keyframes sidebarEnter {
-
-    from {
-        transform:
-            translateX(-100%);
-
-        opacity: 0;
-    }
-
-    to {
-        transform:
-            translateX(0);
-
-        opacity: 1;
-    }
+.hero h2{
+    font-size:42px;
+    margin-bottom:12px;
 }
 
-
-/* Sidebar scanner */
-
-.sidebar::after {
-
-    content: "";
-
-    position: absolute;
-
-    width: 2px;
-    height: 80px;
-
-    right: -2px;
-    top: 5%;
-
-    background: #65dfff;
-
-    box-shadow:
-        0 0 10px #65dfff,
-        0 0 25px #65dfff;
-
-    animation:
-        sidebarScanner 4s ease-in-out infinite;
+.hero p{
+    color:var(--muted);
+    max-width:650px;
+    line-height:1.7;
 }
 
-@keyframes sidebarScanner {
-
-    0% {
-        top: 5%;
-    }
-
-    50% {
-        top: 90%;
-    }
-
-    100% {
-        top: 5%;
-    }
+.button-row{
+    display:flex;
+    gap:10px;
+    margin-top:22px;
+    flex-wrap:wrap;
 }
 
-
-/* =========================================================
-   LOGO
-========================================================= */
-
-.logo {
-
-    font-size:
-        clamp(
-            18px,
-            1.5vw,
-            26px
-        );
-
-    font-weight: bold;
-
-    line-height: 1.1;
-
-    margin-bottom:
-        clamp(
-            25px,
-            4vh,
-            50px
-        );
-
-    text-shadow:
-        0 0 5px #65dfff;
-
-    animation:
-        logoGlow 2s ease-in-out infinite alternate;
+.btn{
+    border:1px solid var(--border);
+    background:#111a22;
+    color:white;
+    padding:11px 17px;
+    border-radius:6px;
+    cursor:pointer;
+    transition:.2s;
 }
 
-@keyframes logoGlow {
-
-    from {
-        text-shadow:
-            0 0 3px #65dfff;
-    }
-
-    to {
-        text-shadow:
-            0 0 12px #65dfff,
-            0 0 25px rgba(101,223,255,.5);
-    }
+.btn:hover{
+    border-color:var(--accent);
+    color:var(--accent);
+    transform:translateY(-2px);
 }
 
+/* STATS */
 
-/* =========================================================
-   NAVIGATION
-========================================================= */
-
-.nav {
-
-    display: flex;
-
-    flex-direction: column;
-
-    gap:
-        clamp(
-            7px,
-            1vh,
-            12px
-        );
+.stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:14px;
+    margin-top:20px;
 }
 
-.nav button {
-
-    position: relative;
-
-    width: 100%;
-
-    padding:
-        clamp(
-            9px,
-            1vw,
-            14px
-        );
-
-    background: #101010;
-
-    border:
-        2px solid #363636;
-
-    color: white;
-
-    font-family: inherit;
-
-    font-size:
-        clamp(
-            11px,
-            .9vw,
-            15px
-        );
-
-    font-weight: bold;
-
-    text-align: left;
-
-    cursor: pointer;
-
-    overflow: hidden;
-
-    transition:
-        .25s ease;
+.stat{
+    background:var(--panel);
+    border:1px solid var(--border);
+    padding:20px;
+    border-radius:8px;
+    transition:.25s;
 }
 
-.nav button:hover {
-
-    border-color: #65dfff;
-
-    color: #65dfff;
-
-    transform:
-        translateX(7px)
-        scale(1.02);
-
-    box-shadow:
-        0 0 12px rgba(101,223,255,.5);
-
-    animation:
-        navGlitch .25s linear;
+.stat:hover{
+    border-color:#31505e;
+    transform:translateY(-3px);
 }
 
-@keyframes navGlitch {
-
-    0% {
-        transform:
-            translateX(0);
-    }
-
-    25% {
-        transform:
-            translateX(4px);
-    }
-
-    50% {
-        transform:
-            translateX(-2px);
-    }
-
-    75% {
-        transform:
-            translateX(5px);
-    }
-
-    100% {
-        transform:
-            translateX(7px);
-    }
+.stat .value{
+    font-size:26px;
+    font-weight:bold;
+    color:var(--accent);
+    margin-bottom:5px;
 }
 
-.nav button:active {
-
-    transform:
-        translateX(7px)
-        scale(.94);
+.stat .label{
+    color:var(--muted);
+    font-size:12px;
 }
 
+/* SECTION */
 
-/* Active */
-
-.nav button.active {
-
-    border-color: #65dfff;
-
-    box-shadow:
-        0 0 12px rgba(101,223,255,.5),
-        inset 0 0 10px rgba(101,223,255,.08);
-
-    animation:
-        activePulse 2s ease-in-out infinite;
+.section{
+    margin-top:35px;
 }
 
-@keyframes activePulse {
-
-    0%,
-    100% {
-        box-shadow:
-            0 0 5px rgba(101,223,255,.4);
-    }
-
-    50% {
-        box-shadow:
-            0 0 20px rgba(101,223,255,.8);
-    }
+.section-title{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:15px;
 }
 
-.nav button.active::after {
-
-    content: "";
-
-    position: absolute;
-
-    right: 0;
-    top: 0;
-
-    width: 4px;
-    height: 100%;
-
-    background: #65dfff;
-
-    box-shadow:
-        0 0 10px #65dfff,
-        0 0 20px #65dfff;
+.section-title h2{
+    font-size:20px;
 }
 
+/* CARDS */
 
-/* =========================================================
-   MAIN
-========================================================= */
-
-.main {
-
-    margin-left:
-        clamp(
-            160px,
-            13vw,
-            235px
-        );
-
-    width:
-        calc(
-            100% -
-            clamp(
-                160px,
-                13vw,
-                235px
-            )
-        );
-
-    min-height: 100vh;
-
-    padding:
-        clamp(
-            20px,
-            3vw,
-            50px
-        );
-}
-
-
-/* =========================================================
-   PAGES
-========================================================= */
-
-.page {
-    display: none;
-}
-
-.page.active {
-
-    display: block;
-
-    animation:
-        pageEnter .5s ease-out;
-}
-
-@keyframes pageEnter {
-
-    from {
-        opacity: 0;
-
-        transform:
-            translateY(25px)
-            scale(.98);
-
-        filter:
-            brightness(1.5);
-    }
-
-    to {
-        opacity: 1;
-
-        transform:
-            translateY(0)
-            scale(1);
-
-        filter:
-            brightness(1);
-    }
-}
-
-@keyframes pageExit {
-
-    from {
-        opacity: 1;
-        transform:
-            translateY(0);
-    }
-
-    to {
-        opacity: 0;
-        transform:
-            translateY(-20px);
-    }
-}
-
-
-/* =========================================================
-   HEADINGS
-========================================================= */
-
-h1 {
-
-    font-size:
-        clamp(
-            28px,
-            3vw,
-            50px
-        );
-
-    margin-bottom: 5px;
-
-    animation:
-        headingEnter .6s ease-out;
-}
-
-@keyframes headingEnter {
-
-    from {
-        opacity: 0;
-        transform:
-            translateX(-25px);
-    }
-
-    to {
-        opacity: 1;
-        transform:
-            translateX(0);
-    }
-}
-
-h2 {
-
-    color: #65dfff;
-
-    font-size:
-        clamp(
-            19px,
-            2vw,
-            30px
-        );
-
-    margin-bottom: 12px;
-}
-
-h3 {
-
-    font-size:
-        clamp(
-            16px,
-            1.3vw,
-            21px
-        );
-
-    margin-bottom: 8px;
-}
-
-p {
-
-    color: #eee;
-
-    max-width: 900px;
-
-    font-size:
-        clamp(
-            13px,
-            1vw,
-            17px
-        );
-
-    line-height: 1.7;
-
-    margin-bottom: 16px;
-}
-
-
-/* =========================================================
-   HERO
-========================================================= */
-
-.hero-box {
-
-    position: relative;
-
-    width: 100%;
-    max-width: 1100px;
-
-    margin-top:
-        clamp(
-            20px,
-            4vh,
-            40px
-        );
-
-    padding:
-        clamp(
-            20px,
-            3vw,
-            45px
-        );
-
-    overflow: hidden;
-
-    border:
-        2px solid transparent;
-
-    background:
-        linear-gradient(
-            #0c0c0c,
-            #0c0c0c
-        ) padding-box,
-
-        linear-gradient(
-            90deg,
-            #333,
-            #65dfff,
-            #333,
-            #9b5cff,
-            #333
-        ) border-box;
-
-    background-size:
-        100% 100%,
-        300% 100%;
-
-    animation:
-        heroEnter .7s ease-out,
-        borderFlow 5s linear infinite;
-}
-
-@keyframes heroEnter {
-
-    from {
-        opacity: 0;
-
-        transform:
-            translateY(35px)
-            scale(.96);
-    }
-
-    to {
-        opacity: 1;
-
-        transform:
-            translateY(0)
-            scale(1);
-    }
-}
-
-@keyframes borderFlow {
-
-    from {
-        background-position:
-            0 0,
-            0% 50%;
-    }
-
-    to {
-        background-position:
-            0 0,
-            300% 50%;
-    }
-}
-
-
-/* Hero scanning line */
-
-.hero-box::before {
-
-    content: "";
-
-    position: absolute;
-
-    top: 0;
-    left: -100%;
-
-    width: 100%;
-    height: 2px;
-
-    background:
-        linear-gradient(
-            90deg,
-            transparent,
-            #65dfff,
-            transparent
-        );
-
-    box-shadow:
-        0 0 10px #65dfff;
-
-    animation:
-        heroScan 4s linear infinite;
-}
-
-@keyframes heroScan {
-
-    from {
-        left: -100%;
-    }
-
-    to {
-        left: 100%;
-    }
-}
-
-
-/* Rotating ring */
-
-.hero-box::after {
-
-    content: "";
-
-    position: absolute;
-
-    width: 260px;
-    height: 260px;
-
-    right: -100px;
-    bottom: -130px;
-
-    border-radius: 50%;
-
-    border:
-        1px solid rgba(101,223,255,.25);
-
-    box-shadow:
-        0 0 20px rgba(101,223,255,.15),
-        inset 0 0 20px rgba(101,223,255,.1);
-
-    animation:
-        heroRing 8s linear infinite;
-}
-
-@keyframes heroRing {
-
-    from {
-        transform:
-            rotate(0)
-            scale(1);
-    }
-
-    50% {
-        transform:
-            rotate(180deg)
-            scale(1.2);
-    }
-
-    to {
-        transform:
-            rotate(360deg)
-            scale(1);
-    }
-}
-
-
-/* =========================================================
-   AZMI
-========================================================= */
-
-.big-azmi {
-
-    position: relative;
-
-    font-size:
-        clamp(
-            48px,
-            9vw,
-            120px
-        );
-
-    font-weight: bold;
-
-    letter-spacing:
-        clamp(
-            3px,
-            1vw,
-            12px
-        );
-
-    text-shadow:
-        0 0 8px #65dfff,
-        0 0 25px rgba(101,223,255,.5);
-
-    animation:
-        azmiPulse 2.5s ease-in-out infinite alternate,
-        megaGlitch 6s infinite;
-}
-
-@keyframes azmiPulse {
-
-    from {
-        text-shadow:
-            0 0 5px #65dfff,
-            0 0 15px rgba(101,223,255,.3);
-    }
-
-    to {
-        text-shadow:
-            0 0 12px #65dfff,
-            0 0 30px #65dfff,
-            0 0 55px rgba(101,223,255,.3);
-    }
-}
-
-@keyframes megaGlitch {
-
-    0%,
-    90%,
-    100% {
-        transform:
-            translate(0);
-        filter: none;
-    }
-
-    91% {
-        transform:
-            translate(-5px,0);
-
-        filter:
-            drop-shadow(5px 0 #ff00ff);
-    }
-
-    92% {
-        transform:
-            translate(5px,0);
-
-        filter:
-            drop-shadow(-5px 0 #00ffff);
-    }
-
-    93% {
-        transform:
-            translate(-2px,1px);
-    }
-
-    94% {
-        transform:
-            translate(0);
-
-        filter: none;
-    }
-}
-
-
-/* =========================================================
-   HERO HUD
-========================================================= */
-
-.hero-box h2::before {
-
-    content:
-        "◈  ◇  ◈";
-
-    display: block;
-
-    font-size: 12px;
-
-    letter-spacing: 10px;
-
-    color: #65dfff;
-
-    opacity: .45;
-
-    margin-bottom: 10px;
-
-    animation:
-        hudBlink 2s infinite;
-}
-
-@keyframes hudBlink {
-
-    0%,
-    100% {
-        opacity: .2;
-    }
-
-    50% {
-        opacity: 1;
-    }
-}
-
-
-/* =========================================================
-   GAME GRID
-========================================================= */
-
-.game-grid {
-
-    display: grid;
-
+.card-grid{
+    display:grid;
     grid-template-columns:
-        repeat(
-            auto-fit,
-            minmax(
-                min(100%,220px),
-                1fr
-            )
-        );
-
-    gap:
-        clamp(
-            12px,
-            1.5vw,
-            22px
-        );
-
-    max-width: 1250px;
-
-    margin-top: 25px;
+        repeat(auto-fit,minmax(230px,1fr));
+    gap:14px;
 }
 
+.card{
+    position:relative;
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:8px;
+    padding:20px;
+    transition:.25s;
+    overflow:hidden;
+}
 
-/* =========================================================
-   GAME CARDS
-========================================================= */
+.card::before{
+    content:"";
+    position:absolute;
+    left:0;
+    top:0;
+    width:3px;
+    height:0;
+    background:var(--accent);
+    transition:.3s;
+}
 
-.game-card {
+.card:hover{
+    transform:translateY(-5px);
+    border-color:#2b4654;
+    box-shadow:0 12px 35px rgba(0,0,0,.3);
+}
 
-    position: relative;
+.card:hover::before{
+    height:100%;
+}
 
-    min-height: 200px;
+.card-icon{
+    width:45px;
+    height:45px;
+    display:grid;
+    place-items:center;
+    border-radius:8px;
+    background:#111c25;
+    font-size:22px;
+    margin-bottom:15px;
+}
 
-    padding:
-        clamp(
-            16px,
-            2vw,
-            26px
-        );
+.card h3{
+    margin-bottom:8px;
+}
 
+.card p{
+    color:var(--muted);
+    font-size:13px;
+    line-height:1.6;
+}
+
+/* GAME DATABASE */
+
+.game-toolbar{
+    display:flex;
+    gap:8px;
+    margin-bottom:18px;
+    flex-wrap:wrap;
+}
+
+.filter{
+    padding:9px 14px;
+    border:1px solid var(--border);
+    background:var(--panel);
+    color:#aeb9c0;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+.filter.active,
+.filter:hover{
+    color:var(--accent);
+    border-color:var(--accent2);
+}
+
+.game-card{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.game-cover{
+    width:65px;
+    height:65px;
+    flex-shrink:0;
+    display:grid;
+    place-items:center;
     background:
-        linear-gradient(
-            145deg,
-            #0c0c0c,
-            #151515
-        );
-
-    border:
-        2px solid #333;
-
-    overflow: hidden;
-
-    transform-style:
-        preserve-3d;
-
-    transition:
-        border-color .3s,
-        box-shadow .3s;
+        linear-gradient(135deg,#162630,#0c1319);
+    border:1px solid #29404c;
+    border-radius:8px;
+    font-size:27px;
 }
 
-.game-card:nth-child(1) {
-    animation:
-        cardFloat 4s ease-in-out infinite;
+.game-info{
+    flex:1;
 }
 
-.game-card:nth-child(2) {
-    animation:
-        cardFloat 4.5s ease-in-out .4s infinite;
+.game-info h3{
+    margin-bottom:5px;
 }
 
-.game-card:nth-child(3) {
-    animation:
-        cardFloat 5s ease-in-out .8s infinite;
+.game-info span{
+    font-size:12px;
+    color:var(--muted);
 }
 
-.game-card:nth-child(4) {
-    animation:
-        cardFloat 4.2s ease-in-out 1.2s infinite;
+.tag{
+    display:inline-block;
+    margin-top:9px;
+    padding:4px 8px;
+    border-radius:4px;
+    font-size:10px;
+    background:rgba(57,217,255,.08);
+    color:var(--accent);
+    border:1px solid rgba(57,217,255,.2);
 }
 
-@keyframes cardFloat {
-
-    0%,
-    100% {
-        transform:
-            translateY(0);
-    }
-
-    50% {
-        transform:
-            translateY(-7px);
-    }
+.play{
+    border:1px solid var(--border);
+    background:#101920;
+    color:white;
+    padding:8px 12px;
+    border-radius:5px;
+    cursor:pointer;
 }
 
-
-/* Card shine */
-
-.game-card::before {
-
-    content: "";
-
-    position: absolute;
-
-    top: 0;
-    left: -120%;
-
-    width: 70%;
-    height: 100%;
-
-    background:
-        linear-gradient(
-            90deg,
-            transparent,
-            rgba(101,223,255,.08),
-            transparent
-        );
-
-    transform:
-        skewX(-20deg);
-
-    animation:
-        cardShine 5s infinite;
+.play:hover{
+    border-color:var(--accent);
+    color:var(--accent);
 }
 
-@keyframes cardShine {
+/* ACHIEVEMENTS */
 
-    0% {
-        left: -120%;
-    }
-
-    30% {
-        left: 140%;
-    }
-
-    100% {
-        left: 140%;
-    }
+.achievement{
+    display:flex;
+    align-items:center;
+    gap:15px;
 }
 
-.game-card:hover {
-
-    border-color: #65dfff;
-
-    box-shadow:
-        0 0 20px rgba(101,223,255,.4),
-        0 15px 35px rgba(0,0,0,.5);
-
-    animation-play-state:
-        paused;
+.achievement-icon{
+    width:48px;
+    height:48px;
+    display:grid;
+    place-items:center;
+    background:#121a21;
+    border:1px solid var(--border);
+    border-radius:7px;
+    font-size:22px;
 }
 
-
-/* =========================================================
-   GAME CONTENT 3D
-========================================================= */
-
-.game-icon {
-
-    display: inline-block;
-
-    font-size:
-        clamp(
-            34px,
-            4vw,
-            52px
-        );
-
-    margin-bottom: 12px;
-
-    transform:
-        translateZ(25px);
-
-    transition:
-        .3s;
+.progress{
+    height:5px;
+    background:#182129;
+    border-radius:10px;
+    margin-top:12px;
+    overflow:hidden;
 }
 
-.game-card:hover .game-icon {
-
-    transform:
-        translateZ(40px)
-        scale(1.25)
-        rotate(8deg);
-
-    filter:
-        drop-shadow(
-            0 0 10px #65dfff
-        );
+.progress span{
+    display:block;
+    height:100%;
+    background:var(--accent);
+    border-radius:10px;
 }
 
-.game-card h3 {
+/* PROFILE */
 
-    transform:
-        translateZ(15px);
+.profile{
+    display:grid;
+    grid-template-columns:280px 1fr;
+    gap:18px;
 }
 
-.game-card p {
-
-    transform:
-        translateZ(10px);
+.profile-box,
+.info-box{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:8px;
+    padding:25px;
 }
 
-
-/* =========================================================
-   GAME STATUS
-========================================================= */
-
-.game-status {
-
-    color: #65dfff;
-
-    font-size:
-        clamp(
-            11px,
-            .8vw,
-            14px
-        );
-
-    font-weight: bold;
-
-    animation:
-        statusPulse 2s ease-in-out infinite;
+.avatar{
+    width:110px;
+    height:110px;
+    margin:auto auto 18px;
+    display:grid;
+    place-items:center;
+    border-radius:50%;
+    border:2px solid var(--accent);
+    color:var(--accent);
+    font-size:45px;
+    font-weight:bold;
+    box-shadow:0 0 25px rgba(57,217,255,.18);
 }
 
-@keyframes statusPulse {
-
-    0%,
-    100% {
-        opacity: .55;
-    }
-
-    50% {
-        opacity: 1;
-
-        text-shadow:
-            0 0 10px #65dfff;
-    }
+.profile-box{
+    text-align:center;
 }
 
-
-/* =========================================================
-   PROFILE
-========================================================= */
-
-.profile-box {
-
-    max-width: 1000px;
-
-    margin-top: 25px;
-
-    padding:
-        clamp(
-            18px,
-            3vw,
-            35px
-        );
-
-    background: #0c0c0c;
-
-    border:
-        2px solid #333;
-
-    transition:
-        .3s;
-
-    animation:
-        cardEnter .6s ease-out;
+.profile-box p{
+    color:var(--muted);
+    font-size:13px;
+    line-height:1.6;
 }
 
-.profile-box:hover {
-
-    border-color: #65dfff;
-
-    box-shadow:
-        0 0 20px rgba(101,223,255,.2);
+.info-row{
+    display:flex;
+    justify-content:space-between;
+    padding:15px 0;
+    border-bottom:1px solid var(--border);
 }
 
-.profile-row {
-
-    display: flex;
-
-    align-items: center;
-
-    gap:
-        clamp(
-            15px,
-            3vw,
-            35px
-        );
+.info-row:last-child{
+    border-bottom:0;
 }
 
-
-/* =========================================================
-   AVATAR
-========================================================= */
-
-.profile-avatar {
-
-    position: relative;
-
-    width:
-        clamp(
-            80px,
-            10vw,
-            140px
-        );
-
-    height:
-        clamp(
-            80px,
-            10vw,
-            140px
-        );
-
-    flex-shrink: 0;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    background: #111;
-
-    border:
-        2px solid #65dfff;
-
-    color: #65dfff;
-
-    font-size:
-        clamp(
-            40px,
-            5vw,
-            70px
-        );
-
-    font-weight: bold;
-
-    box-shadow:
-        0 0 15px rgba(101,223,255,.5);
-
-    animation:
-        avatarFloat 3s ease-in-out infinite,
-        avatarGlow 2s ease-in-out infinite alternate;
+.info-row span:first-child{
+    color:var(--muted);
 }
 
-.profile-avatar::before {
+/* CONTACT */
 
-    content: "";
-
-    position: absolute;
-
-    inset: -7px;
-
-    border:
-        1px solid #65dfff;
-
-    animation:
-        energyRing 2s linear infinite;
+.contact-card{
+    max-width:700px;
+    background:var(--panel);
+    border:1px solid var(--border);
+    padding:30px;
+    border-radius:8px;
 }
 
-@keyframes avatarFloat {
-
-    0%,
-    100% {
-        transform:
-            translateY(0);
-    }
-
-    50% {
-        transform:
-            translateY(-8px);
-    }
+.contact-link{
+    display:block;
+    padding:14px;
+    margin-top:10px;
+    background:#101820;
+    border:1px solid var(--border);
+    color:white;
+    text-decoration:none;
+    border-radius:5px;
+    transition:.2s;
 }
 
-@keyframes avatarGlow {
-
-    from {
-        box-shadow:
-            0 0 8px rgba(101,223,255,.3);
-    }
-
-    to {
-        box-shadow:
-            0 0 30px rgba(101,223,255,.8);
-    }
+.contact-link:hover{
+    border-color:var(--accent);
+    color:var(--accent);
+    transform:translateX(4px);
 }
 
-@keyframes energyRing {
+/* SETTINGS */
 
-    from {
-        transform:
-            rotate(0)
-            scale(1);
-    }
-
-    50% {
-        transform:
-            rotate(180deg)
-            scale(1.08);
-    }
-
-    to {
-        transform:
-            rotate(360deg)
-            scale(1);
-    }
-}
-
-
-/* =========================================================
-   ONLINE
-========================================================= */
-
-.online {
-
-    position: relative;
-
-    display: inline-block;
-
-    padding:
-        5px 10px 5px 16px;
-
-    border:
-        1px solid #00ff88;
-
-    color: #00ff88;
-
-    font-size: 12px;
-
-    animation:
-        onlinePulse 1.5s infinite;
-}
-
-.online::before {
-
-    content: "";
-
-    position: absolute;
-
-    width: 6px;
-    height: 6px;
-
-    left: 4px;
-    top: 50%;
-
-    transform:
-        translateY(-50%);
-
-    border-radius: 50%;
-
-    background: #00ff88;
-
-    box-shadow:
-        0 0 5px #00ff88,
-        0 0 12px #00ff88;
-
-    animation:
-        onlineDot 1s infinite;
-}
-
-@keyframes onlinePulse {
-
-    50% {
-        box-shadow:
-            0 0 12px rgba(0,255,136,.5);
-    }
-}
-
-@keyframes onlineDot {
-
-    50% {
-        transform:
-            translateY(-50%)
-            scale(1.7);
-    }
-}
-
-
-/* =========================================================
-   STATS
-========================================================= */
-
-.stats-grid {
-
-    display: grid;
-
+.theme-grid{
+    display:grid;
     grid-template-columns:
-        repeat(
-            auto-fit,
-            minmax(
-                min(100%,160px),
-                1fr
-            )
-        );
-
-    gap:
-        clamp(
-            10px,
-            1.5vw,
-            20px
-        );
-
-    max-width: 1000px;
-
-    margin-top: 25px;
+        repeat(auto-fit,minmax(170px,1fr));
+    gap:12px;
 }
 
-.stat-box {
-
-    position: relative;
-
-    overflow: hidden;
-
-    padding:
-        clamp(
-            18px,
-            2.5vw,
-            30px
-        )
-        15px;
-
-    text-align: center;
-
-    background: #0c0c0c;
-
-    border:
-        2px solid #333;
-
-    animation:
-        statFloat 4s ease-in-out infinite;
-
-    transition:
-        .3s;
+.theme{
+    padding:18px;
+    border:1px solid var(--border);
+    background:var(--panel);
+    border-radius:7px;
+    cursor:pointer;
+    transition:.2s;
 }
 
-.stat-box:nth-child(2) {
-    animation-delay: .5s;
+.theme:hover{
+    border-color:var(--accent);
+    transform:translateY(-3px);
 }
 
-.stat-box:nth-child(3) {
-    animation-delay: 1s;
+.theme-color{
+    height:35px;
+    border-radius:5px;
+    margin-bottom:12px;
 }
 
-.stat-box:nth-child(4) {
-    animation-delay: 1.5s;
+.ocean{
+    background:#39d9ff;
 }
 
-@keyframes statFloat {
-
-    0%,
-    100% {
-        transform:
-            translateY(0);
-    }
-
-    50% {
-        transform:
-            translateY(-6px);
-    }
+.purple{
+    background:#a66cff;
 }
 
-.stat-box:hover {
-
-    border-color: #65dfff;
-
-    box-shadow:
-        0 0 20px rgba(101,223,255,.25);
-
-    transform:
-        translateY(-10px);
+.crimson{
+    background:#ff4f69;
 }
 
-.stat-number {
-
-    display: block;
-
-    color: #65dfff;
-
-    font-size:
-        clamp(
-            25px,
-            3vw,
-            42px
-        );
-
-    font-weight: bold;
-
-    text-shadow:
-        0 0 5px #65dfff;
-
-    animation:
-        numberGlow 2s infinite alternate;
+.gold{
+    background:#ffc857;
 }
 
-@keyframes numberGlow {
-
-    to {
-        text-shadow:
-            0 0 15px #65dfff;
-    }
+.green{
+    background:#39e58c;
 }
 
-.stat-name {
-
-    color: #999;
-
-    font-size:
-        clamp(
-            11px,
-            .8vw,
-            14px
-        );
+.pink{
+    background:#ff55cf;
 }
 
+/* COPY */
 
-/* =========================================================
-   ACHIEVEMENTS
-========================================================= */
-
-.achievement-list {
-
-    max-width: 1000px;
-
-    margin-top: 25px;
+.copy-btn{
+    margin-left:auto;
+    border:1px solid var(--border);
+    background:#101820;
+    color:#b9c4ca;
+    padding:7px 11px;
+    border-radius:5px;
+    cursor:pointer;
 }
 
-.achievement {
-
-    position: relative;
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 18px;
-
-    padding:
-        clamp(
-            14px,
-            2vw,
-            22px
-        );
-
-    margin-bottom: 12px;
-
-    background: #0c0c0c;
-
-    border:
-        2px solid #333;
-
-    overflow: hidden;
-
-    transition:
-        .35s;
+.copy-btn:hover{
+    color:var(--accent);
+    border-color:var(--accent);
 }
 
-.achievement:hover {
+/* CODE ROW */
 
-    border-color: #65dfff;
-
-    box-shadow:
-        0 0 18px rgba(101,223,255,.25);
-
-    transform:
-        translateX(8px);
+.code-row{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:15px;
+    margin-bottom:9px;
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:7px;
 }
 
-.achievement::before {
-
-    content: "";
-
-    position: absolute;
-
-    top: 0;
-    left: -120%;
-
-    width: 60%;
-    height: 100%;
-
-    background:
-        linear-gradient(
-            90deg,
-            transparent,
-            rgba(255,255,255,.08),
-            transparent
-        );
-
-    transform:
-        skewX(-20deg);
-
-    animation:
-        achievementShine 5s infinite;
+.code{
+    color:var(--accent);
+    font-family:monospace;
 }
 
-@keyframes achievementShine {
+.reward{
+    color:var(--muted);
+    font-size:12px;
+}
 
-    0% {
-        left: -120%;
-    }
+/* TOAST */
 
-    30% {
-        left: 130%;
-    }
+.toast{
+    position:fixed;
+    bottom:25px;
+    right:25px;
+    padding:12px 18px;
+    background:#101a21;
+    border:1px solid var(--accent);
+    color:var(--accent);
+    border-radius:6px;
+    opacity:0;
+    transform:translateY(20px);
+    pointer-events:none;
+    transition:.3s;
+    z-index:3000;
+}
 
-    100% {
-        left: 130%;
+.toast.show{
+    opacity:1;
+    transform:translateY(0);
+}
+
+/* ANIMATIONS */
+
+@keyframes pulse{
+    50%{
+        transform:scale(1.35);
+        opacity:.6;
     }
 }
 
-.achievement-icon {
+/* MOBILE */
 
-    flex-shrink: 0;
+@media(max-width:900px){
 
-    font-size:
-        clamp(
-            25px,
-            3vw,
-            40px
-        );
+    .topbar{
+        gap:12px;
+        padding:0 15px;
+    }
 
-    transition:
-        .4s;
-}
+    .brand{
+        min-width:auto;
+        font-size:16px;
+    }
 
-.achievement:hover .achievement-icon {
+    .status{
+        display:none;
+    }
 
-    transform:
-        scale(1.3)
-        rotate(10deg);
+    .sidebar{
+        width:190px;
+    }
 
-    filter:
-        drop-shadow(
-            0 0 10px #65dfff
-        );
-}
+    main{
+        margin-left:190px;
+    }
 
-.achievement-title {
+    .stats{
+        grid-template-columns:repeat(2,1fr);
+    }
 
-    font-weight: bold;
-
-    margin-bottom: 5px;
-}
-
-.achievement-description {
-
-    color: #888;
-
-    font-size:
-        clamp(
-            12px,
-            .9vw,
-            15px
-        );
-}
-
-
-/* =========================================================
-   CONTACT
-========================================================= */
-
-.contact-box {
-
-    max-width: 800px;
-
-    margin-top: 25px;
-
-    padding:
-        clamp(
-            18px,
-            3vw,
-            35px
-        );
-
-    background: #0c0c0c;
-
-    border:
-        2px solid #333;
-}
-
-.social-button {
-
-    position: relative;
-
-    display: inline-block;
-
-    overflow: hidden;
-
-    margin: 5px;
-
-    padding:
-        10px 18px;
-
-    background: #101010;
-
-    border:
-        2px solid #444;
-
-    color: white;
-
-    text-decoration: none;
-
-    transition:
-        .3s;
-
-    animation:
-        buttonIdle 3s infinite;
-}
-
-.social-button:hover {
-
-    color: #65dfff;
-
-    border-color: #65dfff;
-
-    box-shadow:
-        0 0 15px rgba(101,223,255,.5);
-
-    transform:
-        translateY(-5px);
-}
-
-@keyframes buttonIdle {
-
-    50% {
-        box-shadow:
-            inset 0 0 15px rgba(101,223,255,.04);
+    .profile{
+        grid-template-columns:1fr;
     }
 }
 
+@media(max-width:600px){
 
-/* =========================================================
-   FLOATING PARTICLES
-========================================================= */
-
-.page.active::after {
-
-    content: "";
-
-    position: fixed;
-
-    width: 5px;
-    height: 5px;
-
-    border-radius: 50%;
-
-    background: #65dfff;
-
-    right: 8%;
-    top: 20%;
-
-    opacity: .35;
-
-    box-shadow:
-        40px 100px 0 #65dfff,
-        -100px 200px 0 #65dfff,
-        150px 300px 0 #65dfff,
-        -200px 400px 0 #65dfff;
-
-    pointer-events: none;
-
-    animation:
-        particlesFloat 8s linear infinite;
-}
-
-@keyframes particlesFloat {
-
-    from {
-        transform:
-            translateY(100px)
-            rotate(0);
+    .topbar{
+        height:60px;
     }
 
-    to {
-        transform:
-            translateY(-500px)
-            rotate(360deg);
-    }
-}
-
-
-/* =========================================================
-   CURSOR GLOW
-========================================================= */
-
-.cursor-glow {
-
-    position: fixed;
-
-    width: 28px;
-    height: 28px;
-
-    border-radius: 50%;
-
-    background: #65dfff;
-
-    filter: blur(12px);
-
-    opacity: .35;
-
-    pointer-events: none;
-
-    z-index: 10000;
-
-    transform:
-        translate(-50%,-50%);
-}
-
-
-/* =========================================================
-   RESPONSIVE
-========================================================= */
-
-@media (min-width:1600px) {
-
-    .main {
-        padding-left: 5vw;
-        padding-right: 5vw;
+    .brand{
+        font-size:14px;
     }
 
-    .game-grid {
-        max-width: 1450px;
+    .search{
+        max-width:none;
+    }
+
+    .sidebar{
+        top:60px;
+        width:70px;
+        padding:12px 7px;
+    }
+
+    .sidebar-title{
+        display:none;
+    }
+
+    .nav button{
+        text-align:center;
+        font-size:0;
+        padding:13px 5px;
+    }
+
+    .nav button:first-letter{
+        font-size:18px;
+    }
+
+    .nav .number{
+        display:none;
+    }
+
+    main{
+        margin-left:70px;
+        padding:
+            82px 15px 30px;
+    }
+
+    .hero{
+        padding:25px 20px;
+    }
+
+    .hero h2{
+        font-size:29px;
+    }
+
+    .stats{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .game-card{
+        align-items:flex-start;
+    }
+
+    .game-cover{
+        width:50px;
+        height:50px;
+    }
+
+    .play{
+        display:none;
     }
 }
 
+@media(max-width:380px){
 
-@media (max-width:800px) {
-
-    .sidebar {
-        width: 150px;
-        padding: 20px 12px;
+    .stats{
+        grid-template-columns:1fr;
     }
 
-    .main {
-        margin-left: 150px;
-        width:
-            calc(100% - 150px);
-        padding: 25px 18px;
-    }
-}
-
-
-@media (max-width:550px) {
-
-    .sidebar {
-        width: 115px;
-        padding: 18px 8px;
+    .search input{
+        padding:10px;
     }
 
-    .main {
-        margin-left: 115px;
-        width:
-            calc(100% - 115px);
-        padding: 20px 12px;
-    }
-
-    .logo {
-        font-size: 16px;
-        margin-bottom: 25px;
-    }
-
-    .nav button {
-        font-size: 10px;
-        padding: 9px 7px;
-    }
-
-    .profile-row {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .hero-box::after {
-        width: 150px;
-        height: 150px;
-    }
-
-    .cursor-glow {
-        display: none;
-    }
-}
-
-
-@media (max-width:380px) {
-
-    .sidebar {
-        width: 90px;
-    }
-
-    .main {
-        margin-left: 90px;
-        width:
-            calc(100% - 90px);
-        padding: 15px 10px;
-    }
-
-    .logo {
-        font-size: 13px;
-    }
-
-    .nav button {
-        font-size: 9px;
-        padding: 8px 5px;
-    }
-
-    .big-azmi {
-        font-size: 40px;
-        letter-spacing: 3px;
-    }
-}
-
-
-/* =========================================================
-   REDUCED MOTION
-========================================================= */
-
-@media (prefers-reduced-motion: reduce) {
-
-    *,
-    *::before,
-    *::after {
-
-        animation-duration:
-            .01ms !important;
-
-        animation-iteration-count:
-            1 !important;
-
-        transition-duration:
-            .01ms !important;
+    .search-icon{
+        display:none;
     }
 }
 
 </style>
 </head>
 
-
 <body>
 
-<div class="background-glow"></div>
+<!-- TOP BAR -->
+
+<header class="topbar">
+
+    <div class="brand">
+        AZMI<span>YT</span>
+    </div>
+
+    <div class="search">
+        <input
+            id="searchInput"
+            type="text"
+            placeholder="Search games, achievements, stats..."
+            oninput="searchSite()"
+        >
+        <span class="search-icon">⌕</span>
+    </div>
+
+    <div class="status">
+        <span class="status-dot"></span>
+        Gaming Online
+    </div>
+
+</header>
 
 
-<!-- =====================================================
-     SIDEBAR
-===================================================== -->
+<!-- SIDEBAR -->
 
 <aside class="sidebar">
 
-    <div class="logo">
-        AZMI<br>
-        GAMING
+    <div class="sidebar-title">
+        Navigation
     </div>
 
     <nav class="nav">
 
-        <button
-            class="active"
-            onclick="showPage('home',this)"
-        >
+        <button class="active"
+            onclick="showPage('home',this)">
             🏠 Home
+            <span class="number">1</span>
         </button>
 
         <button
-            onclick="showPage('profile',this)"
-        >
-            👤 Profile
-        </button>
-
-        <button
-            onclick="showPage('games',this)"
-        >
+            onclick="showPage('games',this)">
             🎮 Games
+            <span class="number">2</span>
         </button>
 
         <button
-            onclick="showPage('stats',this)"
-        >
-            📊 Stats
-        </button>
-
-        <button
-            onclick="showPage('achievements',this)"
-        >
+            onclick="showPage('achievements',this)">
             🏆 Achievements
+            <span class="number">3</span>
         </button>
 
         <button
-            onclick="showPage('contact',this)"
-        >
-            📡 Contact
+            onclick="showPage('stats',this)">
+            📊 Stats
+            <span class="number">4</span>
+        </button>
+
+        <button
+            onclick="showPage('profile',this)">
+            👤 Profile
+            <span class="number">5</span>
+        </button>
+
+        <button
+            onclick="showPage('contact',this)">
+            💬 Contact
+            <span class="number">6</span>
+        </button>
+
+        <button
+            onclick="showPage('settings',this)">
+            ⚙️ Settings
+            <span class="number">7</span>
         </button>
 
     </nav>
@@ -2106,87 +950,136 @@ p {
 </aside>
 
 
-<!-- =====================================================
-     MAIN
-===================================================== -->
-
-<main class="main">
+<main>
 
 
 <!-- HOME -->
 
-<section
-    id="home"
-    class="page active"
->
+<section id="home" class="page active">
 
-    <h1>Home</h1>
-
-    <p>
-        Welcome to the AZMI Gaming universe.
-    </p>
+    <div class="page-header">
+        <h1>Home</h1>
+        <p>
+            Welcome to the AZMI Gaming database.
+        </p>
+    </div>
 
 
-    <div class="hero-box">
+    <div class="hero">
 
-        <div class="big-azmi">
-            AZMI
+        <div class="hero-label">
+            AZMI GAMING DATABASE
         </div>
 
         <h2>
-            GAMER • PLAYER • LEGEND
+            Welcome to AZMI.
         </h2>
 
         <p>
-            Welcome to my personal gaming website.
-            Explore my games, stats, achievements
-            and gaming profile.
+            Your personal gaming hub for keeping
+            track of games, achievements,
+            statistics and everything gaming.
         </p>
 
-        <p>
-            ENTER THE GAME.
-        </p>
+        <div class="button-row">
+
+            <button
+                class="btn"
+                onclick="showPageById('games')">
+                🎮 Browse Games
+            </button>
+
+            <button
+                class="btn"
+                onclick="showPageById('stats')">
+                📊 View Stats
+            </button>
+
+        </div>
 
     </div>
 
-</section>
+
+    <div class="stats">
+
+        <div class="stat">
+            <div class="value">12</div>
+            <div class="label">Games Listed</div>
+        </div>
+
+        <div class="stat">
+            <div class="value">89%</div>
+            <div class="label">Win Rate</div>
+        </div>
+
+        <div class="stat">
+            <div class="value">47</div>
+            <div class="label">Achievements</div>
+        </div>
+
+        <div class="stat">
+            <div class="value">420h</div>
+            <div class="label">Play Time</div>
+        </div>
+
+    </div>
 
 
-<!-- PROFILE -->
+    <div class="section">
 
-<section
-    id="profile"
-    class="page"
->
+        <div class="section-title">
+            <h2>Quick Access</h2>
+        </div>
 
-    <h1>Profile</h1>
+        <div class="card-grid">
 
-    <p>
-        Meet the player behind the screen.
-    </p>
+            <div class="card"
+                onclick="showPageById('games')">
 
+                <div class="card-icon">
+                    🎮
+                </div>
 
-    <div class="profile-box">
-
-        <div class="profile-row">
-
-            <div class="profile-avatar">
-                A
-            </div>
-
-            <div>
-
-                <h2>AZMI</h2>
+                <h3>Games</h3>
 
                 <p>
-                    A passionate gamer who loves
-                    competition, football, action
-                    and discovering new games.
+                    Browse the games currently
+                    in the AZMI collection.
                 </p>
 
-                <span class="online">
-                    ONLINE
-                </span>
+            </div>
+
+
+            <div class="card"
+                onclick="showPageById('achievements')">
+
+                <div class="card-icon">
+                    🏆
+                </div>
+
+                <h3>Achievements</h3>
+
+                <p>
+                    Track milestones and
+                    completed challenges.
+                </p>
+
+            </div>
+
+
+            <div class="card"
+                onclick="showPageById('stats')">
+
+                <div class="card-icon">
+                    📊
+                </div>
+
+                <h3>Statistics</h3>
+
+                <p>
+                    View gaming performance
+                    and activity.
+                </p>
 
             </div>
 
@@ -2199,102 +1092,282 @@ p {
 
 <!-- GAMES -->
 
-<section
-    id="games"
-    class="page"
->
+<section id="games" class="page">
 
-    <h1>Games</h1>
-
-    <p>
-        My current gaming rotation.
-    </p>
+    <div class="page-header">
+        <h1>Games</h1>
+        <p>
+            Games in the AZMI collection.
+        </p>
+    </div>
 
 
-    <div class="game-grid">
+    <div class="game-toolbar">
+
+        <button
+            class="filter active"
+            onclick="filterGames('all',this)">
+            All
+        </button>
+
+        <button
+            class="filter"
+            onclick="filterGames('football',this)">
+            Football
+        </button>
+
+        <button
+            class="filter"
+            onclick="filterGames('action',this)">
+            Action
+        </button>
+
+        <button
+            class="filter"
+            onclick="filterGames('racing',this)">
+            Racing
+        </button>
+
+    </div>
 
 
-        <div class="game-card">
+    <div id="gameGrid" class="card-grid">
 
-            <div class="game-icon">
+
+        <div class="card game-card"
+            data-category="football"
+            data-search="fc football">
+
+            <div class="game-cover">
                 ⚽
             </div>
 
-            <h3>
-                EA SPORTS FC
-            </h3>
+            <div class="game-info">
 
-            <p>
-                Football, competition and
-                intense matches.
-            </p>
+                <h3>EA SPORTS FC</h3>
 
-            <div class="game-status">
-                ● PLAYING
+                <span>
+                    Football
+                </span>
+
+                <br>
+
+                <span class="tag">
+                    ACTIVE
+                </span>
+
             </div>
+
+            <button
+                class="play"
+                onclick="notify('Game selected')">
+                Open
+            </button>
 
         </div>
 
 
-        <div class="game-card">
+        <div class="card game-card"
+            data-category="action"
+            data-search="call duty action">
 
-            <div class="game-icon">
+            <div class="game-cover">
                 🎯
             </div>
 
-            <h3>
-                CALL OF DUTY
-            </h3>
+            <div class="game-info">
 
-            <p>
-                Fast-paced multiplayer
-                action.
-            </p>
+                <h3>Action Arena</h3>
 
-            <div class="game-status">
-                ● PLAYING
+                <span>
+                    Action
+                </span>
+
+                <br>
+
+                <span class="tag">
+                    ACTIVE
+                </span>
+
             </div>
+
+            <button
+                class="play"
+                onclick="notify('Game selected')">
+                Open
+            </button>
 
         </div>
 
 
-        <div class="game-card">
+        <div class="card game-card"
+            data-category="racing"
+            data-search="racing cars speed">
 
-            <div class="game-icon">
+            <div class="game-cover">
                 🏎️
             </div>
 
-            <h3>
-                RACING
-            </h3>
+            <div class="game-info">
 
-            <p>
-                Speed, cars and competition.
-            </p>
+                <h3>Velocity</h3>
 
-            <div class="game-status">
-                ● PLAYING
+                <span>
+                    Racing
+                </span>
+
+                <br>
+
+                <span class="tag">
+                    ACTIVE
+                </span>
+
+            </div>
+
+            <button
+                class="play"
+                onclick="notify('Game selected')">
+                Open
+            </button>
+
+        </div>
+
+
+        <div class="card game-card"
+            data-category="action"
+            data-search="arcade action">
+
+            <div class="game-cover">
+                👾
+            </div>
+
+            <div class="game-info">
+
+                <h3>Neon Arena</h3>
+
+                <span>
+                    Arcade
+                </span>
+
+                <br>
+
+                <span class="tag">
+                    NEW
+                </span>
+
+            </div>
+
+            <button
+                class="play"
+                onclick="notify('Game selected')">
+                Open
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ACHIEVEMENTS -->
+
+<section id="achievements" class="page">
+
+    <div class="page-header">
+        <h1>Achievements</h1>
+        <p>
+            Gaming milestones and progress.
+        </p>
+    </div>
+
+
+    <div class="card-grid">
+
+
+        <div class="card achievement">
+
+            <div class="achievement-icon">
+                🏆
+            </div>
+
+            <div>
+                <h3>Champion</h3>
+
+                <p>
+                    Win a major tournament.
+                </p>
+
+                <div class="progress">
+                    <span style="width:100%"></span>
+                </div>
+
             </div>
 
         </div>
 
 
-        <div class="game-card">
+        <div class="card achievement">
 
-            <div class="game-icon">
-                🎮
+            <div class="achievement-icon">
+                ⚡
             </div>
 
-            <h3>
-                MORE GAMES
-            </h3>
+            <div>
+                <h3>Speed Demon</h3>
 
-            <p>
-                More games coming soon.
-            </p>
+                <p>
+                    Complete a speed challenge.
+                </p>
 
-            <div class="game-status">
-                ● COMING SOON
+                <div class="progress">
+                    <span style="width:82%"></span>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="card achievement">
+
+            <div class="achievement-icon">
+                🔥
+            </div>
+
+            <div>
+                <h3>Unstoppable</h3>
+
+                <p>
+                    Reach a huge winning streak.
+                </p>
+
+                <div class="progress">
+                    <span style="width:67%"></span>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="card achievement">
+
+            <div class="achievement-icon">
+                💎
+            </div>
+
+            <div>
+                <h3>Legend</h3>
+
+                <p>
+                    Reach legendary status.
+                </p>
+
+                <div class="progress">
+                    <span style="width:45%"></span>
+                </div>
+
             </div>
 
         </div>
@@ -2306,84 +1379,54 @@ p {
 
 <!-- STATS -->
 
-<section
-    id="stats"
-    class="page"
->
+<section id="stats" class="page">
 
-    <h1>
-        Gaming Stats
-    </h1>
-
-    <p>
-        AZMI's gaming statistics.
-    </p>
+    <div class="page-header">
+        <h1>Statistics</h1>
+        <p>
+            Detailed AZMI gaming statistics.
+        </p>
+    </div>
 
 
-    <div class="stats-grid">
+    <div class="stats">
 
-        <div class="stat-box">
-
-            <span
-                class="stat-number"
-                data-target="247"
-            >
-                0
-            </span>
-
-            <span class="stat-name">
-                Games Played
-            </span>
-
+        <div class="stat">
+            <div class="value">247</div>
+            <div class="label">Matches</div>
         </div>
 
-
-        <div class="stat-box">
-
-            <span
-                class="stat-number"
-                data-target="89"
-                data-suffix="%"
-            >
-                0
-            </span>
-
-            <span class="stat-name">
-                Win Rate
-            </span>
-
+        <div class="stat">
+            <div class="value">89%</div>
+            <div class="label">Win Rate</div>
         </div>
 
-
-        <div class="stat-box">
-
-            <span
-                class="stat-number"
-                data-target="56"
-            >
-                0
-            </span>
-
-            <span class="stat-name">
-                Achievements
-            </span>
-
+        <div class="stat">
+            <div class="value">156</div>
+            <div class="label">Wins</div>
         </div>
 
+        <div class="stat">
+            <div class="value">420h</div>
+            <div class="label">Play Time</div>
+        </div>
 
-        <div class="stat-box">
+    </div>
 
-            <span
-                class="stat-number"
-                data-target="420"
-                data-suffix="H"
-            >
-                0
-            </span>
 
-            <span class="stat-name">
-                Play Time
-            </span>
+    <div class="section">
+
+        <div class="card">
+
+            <h3>Current Rank</h3>
+
+            <p>
+                Legendary
+            </p>
+
+            <div class="progress">
+                <span style="width:78%"></span>
+            </div>
 
         </div>
 
@@ -2392,106 +1435,62 @@ p {
 </section>
 
 
-<!-- ACHIEVEMENTS -->
+<!-- PROFILE -->
 
-<section
-    id="achievements"
-    class="page"
->
+<section id="profile" class="page">
 
-    <h1>
-        Achievements
-    </h1>
-
-    <p>
-        AZMI's gaming milestones.
-    </p>
+    <div class="page-header">
+        <h1>Profile</h1>
+        <p>
+            Player information.
+        </p>
+    </div>
 
 
-    <div class="achievement-list">
+    <div class="profile">
 
+        <div class="profile-box">
 
-        <div class="achievement">
-
-            <div class="achievement-icon">
-                🏆
+            <div class="avatar">
+                A
             </div>
 
-            <div>
+            <h2>AZMI</h2>
 
-                <div class="achievement-title">
-                    CHAMPION
-                </div>
-
-                <div class="achievement-description">
-                    Won a major tournament.
-                </div>
-
-            </div>
+            <p>
+                Gamer • Creator • Player
+            </p>
 
         </div>
 
 
-        <div class="achievement">
+        <div class="info-box">
 
-            <div class="achievement-icon">
-                ⚡
+            <div class="info-row">
+                <span>Username</span>
+                <strong>AZMI</strong>
             </div>
 
-            <div>
-
-                <div class="achievement-title">
-                    SPEED DEMON
-                </div>
-
-                <div class="achievement-description">
-                    Completed a challenge
-                    at record speed.
-                </div>
-
+            <div class="info-row">
+                <span>Status</span>
+                <strong style="color:var(--success)">
+                    Online
+                </strong>
             </div>
 
-        </div>
-
-
-        <div class="achievement">
-
-            <div class="achievement-icon">
-                🔥
+            <div class="info-row">
+                <span>Games</span>
+                <strong>12</strong>
             </div>
 
-            <div>
-
-                <div class="achievement-title">
-                    UNSTOPPABLE
-                </div>
-
-                <div class="achievement-description">
-                    Reached an impressive
-                    winning streak.
-                </div>
-
+            <div class="info-row">
+                <span>Achievements</span>
+                <strong>47</strong>
             </div>
 
-        </div>
-
-
-        <div class="achievement">
-
-            <div class="achievement-icon">
-                💎
-            </div>
-
-            <div>
-
-                <div class="achievement-title">
-                    LEGENDARY
-                </div>
-
-                <div class="achievement-description">
-                    Reached legendary status.
-                </div>
-
+            <div class="info-row">
+                <span>Favourite Genre</span>
+                <strong>Sports</strong>
             </div>
 
         </div>
@@ -2503,60 +1502,41 @@ p {
 
 <!-- CONTACT -->
 
-<section
-    id="contact"
-    class="page"
->
+<section id="contact" class="page">
 
-    <h1>
-        Contact
-    </h1>
-
-    <p>
-        Connect with AZMI.
-    </p>
+    <div class="page-header">
+        <h1>Contact</h1>
+        <p>
+            Connect with AZMI.
+        </p>
+    </div>
 
 
-    <div class="contact-box">
+    <div class="contact-card">
 
         <h2>
-            LET'S PLAY
+            Join the community
         </h2>
 
-        <p>
-            Find me on my gaming platforms.
+        <p style="color:var(--muted);margin-top:8px">
+            Follow AZMI and stay updated.
         </p>
 
 
-        <a
-            href="#"
-            class="social-button"
-        >
-            Discord
+        <a href="#" class="contact-link">
+            💬 Discord
         </a>
 
-
-        <a
-            href="#"
-            class="social-button"
-        >
-            YouTube
+        <a href="#" class="contact-link">
+            ▶️ YouTube
         </a>
 
-
-        <a
-            href="#"
-            class="social-button"
-        >
-            Instagram
+        <a href="#" class="contact-link">
+            📸 Instagram
         </a>
 
-
-        <a
-            href="#"
-            class="social-button"
-        >
-            TikTok
+        <a href="#" class="contact-link">
+            🎵 TikTok
         </a>
 
     </div>
@@ -2564,545 +1544,452 @@ p {
 </section>
 
 
+<!-- SETTINGS -->
+
+<section id="settings" class="page">
+
+    <div class="page-header">
+        <h1>Settings</h1>
+        <p>
+            Customize the AZMI Gaming interface.
+        </p>
+    </div>
+
+
+    <div class="section">
+
+        <div class="section-title">
+            <h2>Site Themes</h2>
+        </div>
+
+
+        <div class="theme-grid">
+
+
+            <div class="theme"
+                onclick="setTheme('ocean')">
+
+                <div class="theme-color ocean"></div>
+
+                <strong>Ocean Blue</strong>
+
+                <p>
+                    Default AZMI theme.
+                </p>
+
+            </div>
+
+
+            <div class="theme"
+                onclick="setTheme('purple')">
+
+                <div class="theme-color purple"></div>
+
+                <strong>Void Purple</strong>
+
+                <p>
+                    Dark purple interface.
+                </p>
+
+            </div>
+
+
+            <div class="theme"
+                onclick="setTheme('crimson')">
+
+                <div class="theme-color crimson"></div>
+
+                <strong>Crimson</strong>
+
+                <p>
+                    Combat-inspired red.
+                </p>
+
+            </div>
+
+
+            <div class="theme"
+                onclick="setTheme('gold')">
+
+                <div class="theme-color gold"></div>
+
+                <strong>Golden</strong>
+
+                <p>
+                    Warm gold interface.
+                </p>
+
+            </div>
+
+
+            <div class="theme"
+                onclick="setTheme('green')">
+
+                <div class="theme-color green"></div>
+
+                <strong>Matrix</strong>
+
+                <p>
+                    Neon green system.
+                </p>
+
+            </div>
+
+
+            <div class="theme"
+                onclick="setTheme('pink')">
+
+                <div class="theme-color pink"></div>
+
+                <strong>Neon Pink</strong>
+
+                <p>
+                    Vibrant cyber theme.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="section">
+
+        <div class="card">
+
+            <h3>Visual Effects</h3>
+
+            <p>
+                Interface animations are enabled.
+            </p>
+
+            <button
+                class="btn"
+                onclick="toggleEffects()">
+                Toggle Effects
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
 </main>
 
 
-<!-- =====================================================
-     JAVASCRIPT
-===================================================== -->
+<div id="toast" class="toast">
+    Copied!
+</div>
+
 
 <script>
 
-/* =========================================================
-   PAGE SWITCHING
-========================================================= */
+/* =====================================================
+   PAGE NAVIGATION
+===================================================== */
 
-function showPage(pageId, button) {
+function showPage(id,button){
 
-    const currentPage =
-        document.querySelector(
-            ".page.active"
-        );
+    document
+        .querySelectorAll(".page")
+        .forEach(page=>{
+            page.classList.remove("active");
+        });
 
-    const newPage =
-        document.getElementById(
-            pageId
-        );
+    const page =
+        document.getElementById(id);
 
-
-    if (currentPage === newPage) {
-        return;
+    if(page){
+        page.classList.add("active");
     }
 
+    document
+        .querySelectorAll(".nav button")
+        .forEach(btn=>{
+            btn.classList.remove("active");
+        });
 
-    if (currentPage) {
-
-        currentPage.style.animation =
-            "pageExit .25s ease forwards";
+    if(button){
+        button.classList.add("active");
     }
 
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+}
 
-    setTimeout(function() {
 
+function showPageById(id){
+
+    const buttons =
+        document.querySelectorAll(".nav button");
+
+    const ids=[
+        "home",
+        "games",
+        "achievements",
+        "stats",
+        "profile",
+        "contact",
+        "settings"
+    ];
+
+    const index=ids.indexOf(id);
+
+    showPage(
+        id,
+        buttons[index]
+    );
+}
+
+
+/* =====================================================
+   SEARCH
+===================================================== */
+
+function searchSite(){
+
+    const query =
         document
-            .querySelectorAll(".page")
-            .forEach(function(page) {
+        .getElementById("searchInput")
+        .value
+        .toLowerCase()
+        .trim();
 
-                page.classList.remove(
-                    "active"
-                );
+    const games =
+        document.querySelectorAll(".game-card");
 
-                page.style.animation = "";
+    games.forEach(game=>{
 
-            });
+        const text =
+            game.dataset.search || "";
+
+        game.style.display =
+            text.includes(query)
+            ? "flex"
+            : "none";
+
+    });
+
+    if(query){
+
+        showPageById("games");
+
+    }
+
+}
 
 
-        newPage.classList.add(
-            "active"
-        );
+/* =====================================================
+   GAME FILTER
+===================================================== */
 
+function filterGames(category,button){
 
-        if (pageId === "stats") {
-            animateStats();
-        }
+    document
+        .querySelectorAll(".filter")
+        .forEach(btn=>{
+            btn.classList.remove("active");
+        });
 
-    },250);
+    button.classList.add("active");
 
 
     document
-        .querySelectorAll(
-            ".nav button"
-        )
-        .forEach(function(btn) {
+        .querySelectorAll(".game-card")
+        .forEach(card=>{
 
-            btn.classList.remove(
-                "active"
-            );
+            if(
+                category==="all" ||
+                card.dataset.category===category
+            ){
+
+                card.style.display="flex";
+
+            }else{
+
+                card.style.display="none";
+
+            }
 
         });
 
-
-    button.classList.add(
-        "active"
-    );
 }
 
 
-/* =========================================================
-   STAT COUNTERS
-========================================================= */
+/* =====================================================
+   TOAST
+===================================================== */
 
-function animateStats() {
+function notify(message){
 
-    const numbers =
-        document.querySelectorAll(
-            "#stats .stat-number"
-        );
+    const toast =
+        document.getElementById("toast");
 
+    toast.textContent=message;
 
-    numbers.forEach(function(number) {
+    toast.classList.add("show");
 
-        const target =
-            Number(
-                number.dataset.target
-            );
+    setTimeout(()=>{
+        toast.classList.remove("show");
+    },1800);
 
-        const suffix =
-            number.dataset.suffix || "";
-
-
-        let start = 0;
-
-        const duration = 1200;
-
-        const startTime =
-            performance.now();
-
-
-        function update(time) {
-
-            const progress =
-                Math.min(
-                    (time - startTime)
-                    / duration,
-                    1
-                );
-
-
-            const eased =
-                1 -
-                Math.pow(
-                    1 - progress,
-                    3
-                );
-
-
-            start =
-                Math.floor(
-                    target * eased
-                );
-
-
-            number.textContent =
-                start + suffix;
-
-
-            if (progress < 1) {
-
-                requestAnimationFrame(
-                    update
-                );
-
-            } else {
-
-                number.textContent =
-                    target + suffix;
-            }
-        }
-
-
-        requestAnimationFrame(
-            update
-        );
-
-    });
 }
 
 
-/* =========================================================
-   CURSOR GLOW
-========================================================= */
+/* =====================================================
+   THEMES
+===================================================== */
 
-const cursorGlow =
-    document.createElement("div");
+const themes={
 
-cursorGlow.className =
-    "cursor-glow";
+    ocean:{
+        accent:"#39d9ff",
+        accent2:"#178db0"
+    },
 
-document.body.appendChild(
-    cursorGlow
-);
+    purple:{
+        accent:"#a66cff",
+        accent2:"#6840aa"
+    },
 
+    crimson:{
+        accent:"#ff5577",
+        accent2:"#a8324d"
+    },
 
-document.addEventListener(
-    "mousemove",
-    function(e) {
+    gold:{
+        accent:"#ffc857",
+        accent2:"#a87e27"
+    },
 
-        cursorGlow.style.left =
-            e.clientX + "px";
+    green:{
+        accent:"#36e39a",
+        accent2:"#208b62"
+    },
 
-        cursorGlow.style.top =
-            e.clientY + "px";
-
+    pink:{
+        accent:"#ff55cf",
+        accent2:"#a53689"
     }
-);
+
+};
 
 
-/* =========================================================
-   CLICK SHOCKWAVE
-========================================================= */
+function setTheme(name){
 
-document.addEventListener(
-    "click",
-    function(e) {
+    const theme=themes[name];
 
-        const explosion =
-            document.createElement(
-                "div"
-            );
+    if(!theme)return;
 
-
-        explosion.style.position =
-            "fixed";
-
-        explosion.style.left =
-            e.clientX + "px";
-
-        explosion.style.top =
-            e.clientY + "px";
-
-        explosion.style.width =
-            "10px";
-
-        explosion.style.height =
-            "10px";
-
-        explosion.style.border =
-            "2px solid #65dfff";
-
-        explosion.style.borderRadius =
-            "50%";
-
-        explosion.style.transform =
-            "translate(-50%,-50%)";
-
-        explosion.style.pointerEvents =
-            "none";
-
-        explosion.style.zIndex =
-            "10001";
-
-        explosion.style.boxShadow =
-            "0 0 15px #65dfff";
-
-        explosion.style.animation =
-            "clickExplosion .6s ease-out forwards";
-
-
-        document.body.appendChild(
-            explosion
+    document
+        .documentElement
+        .style
+        .setProperty(
+            "--accent",
+            theme.accent
         );
 
-
-        setTimeout(
-            function() {
-                explosion.remove();
-            },
-            600
+    document
+        .documentElement
+        .style
+        .setProperty(
+            "--accent2",
+            theme.accent2
         );
 
-    }
-);
-
-
-/* =========================================================
-   SHOCKWAVE CSS
-========================================================= */
-
-const explosionStyle =
-    document.createElement(
-        "style"
+    localStorage.setItem(
+        "azmiTheme",
+        name
     );
 
-explosionStyle.textContent = `
-
-@keyframes clickExplosion {
-
-    0% {
-        width: 10px;
-        height: 10px;
-        opacity: 1;
-    }
-
-    100% {
-        width: 100px;
-        height: 100px;
-        opacity: 0;
-    }
-
-}
-
-`;
-
-document.head.appendChild(
-    explosionStyle
-);
-
-
-/* =========================================================
-   3D GAME CARD TILT
-========================================================= */
-
-document
-    .querySelectorAll(".game-card")
-    .forEach(function(card) {
-
-        card.addEventListener(
-            "mousemove",
-            function(e) {
-
-                if (
-                    window.innerWidth <= 550
-                ) {
-                    return;
-                }
-
-
-                const rect =
-                    card.getBoundingClientRect();
-
-
-                const x =
-                    e.clientX -
-                    rect.left;
-
-
-                const y =
-                    e.clientY -
-                    rect.top;
-
-
-                const centerX =
-                    rect.width / 2;
-
-
-                const centerY =
-                    rect.height / 2;
-
-
-                const rotateY =
-                    (x - centerX) / 20;
-
-
-                const rotateX =
-                    (centerY - y) / 20;
-
-
-                card.style.transform =
-                    `
-                    perspective(800px)
-                    rotateX(${rotateX}deg)
-                    rotateY(${rotateY}deg)
-                    scale(1.03)
-                    `;
-
-            }
-        );
-
-
-        card.addEventListener(
-            "mouseleave",
-            function() {
-
-                card.style.transform =
-                    "";
-
-            }
-        );
-
-    });
-
-
-/* =========================================================
-   BUTTON RIPPLE
-========================================================= */
-
-document
-    .querySelectorAll(
-        ".nav button, .social-button"
-    )
-    .forEach(function(button) {
-
-        button.addEventListener(
-            "click",
-            function(e) {
-
-                const ripple =
-                    document.createElement(
-                        "span"
-                    );
-
-
-                ripple.style.position =
-                    "absolute";
-
-                ripple.style.width =
-                    "10px";
-
-                ripple.style.height =
-                    "10px";
-
-                ripple.style.borderRadius =
-                    "50%";
-
-                ripple.style.background =
-                    "rgba(101,223,255,.5)";
-
-                ripple.style.left =
-                    e.offsetX + "px";
-
-                ripple.style.top =
-                    e.offsetY + "px";
-
-                ripple.style.transform =
-                    "translate(-50%,-50%)";
-
-                ripple.style.pointerEvents =
-                    "none";
-
-                ripple.style.animation =
-                    "rippleEffect .6s ease-out";
-
-
-                this.appendChild(
-                    ripple
-                );
-
-
-                setTimeout(
-                    function() {
-                        ripple.remove();
-                    },
-                    600
-                );
-
-            }
-        );
-
-    });
-
-
-/* =========================================================
-   RIPPLE CSS
-========================================================= */
-
-const rippleStyle =
-    document.createElement(
-        "style"
+    notify(
+        name.charAt(0).toUpperCase()+
+        name.slice(1)+
+        " theme activated"
     );
 
-rippleStyle.textContent = `
+}
 
-@keyframes rippleEffect {
 
-    from {
-        width: 10px;
-        height: 10px;
-        opacity: 1;
-    }
+/* =====================================================
+   LOAD SAVED THEME
+===================================================== */
 
-    to {
-        width: 250px;
-        height: 250px;
-        opacity: 0;
+const savedTheme =
+    localStorage.getItem("azmiTheme");
+
+if(savedTheme){
+    setTheme(savedTheme);
+}
+
+
+/* =====================================================
+   VISUAL EFFECTS
+===================================================== */
+
+let effects=true;
+
+function toggleEffects(){
+
+    effects=!effects;
+
+    if(effects){
+
+        document.body.style.filter="";
+        notify("Visual effects ON");
+
+    }else{
+
+        document.body.style.filter="none";
+
+        document
+            .querySelectorAll("*")
+            .forEach(el=>{
+                el.style.animationPlayState=
+                    "paused";
+            });
+
+        notify("Visual effects OFF");
     }
 
 }
 
-`;
 
-document.head.appendChild(
-    rippleStyle
-);
-
-
-/* =========================================================
-   KEYBOARD FLASH
-========================================================= */
+/* =====================================================
+   KEYBOARD SHORTCUTS
+===================================================== */
 
 document.addEventListener(
     "keydown",
-    function(e) {
+    function(e){
 
-        if (
-            e.key === "Enter" ||
-            e.key === " "
-        ) {
+        if(e.key==="1")
+            showPageById("home");
 
-            document.body.style.filter =
-                "brightness(1.2)";
+        if(e.key==="2")
+            showPageById("games");
 
+        if(e.key==="3")
+            showPageById("achievements");
 
-            setTimeout(
-                function() {
+        if(e.key==="4")
+            showPageById("stats");
 
-                    document.body.style.filter =
-                        "";
+        if(e.key==="5")
+            showPageById("profile");
 
-                },
-                120
-            );
+        if(e.key==="6")
+            showPageById("contact");
 
-        }
+        if(e.key==="7")
+            showPageById("settings");
 
     }
 );
-
-
-/* =========================================================
-   RESPONSIVE TITLE
-========================================================= */
-
-function checkScreenSize() {
-
-    const width =
-        window.innerWidth;
-
-
-    if (width <= 550) {
-
-        document.title =
-            "AZMI Gaming | Mobile";
-
-    } else if (width <= 1000) {
-
-        document.title =
-            "AZMI Gaming | Tablet";
-
-    } else {
-
-        document.title =
-            "AZMI Gaming | Desktop";
-    }
-}
-
-
-window.addEventListener(
-    "resize",
-    checkScreenSize
-);
-
-checkScreenSize();
 
 </script>
 
